@@ -12,8 +12,16 @@ function App() {
         <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />} />
       </Routes>
     </Router>
+    <Router>
+      <Routes>
+        <Route path= "/" element={<Navi />}/>
+        <Route path="/" element={<MainPage />}/>
+        <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />} />
+      </Routes>
+    </Router>
   );
 }
+
 
 
 export default App;
