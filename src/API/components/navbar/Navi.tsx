@@ -1,9 +1,10 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import photo from '../../../Assets/image/tobeto-logo.png';
+
 function Navi() {
     return (
-        <Navbar className="position-relative" expand="xxl" py-5 bg="white">
+        <Navbar className="position-relative blockquote mt-2 " expand="xxl" py-5 bg="white">
             <Container fluid>
             <Navbar.Brand href="#">
                     <img
@@ -29,23 +30,23 @@ function Navi() {
                     </svg>
                 </button>
 
-                <Nav className="d-none d-xxl-flex navbar-nav">
-                    <Nav.Link href="#" className="nav-link nav-active">
+                <Nav className="d-none d-xxl-flex navbar-nav h6">
+                    <Nav.Link href="#" className="nav-link nav-active ms-3">
                         Ana Sayfa
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="#" className="nav-link c-gray-3 ms-">
                         Profilim
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="#" className="nav-link c-gray-3 ms-3">
                         Değerlendirmeler
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="#" className="nav-link c-gray-3 ms-3">
                         Katalog
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="#" className="nav-link c-gray-3 ms-3">
                         Takvim
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="#" className="nav-link c-gray-3 ms-3">
                         İstanbul Kodluyor
                     </Nav.Link>
                 </Nav>
