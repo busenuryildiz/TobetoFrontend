@@ -1,14 +1,16 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import photo from '../../../Assets/image/tobeto-logo.png';
+import photo from 'Assets/image/tobeto-logo.png';
 function Navi() {
+
+
     return (
         <Navbar className="position-relative" expand="xxl" py-5 bg="white">
             <Container fluid>
-            <Navbar.Brand href="#">
+            <Navbar.Brand href="platform">
                     <img
-                        src={photo}
-                        alt="Logo"
+                        src="/Assets/image/tobeto-logo.png" 
+                        alt="Tobeto Logo" 
                         style={{ width: '170px', height: '35px', objectFit: 'cover', background: 'transparent' }}
                     />
                 </Navbar.Brand>
@@ -30,22 +32,22 @@ function Navi() {
                 </button>
 
                 <Nav className="d-none d-xxl-flex navbar-nav">
-                    <Nav.Link href="#" className="nav-link nav-active">
+                    <Nav.Link href="platform" className="nav-link nav-active">
                         Ana Sayfa
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="profilim" className="nav-link c-gray-3">
                         Profilim
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="degerlendirmeler" className="nav-link c-gray-3">
                         Değerlendirmeler
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="platform-katalog" className="nav-link c-gray-3">
                         Katalog
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="takvim" className="nav-link c-gray-3">
                         Takvim
                     </Nav.Link>
-                    <Nav.Link href="#" className="nav-link c-gray-3">
+                    <Nav.Link href="istanbul-kodluyor" className="nav-link c-gray-3">
                         İstanbul Kodluyor
                     </Nav.Link>
                 </Nav>
