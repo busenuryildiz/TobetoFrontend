@@ -1,56 +1,31 @@
-import axiosInstance from '../utils/axiosInterceptor';
+import { BaseService } from "../../../../../core/services/baseServices";
+import { BASE_API_URL } from "../../../../../enviroment/enviroment";
+import { AddUsersRequest } from "../../../../../models/requests/Users/addUsersRequest"; // İlgili import yollarını düzenleyin
+import { GetAllUsersResponse } from "../../../../../models/responses/Users/getAllUsersResponse"; // İlgili import yollarını düzenleyin
+import { UpdateUsersRequest } from "../../../../../models/requests/Users/updateUsersRequest"; // İlgili import yollarını düzenleyin
+import { AddUsersResponse} from "../../../../../models/responses/Users/addUsersResponse"; // İlgili import yollarını düzenleyin
+import { UpdateUsersResponse } from "../../../../../models/responses/Users/updateUsersResponse"; 
 
-class PersonalInfoService {
+class PersonalInformationService extends BaseService<
+  GetAllUsersResponse, // GetByIdType için GetUsersDetailResponse kullanıyorum, eğer farklı bir tip varsa onu kullanın
+  AddUsersRequest,
+  AddUsersResponse,
+  UpdateUsersRequest,
+  UpdateUsersResponse
+> {
+  constructor() {
+    super();
+    this.apiUrl = "Users/Add";
+  }
 
-  getCountries = () => axiosInstance.get('/Countries/GetList');
+  // PersonalInformationService'ye özgü diğer metotları buraya ekleyebilirsiniz
 
-  addCountry = (name: string) => axiosInstance.post('/Countries/Add', { name });
+  // Örnek: Belirli bir filtreye göre kullanıcıları getir
+  getByFilter() {
+    // Burada implementasyon yapabilirsiniz
+  }
 
-  getCities = (countryId: number) => axiosInstance.get(`/countries/${countryId}/cities`);
-
-  // Şehir ekle
-  addCity = (countryId: number, name: string) => axiosInstance.post(`/countries/${countryId}/cities`, { name });
-
-  // İlçeleri getir
-  getDistricts = (cityId: number) => axiosInstance.get(`/cities/${cityId}/districts`);
-
-  // İlçe ekle
-  addDistrict = (cityId: number, name: string) => axiosInstance.post(`/cities/${cityId}/districts`, { name });
-
-  // Kullanıcı ekle
-  addUser = async (user: any) => {
-    try {
-      // Ülke ekleyelim
-      const countryResponse = await this.addCountry(user.address.country);
-      const countryId = countryResponse.data.id;
-
-      // Şehir ekleyelim
-      const cityResponse = await this.addCity(countryId, user.address.city);
-      const cityId = cityResponse.data.id;
-
-      // İlçe ekleyelim
-      const districtResponse = await this.addDistrict(cityId, user.address.district);
-      const districtId = districtResponse.data.id;
-
-      // Kullanıcıyı ekleyelim
-      const userWithLocation = {
-        ...user,
-        address: {
-          countryId,
-          cityId,
-          districtId,
-          name: user.address.name,
-          description: user.address.description,
-        },
-      };
-
-      const userResponse = await axiosInstance.post('/Users/Add', userWithLocation);
-      return userResponse.data;
-    } catch (error) {
-      console.error('API Error:', error);
-      throw error; // Hata durumunda çağırana hatayı iletiyoruz.
-    }
-  };
+  // İhtiyacınıza göre ek CRUD operasyonları ekleyebilirsiniz
 }
 
-export default new PersonalInfoService();
+export default new PersonalInformationService();

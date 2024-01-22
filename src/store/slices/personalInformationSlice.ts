@@ -1,70 +1,57 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../configureStore'; // Uygulama durumunuzun yolunu düzenleyin
+import { AddUsersRequest } from '../../models/requests/Users/addUsersRequest';
+import { AddUserAddressRequest } from '../../models/requests/Address/addUserAddressRequest';
 
-interface Address {
-  districtId: number;
-  cityId: number;
-  countryId: number;
-  name: string;
-  description: string;
+// Örnek başlangıç durumu
+interface PersonalInformationState {
+  data: AddUsersRequest | null; // Gerçek tipi buraya ekleyin
+  loading: boolean;
+  error: string | null;
 }
 
-interface PersonalInformationSlice {
-  name: string;
-  surname: string;
-  phoneNumberCountry: string;
-  phoneNumber: string;
-  birthday: string;
-  identifier: string;
-  email: string;
-  address: Address;
-  description: string;
-  users: UserInfo[];
-}
-
-interface UserInfo {
-  name: string;
-  surname: string;
-  phoneNumberCountry: string;
-  phoneNumber: string;
-  birthday: string;
-  identifier: string;
-  email: string;
-  address: Address;
-  description: string;
-}
-
-const initialState: PersonalInformationSlice = {
-  name: '',
-  surname: '',
-  phoneNumberCountry: 'ZZ',
-  phoneNumber: '',
-  birthday: '',
-  identifier: '',
-  email: '',
-  address: {
-    districtId: 0,
-    cityId: 0,
-    countryId: 0,
-    name: '',
-    description: '',
-  },
-  description: '',
-  users: [],
+const initialState: PersonalInformationState = {
+  data: null,
+  loading: false,
+  error: null,
 };
 
-const personalInformationSlice = createSlice({
+// Slice oluşturuluyor
+export const personalInformationSlice = createSlice({
   name: 'personalInformation',
   initialState,
   reducers: {
-    updatePersonalInfo: (state, action: PayloadAction<Partial<PersonalInformationSlice>>) => {
-      return { ...state, ...action.payload };
+    // Veriyi yükleme başladığında tetiklenecek action
+    fetchDataStart: (state) => {
+      state.loading = true;
+      state.error = null;
     },
-    addUser: (state, action) => {
-      state.users.push(action.payload);
+    // Veri başarıyla yüklendiğinde tetiklenecek action
+    fetchDataSuccess: (state, action: PayloadAction<AddUsersRequest>) => {
+      state.data = action.payload;
+      state.loading = false;
+    },
+    // Veri yüklenirken bir hata oluştuğunda tetiklenecek action
+    fetchDataFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    // Yeni kullanıcı ekleme action'ı
+    addUser: (state, action: PayloadAction<AddUsersRequest>) => {
+      state.data = action.payload;
+      state.loading = false;
+      state.error = null;
     },
   },
 });
 
-export const { updatePersonalInfo, addUser } = personalInformationSlice.actions;
+// Action'ları dışarıya açma
+export const { fetchDataStart, fetchDataSuccess, fetchDataFailure, addUser } = personalInformationSlice.actions;
 
+// Reducer'ı dışarıya açma
 export const personalInformationReducer = personalInformationSlice.reducer;
+
+// Selectors
+export const selectPersonalInformation = (state: RootState) => state.personalInformation.data;
+export const selectPersonalInformationLoading = (state: RootState) => state.personalInformation.loading;
+export const selectPersonalInformationError = (state: RootState) => state.personalInformation.error;
