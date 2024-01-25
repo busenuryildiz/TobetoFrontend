@@ -1,11 +1,10 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import photo from 'Assets/image/tobeto-logo.png';
 function Navi() {
 
 
     return (
-        <Navbar className="position-relative" expand="xxl" py-5 bg="white">
+        <Navbar className="position-relative" expand="xxl"  bg="white">
             <Container fluid>
             <Navbar.Brand href="platform">
                     <img
@@ -89,9 +88,9 @@ function Navi() {
                     </button>
                     <ul className="profile dropdown-menu">
                         <li>
-                            <a className="dropdown-item profil-dropdown" href="#">
+                            <button className="dropdown-item profil-dropdown" onClick={() => {}}>
                                 Profil Bilgileri
-                            </a>
+                            </button>
                         </li>
                         <li>
                             <hr className="dropdown-divider" style={{ backgroundColor: 'rgb(204, 204, 204)', height: '1px' }} />
@@ -103,9 +102,9 @@ function Navi() {
                             />
                         </li>
                         <li>
-                            <a className="dropdown-item profil-dropdown" href="#">
+                            <button className="dropdown-item profil-dropdown" onClick={() => {}}>
                                 Oturumu Kapat
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>

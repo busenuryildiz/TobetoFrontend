@@ -1,5 +1,4 @@
 import { BaseService } from "../../../../../core/services/baseServices";
-import { BASE_API_URL } from "../../../../../enviroment/enviroment";
 import { AddUsersRequest } from "../../../../../models/requests/Users/addUsersRequest"; // İlgili import yollarını düzenleyin
 import { GetAllUsersResponse } from "../../../../../models/responses/Users/getAllUsersResponse"; // İlgili import yollarını düzenleyin
 import { UpdateUsersRequest } from "../../../../../models/requests/Users/updateUsersRequest"; // İlgili import yollarını düzenleyin

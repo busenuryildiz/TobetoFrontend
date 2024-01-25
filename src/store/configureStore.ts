@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { personalInformationReducer } from './slices/personalInformationSlice';
+import { courseReducer } from './slices/courseSlice';
 
 const rootReducer = combineReducers({
   personalInformation: personalInformationReducer,
-  // Diğer slice'larınızı buraya ekleyebilirsiniz
-  // Örneğin: user: userReducer
+  course:courseReducer,
 });
 
 export const globalStore = configureStore({

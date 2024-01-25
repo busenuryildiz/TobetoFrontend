@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import {globalStore} from './store/configureStore';
+import Courses from './components/catalog/courses';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <Provider store={globalStore}>
     <App />
