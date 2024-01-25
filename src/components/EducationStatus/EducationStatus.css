@@ -1,0 +1,11 @@
+/* EducationStatus.css */
+.EducationStatusContainer {
+    display: flex;
+    flex-direction: column; /* Updated to display checkboxes in a column */
+    margin-bottom: 20px;
+  }
+  
+  .EducationStatusContainer label {
+    margin-bottom: 8px; /* Add some spacing between checkboxes */
+  }
+  
