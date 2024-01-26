@@ -4,6 +4,7 @@ import MainPage from './pages/mainPage/MainPage';
 import PersonalInformation from './pages/profile/editProfile/personalInformation/PersonalInformation';
 import CalendarPage from './pages/calendarPage/CalendarPage';
 import Catalog from './pages/catalog/Catalog';
+import IstanbulCoding from './pages/istanbulCoding/IstanbulCoding';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />}/>
        <Route path="/takvim" element={<CalendarPage/>}/>
         <Route path="platform-katalog" element={<Catalog />} />
+        <Route path="istanbul-kodluyor" element={<IstanbulCoding />} />
       </Routes>
     </Router>
   );
