@@ -66,7 +66,7 @@ function Navi() {
                         <div className="me-2">
                             <img
                                 className="cv-pp-img rounded-circle"
-                                src="https://tobeto-private.s3.cloud.ngn.com.tr/user-profile-photo/16290.png?AWSAccessKeyId=ALMS%3Aalms-storage%40advancity.com.tr&amp;Expires=1705414983&amp;Signature=d%2Bzba51iMV445EKJS3qHVdQelqc%3D"
+                                src="Assets/image/Avatar.png"
                                 alt=""
                                 style={{ width: '36px', height: '36px', objectFit: 'cover' }}
                             />

@@ -1,25 +1,53 @@
-// Catalog component
-import React, { useState } from 'react';
-import Navi from '../../components/navbar/Navi';
+import React, { useState, useEffect } from 'react';
+import Courses, { Course } from '../../components/catalog/courses';
 import SearchSection from '../../components/catalog/searchSection';
+import Navi from '../../components/navbar/Navi';
 import FilterCourse from '../../components/catalog/filterCourse';
-import Courses from '../../components/catalog/courses';
 
 export default function Catalog() {
-  const [filteredData, setFilteredData] = useState<Array<any>>([]);
+  const [filteredData, setFilteredData] = useState<Course[]>([]);
+  const [allCourses, setAllCourses] = useState<Course[]>([]);
 
-  const handleFilterComplete = (filteredData: Array<any>) => {
-    setFilteredData(filteredData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:6280/api/Courses/GetList?PageSize=20');
+        const data = await response.json();
+        setAllCourses(data.items);
+        setFilteredData(data.items);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+  const handleSearch = (searchTerm:string) => {
+    if (!searchTerm) {
+      setFilteredData(allCourses);
+      return;
+    }
+  
+    const results = allCourses.filter((course) =>
+      course.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log('Search results:', results); 
+    setFilteredData(results);
   };
 
+  useEffect(() => {
+    console.log('filteredData state updated:', filteredData);
+  }, [filteredData]);
+  
   return (
     <div>
       <Navi />
-      <SearchSection />
+      <SearchSection onSearch={handleSearch} />
       <div className="container mt-5 pb-20">
         <div className="row">
-          <FilterCourse onFilterComplete={handleFilterComplete} />
-          <Courses />
+          <FilterCourse onFilterComplete={() => {}} />
+          <Courses courses={filteredData} />
         </div>
       </div>
     </div>

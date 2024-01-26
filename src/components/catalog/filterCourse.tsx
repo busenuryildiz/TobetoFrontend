@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Accordion, Card, Form } from 'react-bootstrap';
-import { BASE_API_URL } from '../../enviroment/enviroment';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS dosyasını ekleyin
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -101,8 +100,8 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ onFilterComplete }) => {
         </button>
 
         <Accordion defaultActiveKey="0" style={{ marginBottom: '-3px' }}>
-          <Accordion.Button onClick={() => toggleAccordion('price')} style={{ marginLeft: '-8px', width: '112%', padding: '10px'}}>
-            <div className="title w-100">
+          <Accordion.Button onClick={() => toggleAccordion('price')} style={{ marginLeft: '-8px', width: '112%', padding: '10px' }}>
+            <div className="title w-100" >
               <span>Kategori</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d={SVG_PATH} stroke="#828282" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -122,7 +121,7 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ onFilterComplete }) => {
                 {PRICE_OPTIONS.map(option => (
                   <div>
                     <label>
-                      <input type="radio" name="priceFilter" value={option} checked={priceFilter === option} onChange={handlePriceFilterChange} />
+                      <input type="radio" className="form-check-input" name="priceFilter" style={{marginRight: '13px', width:'16px', height:'16px'}} value={option} checked={priceFilter === option} onChange={handlePriceFilterChange} />
                       {option}
                     </label>
                   </div>
@@ -132,7 +131,7 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ onFilterComplete }) => {
           </Accordion.Collapse>
         </Accordion>
         <Accordion defaultActiveKey="0" >
-          <Accordion.Button as={Card.Header} onClick={() => toggleAccordion('education')} style={{ marginLeft: '-8px', width: '112%', padding: '10px'}}>
+          <Accordion.Button as={Card.Header} onClick={() => toggleAccordion('education')} style={{ marginLeft: '-8px', width: '112%', padding: '10px' }}>
             <div className=" title w-100">
               <span>Eğitimler</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,8 +142,8 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ onFilterComplete }) => {
           <Accordion.Collapse in={isEducationOpen} eventKey="education">
             <Card.Body>
               <Form.Group className="mb-3">
-                <Form.Control type="text" placeholder="Arama" onChange={handleFilterChange} list='datalistOptions' />
-                <datalist id="datalistOptions">
+                <Form.Control type="text" placeholder="Arama" onChange={handleFilterChange} list='datalistOptions2' />
+                <datalist id="datalistOptions2">
                   {EDUCATION_OPTIONS.map(option => <option value={option} />)}
                 </datalist>
 
@@ -153,7 +152,7 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ onFilterComplete }) => {
                 {EDUCATION_OPTIONS.map(option => (
                   <div>
                     <label>
-                      <input type="radio" name="educationFilter" value={option} checked={educationFilter === option} onChange={handleEducationFilterChange} />
+                      <input type="radio" name="educationFilter" value={option}  style={{marginRight: '13px', width:'16px', height:'16px'}} checked={educationFilter === option} onChange={handleEducationFilterChange} />
                       {option}
                     </label>
                   </div>
