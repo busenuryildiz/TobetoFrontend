@@ -1,0 +1,24 @@
+/* CalendarPage.css */
+
+body, html {
+    margin: 0; /* Remove default margin for the entire page */
+    padding: 0; /* Remove default padding for the entire page */
+  }
+  
+  .CalendarPageContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .CalendarPageRightSection {
+    flex: 2;
+    margin-left: 0; /* Remove the left margin */
+  }
+  
+  .CalendarPageRightSection .calendar {
+    width: 90%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the calendar horizontally */
+  }
+  

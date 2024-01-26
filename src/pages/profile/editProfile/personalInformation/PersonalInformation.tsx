@@ -50,21 +50,27 @@ const PersonalInformation = () => {
   }, [personalInfo]);
 
 
-  const formattedBirthDate = formData.birthDate.toISOString().split('T')[0];
-
+  const [formError, setFormError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
+  
     // Eğer doğum tarihi alanı ise ve değer bir tarih formatında değilse
     if (name === 'birthDate' && value) {
       // Tarihi uygun bir biçime dönüştür
       const parsedDate = new Date(value);
-
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: parsedDate,
-      }));
+  
+      // Eğer dönüştürme başarılı değilse veya değer "Invalid Date" ise
+      if (isNaN(parsedDate.getTime()) || value === 'Invalid Date') {
+        setFormError('Geçerli bir tarih girin.'); // Hata mesajını set et
+      } else {
+        setFormError(null); // Hata mesajını sıfırla
+  
+        setFormData((prevData) => ({
+          ...prevData,
+          birthDate: parsedDate, // Doğru olan burada parsedDate'i kullanmak
+        }));
+      }
     } else {
       setFormData((prevData) => ({
         ...prevData,
@@ -73,10 +79,6 @@ const PersonalInformation = () => {
     }
   };
 
-  const parseInputDate = (inputDate: string): Date => {
-    // Kullanıcı bir tarih seçmemişse veya format yanlışsa, varsayılan olarak şu anki tarihi kullan
-    return inputDate ? new Date(inputDate) : new Date();
-  };
 
   const handleChangeAddress = (field: string, value: string) => {
     setFormData((prevData) => ({
@@ -92,7 +94,9 @@ const PersonalInformation = () => {
     e.preventDefault();
 
     try {
-      const newUserResponse = await personalInformationService.add(formData);
+      const newUserResponse = await personalInformationService.add({
+        ...formData,
+      });
       const newUser: AddUsersResponse = newUserResponse.data;
 
       dispatch(addUser(newUser));
@@ -138,13 +142,13 @@ const PersonalInformation = () => {
 
         <label className="input-label-text">Doğum Tarihiniz*</label>
         <input
-          name="birthDate"
-          className="form-control tobeto-input"
-          type="text"
-          value={formData.birthDate instanceof Date ? formData.birthDate.toISOString().split('T')[0] : formData.birthDate}
-          onChange={handleChange}
-          required
-        />
+  name="birthDate"
+  className="form-control tobeto-input"
+  type="date"
+  value={formData.birthDate instanceof Date ? formData.birthDate.toISOString().split('T')[0] : ''}
+  onChange={handleChange}
+  required
+/>
 
         <label className="input-label-text">TC Kimlik No*</label>
         <input

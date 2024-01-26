@@ -1,0 +1,35 @@
+.teacher-search-bar {
+    position: relative;
+  }
+  
+  .teacher-search-bar input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .teacher-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .teacher-dropdown div {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .teacher-dropdown div:hover {
+    background-color: #f0f0f0;
+  }
+  
