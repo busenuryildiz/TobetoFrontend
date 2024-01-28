@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { personalInformationReducer } from './slices/personalInformationSlice';
 import { courseReducer } from './slices/courseSlice';
+import { loadingReducer } from './slices/loadingSlice';
+import { authReducer } from './slices/authSlice';
 
 const rootReducer = combineReducers({
   personalInformation: personalInformationReducer,
   course:courseReducer,
+  loading: loadingReducer,
+  auth: authReducer,
 });
 
 export const globalStore = configureStore({

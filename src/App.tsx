@@ -5,17 +5,19 @@ import PersonalInformation from './pages/profile/editProfile/personalInformation
 import CalendarPage from './pages/calendarPage/CalendarPage';
 import Catalog from './pages/catalog/Catalog';
 import IstanbulCoding from './pages/istanbulCoding/IstanbulCoding';
+import { OverlayLoader } from './components/overlayLoader/overlayLoader';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path= "/" element={<Navi />}/>
-        <Route path="/" element={<MainPage />}/>
-        <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />}/>
-       <Route path="/takvim" element={<CalendarPage/>}/>
+        <Route path="/" element={<Navi />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />} />
+        <Route path="/takvim" element={<CalendarPage />} />
         <Route path="platform-katalog" element={<Catalog />} />
         <Route path="istanbul-kodluyor" element={<IstanbulCoding />} />
+        <Route path="loading" element={<OverlayLoader />} />
       </Routes>
     </Router>
   );
