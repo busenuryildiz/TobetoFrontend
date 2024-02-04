@@ -5,26 +5,26 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import trLocale from '@fullcalendar/core/locales/tr';
 import { DateSelectArg } from '@fullcalendar/core/index.js';
 import { useEffect, useState } from 'react';
-import { LessonCourse } from '../../services/pages/calendar/LessonCoursesService';
 import './calendar.css'; 
+import { GetAllLessonCourseResponse } from '../../models/responses/lessonCourse/getAllLessonCourseResponse';
 
 type CalendarProps = {
-  lessonCourses: LessonCourse[];
+  lessonCourses: GetAllLessonCourseResponse [];
 };
 
-const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
+const Calendar: React.FC<CalendarProps> = ({ lessonCourses }) => {
   const [events, setEvents] = useState<any>([]);
 
-  // Populate events when lessonCourses prop changes
   useEffect(() => {
-    const newEvents = props.lessonCourses.map((course) => ({
-      title: `${course.courseName} (${course.classroomName})`,
+    const newEvents = lessonCourses.map((course : any) => ({
+      title: `${course.courseName} (${course.classroom})`,
       start: new Date(course.lessonTime),
       instructor: course.instructorName,
       className: determineEventClass(course.lessonTime),
-    }));
+    }));    
     setEvents(newEvents);
-  }, [props.lessonCourses]);
+  }, [lessonCourses]);
+  
 
   function determineEventClass(lessonTime: string) {
     const eventDate = new Date(lessonTime);
@@ -42,10 +42,6 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
     calendarApi.unselect(); // seçilen tarihten seçimi kaldır
     setEvents([...events, { title: title, ...selectInfo }]);
   }
-
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
 
   return (
     <div className="container mt-5">

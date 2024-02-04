@@ -4,9 +4,10 @@ import './TeacherSearchBar.css';
 type TeacherSearchBarProps = {
   teachers: string[]; // Öğretmenlerin listesi
   onTeacherSelect: (teacher: string) => void; // Öğretmen seçildiğinde tetiklenecek fonksiyon
+  onSearch: (searchTerm: string) => void; // Arama işlemi başlatıldığında tetiklenecek fonksiyon
 };
 
-const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacherSelect }) => {
+const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacherSelect, onSearch }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false); // Dropdown menüsünün açık/kapalı durumunu takip etmek için state
 
@@ -27,6 +28,14 @@ const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacher
       setIsOpen(false); // Dropdown menüsü dışında bir yere tıklandığında menüyü kapat
     }
   };
+
+   // "Enter" tuşuna basıldığında arama işlemini gerçekleştiren fonksiyon
+   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onSearch(searchTerm);
+    }
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -47,7 +56,7 @@ const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacher
         onChange={handleInputChange}
         placeholder="Öğretmen Ara..."
         onClick={() => setIsOpen(!isOpen)} // Inputa tıklandığında dropdown menüyü aç
-
+        onKeyDown={handleKeyPress}
       />
        {isOpen && (
       <div className="teacher-dropdown">
