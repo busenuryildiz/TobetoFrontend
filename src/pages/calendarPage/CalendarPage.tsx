@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from '../../components/calendar/calendar';
 import EducationSearchBar from '../../components/calendar/educationSearchBar/educationSearchBar';
-import { getLessonCourses, LessonCourse } from '../../services/pages/calendar/LessonCoursesService';
 import EducationStatus from '../../components/calendar/EducationStatus/EducationStatus';
 import './CalendarPage.css';
-import TeacherSearchBar from '../../components/teacherSearchBar/TeacherSearchBar';
 import { GetAllLessonCourseResponse } from '../../models/responses/lessonCourse/getAllLessonCourseResponse';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/configureStore';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
+import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 
 
 const CalendarPage: React.FC = () => {
