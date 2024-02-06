@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from '../../components/calendar/calendar';
-import EducationSearchBar from '../../components/educationSearchBar/educationSearchBar';
+import EducationSearchBar from '../../components/calendar/educationSearchBar/educationSearchBar';
 import { getLessonCourses, LessonCourse } from '../../services/pages/calendar/LessonCoursesService';
-import EducationStatus from '../../components/EducationStatus/EducationStatus';
+import EducationStatus from '../../components/calendar/EducationStatus/EducationStatus';
 import './CalendarPage.css';
-import TeacherSearchBar from '../../components/teacherSearchBar/TeacherSearchBar';
+import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 
 
 const CalendarPage: React.FC = () => {
