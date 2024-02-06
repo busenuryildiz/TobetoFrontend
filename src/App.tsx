@@ -6,6 +6,7 @@ import CalendarPage from './pages/calendarPage/CalendarPage';
 import Catalog from './pages/catalog/Catalog';
 import IstanbulCoding from './pages/istanbulCoding/IstanbulCoding';
 import { OverlayLoader } from './components/overlayLoader/overlayLoader';
+import Review from './pages/reviews/Review';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="platform-katalog" element={<Catalog />} />
         <Route path="istanbul-kodluyor" element={<IstanbulCoding />} />
         <Route path="loading" element={<OverlayLoader />} />
+        <Route path="degerlendirmeler" element={<Review />} />
       </Routes>
     </Router>
   );

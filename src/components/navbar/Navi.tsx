@@ -1,9 +1,7 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 function Navi() {
-
-
-    return (
+return (
         <Navbar className="position-relative" expand="xxl"  bg="white">
             <Container fluid>
             <Navbar.Brand href="platform">
@@ -31,22 +29,22 @@ function Navi() {
                 </button>
 
                 <Nav className="d-none d-xxl-flex navbar-nav">
-                    <Nav.Link href="platform" className="nav-link nav-active">
+                    <Nav.Link href="platform" className={`nav-link c-gray-3 ${window.location.pathname === '/platform' ? 'nav-active' : ''}`}>
                         Ana Sayfa
                     </Nav.Link>
-                    <Nav.Link href="profilim" className="nav-link c-gray-3">
+                    <Nav.Link href="profilim"  className={`nav-link c-gray-3 ${window.location.pathname === '/profilim' ? 'nav-active' : ''}`}>
                         Profilim
                     </Nav.Link>
-                    <Nav.Link href="degerlendirmeler" className="nav-link c-gray-3">
+                    <Nav.Link href="degerlendirmeler" className={`nav-link c-gray-3 ${window.location.pathname === '/degerlendirmeler' ? 'nav-active' : ''}`}>
                         Değerlendirmeler
                     </Nav.Link>
-                    <Nav.Link href="platform-katalog" className="nav-link c-gray-3">
+                    <Nav.Link href="platform-katalog"  className={`nav-link c-gray-3 ${window.location.pathname === '/platform-katalog' ? 'nav-active' : ''}`}>
                         Katalog
                     </Nav.Link>
-                    <Nav.Link href="takvim" className="nav-link c-gray-3">
+                    <Nav.Link href="takvim"  className={`nav-link c-gray-3 ${window.location.pathname === '/takvim' ? 'nav-active' : ''}`}>
                         Takvim
                     </Nav.Link>
-                    <Nav.Link href="istanbul-kodluyor" className="nav-link c-gray-3">
+                    <Nav.Link href="istanbul-kodluyor"  className={`nav-link c-gray-3 ${window.location.pathname === '/istanbul-kodluyor' ? 'nav-active' : ''}`}>
                         İstanbul Kodluyor
                     </Nav.Link>
                 </Nav>
