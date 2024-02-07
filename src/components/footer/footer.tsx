@@ -6,7 +6,7 @@ export default function Footer() {
       <Container>
         <div className="row justify-content-between align-items-center">
           <div className="col-6 col-lg-4 mb-lg-0 my-4">
-            <a className="d-block mobile-text-center navbar-brand" href="#">
+            <a className="d-block mobile-text-center navbar-brand" href="/">
               <span>
                 <span >
                   <img alt="" aria-hidden="true"

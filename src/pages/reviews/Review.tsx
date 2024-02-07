@@ -14,7 +14,6 @@ function Review() {
             .then(data => setExamData(data))
             .catch(error => console.error('Error:', error));
     }, []);
-    // Assuming `user` is the object you're trying to access
     if (examData && examData.hasTakenExam) {
         // Now it's safe to access `user.hasTakenExam`
         console.log(examData.hasTakenExam);
