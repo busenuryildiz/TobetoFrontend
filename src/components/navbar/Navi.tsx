@@ -5,7 +5,7 @@ function Navi() {
 
 
     return (
-        <Navbar className="position-relative" expand="xxl" py-5 bg="white">
+        <Navbar className="position-relative" expand="xxl" py-5="true" bg="white">
             <Container fluid>
             <Navbar.Brand href="platform">
                     <img
