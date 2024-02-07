@@ -7,14 +7,20 @@ import { Container } from 'react-bootstrap';
 function Review() {
     const [examData, setExamData] = useState<any>(null);
 
-    
+
     useEffect(() => {
         fetch('https://your-api-url.com/exams')
             .then(response => response.json())
             .then(data => setExamData(data))
             .catch(error => console.error('Error:', error));
     }, []);
-
+    // Assuming `user` is the object you're trying to access
+    if (examData && examData.hasTakenExam) {
+        // Now it's safe to access `user.hasTakenExam`
+        console.log(examData.hasTakenExam);
+    } else {
+        console.log('User or hasTakenExam is not available');
+    }
     return (
         <div>
             <Navi />
@@ -159,26 +165,26 @@ function Review() {
 
                             <div className="dashboard-card-slim">
                                 <div className="d-flex align-items-center" style={{ gap: '14px' }}>
-                                    {examData.hasTakenExam ? (
-                                        <>
-                                            <div className="single-chart">
-                                                <svg viewBox="0 0 36 36" className="circular-chart orange">
-                                                    <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                    <path className="circle" strokeDasharray={`${examData.point},100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                    <text x="18" y="20.35" className="percentage">{examData.point}</text>
-                                                </svg>
-                                            </div>
-                                            <span>{examData.title}</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div className="platformIcon" />
-                                            <span>{examData.title}</span>
-                                        </>
-                                    )}
+                                    {/* {examData.hasTakenExam ? ( */}
+                                    <>
+                                        <div className="single-chart">
+                                            <svg viewBox="0 0 36 36" className="circular-chart orange">
+                                                <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                                <path className="circle" strokeDasharray='80,100' d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                                <text x="18" y="20.35" className="percentage">80</text>
+                                            </svg>
+                                        </div>
+                                        {/* <span>{examData.title}</span> */}
+                                    </>
+                                    {/* ) : ( */}
+                                    <>
+                                        <div className="platformIcon" />
+                                        {/* <span>{examData.title}</span> */}
+                                    </>
+                                    {/* )} */}
                                 </div>
                                 <button className="btn btn-light">
-                                    {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'}
+                                    {/* {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'} */}
                                 </button>
                             </div>
                         </div>
