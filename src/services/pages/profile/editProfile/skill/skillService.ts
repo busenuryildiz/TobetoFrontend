@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { BaseService } from "../../../../../core/services/baseServices";
+import BaseService from '../../../../../core/services/baseServices';
 import { AddSkillsRequest } from "../../../../../models/requests/Skills/addSkillsRequest";
 import { GetAllSkillsResponse } from "../../../../../models/responses/Skills/getAllSkillsResponse";
 import { UpdateSkillsRequest } from "../../../../../models/requests/Skills/updateSkillsRequest";
@@ -8,9 +8,11 @@ import axiosInstance from "../../../../../core/Interceptors/axiosInterceptor";
 import { fetchSkillsSuccess } from '../../../../../store/slices/mySkillSlice';
 import { fetchSkillsFailure } from '../../../../../store/slices/mySkillSlice';
 import { AddSkillsResponse } from '../../../../../models/responses/Skills/addSkillsResponse';
+import { GetByIdSkillsResponse } from '../../../../../models/responses/Skills/getByIdSkillResponse';
 
 class SkillService extends BaseService<
   GetAllSkillsResponse,
+  GetByIdSkillsResponse,
   AddSkillsRequest,
   AddSkillsResponse,
   UpdateSkillsRequest,

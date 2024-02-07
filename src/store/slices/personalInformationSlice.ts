@@ -86,4 +86,6 @@ export const {
 
 export const selectPersonalInformation = (state: RootState) => state.personalInformation;
 
-export default personalInformationSlice.reducer;
+const personalInformationReducer = personalInformationSlice.reducer;
+
+export default personalInformationReducer;

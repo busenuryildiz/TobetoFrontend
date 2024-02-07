@@ -154,4 +154,4 @@ function MyCertificates( props: MyCertificatesProps) {
     )
 }
 
-export default MyCertificates
+export default MyCertificates;

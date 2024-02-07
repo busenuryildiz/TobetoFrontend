@@ -56,7 +56,7 @@ export const { fetchSkillsStart, fetchSkillsSuccess, fetchSkillsFailure, selectS
 
 export const skillsReducer = skillsSlice.reducer;
 
-export const selectSkills = (state: RootState) => state.skills.skills;
-export const selectSelectedSkill = (state: RootState) => state.skills.selectedSkill;
-export const selectSkillsLoading = (state: RootState) => state.skills.loading;
-export const selectSkillsError = (state: RootState) => state.skills.error;
+export const selectSkills = (state: RootState) => state.skill.skills;
+export const selectSelectedSkill = (state: RootState) => state.skill.selectedSkill;
+export const selectSkillsLoading = (state: RootState) => state.skill.loading;
+export const selectSkillsError = (state: RootState) => state.skill.error;
