@@ -1,8 +1,8 @@
 export interface AddAddressRequest{
-    userId?: string; // Assuming Guid? is represented as string
-    districtId?: number;
-    cityId?: number;
-    countryId?: number;
+    userId?: string;
+    districtId?: number | null;
+    cityId?: number | null;
+    countryId?: number | null;
     name?: string | null;
     description?: string | null;
 }

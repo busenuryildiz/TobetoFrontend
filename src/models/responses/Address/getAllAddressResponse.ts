@@ -1,6 +1,6 @@
 export interface GetAllAddressResponse{
     id: number;
-    userId: string; // Assuming Guid is represented as string
+    userId: string; 
     districtId?: number | null;
     name?: string | null;
     description?: string | null;
