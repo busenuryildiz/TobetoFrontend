@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/configureStore';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
 import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
+import Navi from '../../components/navbar/Navi';
 
 
 const CalendarPage: React.FC = () => {
@@ -108,7 +109,9 @@ const handleTeacherSelect = (selectedTeacher: string) => {
 
 
 return (
-  <div className="CalendarPageContainer">
+  <div>
+    <Navi/>
+  <div className="CalendarPageContainer mt-5">
     <div className="CalendarPageLeftSection">
       <h1>Calendar Page</h1>
       <EducationSearchBar onSearch={handleSearch} />
@@ -123,6 +126,7 @@ return (
     <div className="CalendarPageRightSection">
       <Calendar lessonCourses={filteredLessonCourses} />
     </div>
+  </div>
   </div>
 );
 };
