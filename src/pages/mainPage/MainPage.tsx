@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import Navi2 from '../../components/navbar/Navi2';
 
 function MainPage() {
     return (
         <div className="plaform-page" style={{ minHeight: '120vh'}}>
+            <Navi2/>
             <section className="py-5">
                 <div className="position-relative mt-12">
                     <div className="vector">
@@ -22,7 +24,7 @@ function MainPage() {
                                 TOBETO<span className="fw-normal text-secondary">'ya</span>{' '}
                                 <span className="fw-normal text-secondary"> hoş geldin</span>
                             </h3>
-                            <h4 className="fw-normal text-secondary mb-5">Buse</h4>
+                            <h4 className="fw-normal text-secondary mb-5">Katılımcı</h4>
                             <p className="tobeto-slogan h5">
                                 Yeni nesil öğrenme deneyimi ile Tobeto kariyer yolculuğunda senin yanında!
                             </p>

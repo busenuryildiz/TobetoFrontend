@@ -1,8 +1,17 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
+import { logout } from '../../store/slices/authSlice'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../store/configureStore';
+import { useNavigate } from 'react-router-dom';
 function Navi() {
+const navigate = useNavigate();
+const dispatch: AppDispatch = useDispatch();
 
-
+const handleLogout = () => {
+    dispatch(logout()); 
+    navigate('/')
+}
     return (
         <Navbar className="position-relative" expand="xxl"  bg="white">
             <Container fluid>
@@ -102,7 +111,7 @@ function Navi() {
                             />
                         </li>
                         <li>
-                            <button className="dropdown-item profil-dropdown" onClick={() => {}}>
+                            <button className="dropdown-item profil-dropdown" onClick={handleLogout}>
                                 Oturumu Kapat
                             </button>
                         </li>
