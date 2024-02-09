@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { personalInformationReducer } from './slices/personalInformationSlice';
+import personalInformationReducer from './slices/personalInformationSlice';
 import { courseReducer } from './slices/courseSlice';
 import { loadingReducer } from './slices/loadingSlice';
 import { authReducer } from './slices/authSlice';
 import { lessonCourseReducer } from './slices/lessonCourseSlice';
+import { skillsReducer } from './slices/mySkillSlice';
 
 const rootReducer = combineReducers({
   personalInformation: personalInformationReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   auth: authReducer,
   lessonCourse : lessonCourseReducer,
+  skill: skillsReducer,
 });
 
 export const globalStore = configureStore({

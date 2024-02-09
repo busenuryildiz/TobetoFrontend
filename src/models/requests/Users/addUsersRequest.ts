@@ -1,12 +1,10 @@
-import { AddUserAddressRequest } from "../Address/addUserAddressRequest";
-
-export interface AddUsersRequest{
-    firstName: string;
-    lastName: string;
-    address: AddUserAddressRequest;
-    email: string;
-    password?: string | null | undefined;
-    nationalIdentity: string;
-    birthDate: Date;
-    phoneNumber: string;
+export interface AddUsersRequest {
+  firstName: string;
+  lastName: string;
+  email: string;
+  imagePath: string;
+  password: string;
+  nationalIdentity: string;
+  birthDate: string | Date | null;
+  phoneNumber: string;
 }

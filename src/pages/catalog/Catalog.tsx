@@ -46,7 +46,7 @@ export default function Catalog() {
       <SearchSection onSearch={handleSearch} />
       <div className="container mt-5 pb-20">
         <div className="row">
-          <FilterCourse onFilterComplete={() => {}} />
+          <FilterCourse  />
           <Courses courses={filteredData} />
         </div>
       </div>

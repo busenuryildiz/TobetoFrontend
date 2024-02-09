@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from '../../components/calendar/calendar';
-import EducationSearchBar from '../../components/educationSearchBar/educationSearchBar';
-import EducationStatus from '../../components/EducationStatus/EducationStatus';
+import EducationSearchBar from '../../components/calendar/educationSearchBar/educationSearchBar';
+import EducationStatus from '../../components/calendar/EducationStatus/EducationStatus';
 import './CalendarPage.css';
-import TeacherSearchBar from '../../components/teacherSearchBar/TeacherSearchBar';
 import { GetAllLessonCourseResponse } from '../../models/responses/lessonCourse/getAllLessonCourseResponse';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/configureStore';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
+import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 import Navi from '../../components/navbar/Navi';
 
 
@@ -108,9 +108,10 @@ const handleTeacherSelect = (selectedTeacher: string) => {
 };
 
 
-return (<div>
-  <Navi/>
-  <div className="CalendarPageContainer">
+return (
+  <div>
+    <Navi/>
+  <div className="CalendarPageContainer mt-5">
     <div className="CalendarPageLeftSection">
       <h1>Calendar Page</h1>
       <EducationSearchBar onSearch={handleSearch} />
