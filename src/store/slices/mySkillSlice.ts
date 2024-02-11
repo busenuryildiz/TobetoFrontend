@@ -1,5 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../configureStore';
+import { RootState } from '../index';
 import { AddSkillsRequest } from '../../models/requests/Skills/addSkillsRequest';
 import skillService from '../../services/pages/profile/editProfile/skill/skillService';
 
@@ -52,11 +52,13 @@ export const skillsSlice = createSlice({
   },
 });
 
-export const { fetchSkillsStart, fetchSkillsSuccess, fetchSkillsFailure, selectSkill } = skillsSlice.actions;
 
-export const skillsReducer = skillsSlice.reducer;
 
 export const selectSkills = (state: RootState) => state.skill.skills;
 export const selectSelectedSkill = (state: RootState) => state.skill.selectedSkill;
 export const selectSkillsLoading = (state: RootState) => state.skill.loading;
 export const selectSkillsError = (state: RootState) => state.skill.error;
+
+
+export const { fetchSkillsStart, fetchSkillsSuccess, fetchSkillsFailure, selectSkill } = skillsSlice.actions;
+export const skillsReducer = skillsSlice.reducer;

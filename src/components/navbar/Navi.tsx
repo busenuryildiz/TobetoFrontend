@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { logout } from '../../store/slices/authSlice'
 import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../../store/configureStore';
+import { AppDispatch } from '../../store/index';
 import { useNavigate } from 'react-router-dom';
 function Navi() {
 const navigate = useNavigate();

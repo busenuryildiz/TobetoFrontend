@@ -221,7 +221,7 @@ export default PersonalInformation;
 import { useFormik } from 'formik';
 import Navi from '../../../../components/navbar/Navi';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../store/configureStore';
+import { RootState } from '../../../../store/index';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PersonalInformationService, {

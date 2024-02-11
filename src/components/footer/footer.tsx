@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 
 export default function Footer() {
   return (
-    <div  style={{ background: "#9933FF" ,padding: "20px 0",display: "block"}} >
+    <div  style={{ background: "#9933FF" ,padding: "20px 0",display: "block", marginTop: "100px"}} >
       <Container>
         <div className="row justify-content-between align-items-center">
           <div className="col-6 col-lg-4 mb-lg-0 my-4">

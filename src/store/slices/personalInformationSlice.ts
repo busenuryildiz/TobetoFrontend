@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../configureStore';
+import { RootState } from '../index';
 
 // Diğer arayüzleri ekleyin
 import {

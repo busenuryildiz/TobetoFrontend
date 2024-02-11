@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { RegisterData, register } from "../../store/slices/authSlice";
-import { AppDispatch } from "../../store/configureStore";
+import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
