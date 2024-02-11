@@ -1,5 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../index';
+import { RootState } from '../store';
 import { AddSkillsRequest } from '../../models/requests/Skills/addSkillsRequest';
 import skillService from '../../services/pages/profile/editProfile/skill/skillService';
 

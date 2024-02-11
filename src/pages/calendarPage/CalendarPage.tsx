@@ -5,7 +5,7 @@ import EducationStatus from '../../components/calendar/EducationStatus/Education
 import './CalendarPage.css';
 import { GetAllLessonCourseResponse } from '../../models/responses/lessonCourse/getAllLessonCourseResponse';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/index';
+import { AppDispatch, RootState } from '../../store/store';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
 import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 import Navi from '../../components/navbar/Navi';

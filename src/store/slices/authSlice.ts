@@ -119,6 +119,7 @@ export const getCurrentUser = createAsyncThunk(
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   localStorage.removeItem("accessToken");
+  
 });
 
 const authSlice = createSlice({
