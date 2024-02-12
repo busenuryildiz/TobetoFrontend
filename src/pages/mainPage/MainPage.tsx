@@ -1,7 +1,13 @@
 import React from "react";
 import Navi2 from "../../components/navbar/Navi2";
 import Footer from "../../components/footer/footer";
+import ApplicationStatus from "../../components/mainPage/applyTabPanel/appyTab";
+import LessonsTab from "../../components/mainPage/lessonsTabPanel/lessonsTab";
+import NotificationTab from "../../components/mainPage/notificationTabPanel/notificationTab";
+
 import { useState } from "react";
+import ApplicationsTab from "../../components/mainPage/applicationsTabPanel/applicationsTab";
+import MySurveyTab from "../../components/mainPage/mySurveyTabPanel/mySurveyTab";
 
 function MainPage() {
   const [activeTab, setActiveTab] = useState("applications-tab-pane");
@@ -303,326 +309,22 @@ function MainPage() {
                 <div className="col-12">
                   <div className="tab-content" id="myTabContent">
                     {/* Apply Tab Panel */}
-                    <div
-                      className={`tab-pane fade ${
-                        activeTab === "apply-tab-pane" ? "show active" : ""
-                      }`}
-                      id="apply-tab-pane"
-                      role="tabpanel"
-                      aria-labelledby="apply-tab"
-                      tabIndex={0}
-                    >
-                      <div className="row">
-                        <div className="col-md-6 col-12 mt-2">
-                          <div className="status-card status_accepted">
-                            <span className="form_name">İstanbul Kodluyor</span>
-                            <span className="form_status"></span>
-                            <span className="pull_back"></span>
-                            <span className="form_name">Bilgilendirme</span>
-                            <div>
-                              <div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  <i
-                                    className="fa fa-check fa-sm"
-                                    aria-hidden="true"
-                                    style={{
-                                      color: "green",
-                                      marginRight: "5px",
-                                    }}
-                                  ></i>
-                                  <span className="form_date">
-                                    {" "}
-                                    İstanbul Kodluyor Başvuru Formu onaylandı.
-                                  </span>
-                                </div>
-                              </div>
-                              <div>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  <i
-                                    className="fa fa-check fa-sm"
-                                    aria-hidden="true"
-                                    style={{
-                                      color: "green",
-                                      marginRight: "5px",
-                                    }}
-                                  ></i>
-                                  <span className="form_date">
-                                    {" "}
-                                    İstanbul Kodluyor Belge Yükleme Formu
-                                    onaylandı.
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <ApplicationStatus activeTab={activeTab} />
 
                     {/* Lessons Tab Panel */}
-                    <div
-                      className={`tab-pane fade ${
-                        activeTab === "lessons-tab-pane" ? "show active" : ""
-                      }`}
-                      id="lessons-tab-pane"
-                      role="tabpanel"
-                      aria-labelledby="lessons-tab"
-                      tabIndex={1}
-                    >
-                      <div className="row mt-3">
-                        <div className="col-12">
-                          <div className="tab-content" id="myTabContent">
-                            {/* All Lessons Tab Pane */}
-                            <div
-                              className={`tab-pane fade ${
-                                activeTab === "lessons-tab-pane"
-                                  ? "show active"
-                                  : ""
-                              }`}
-                              id="all-lessons-tab-pane"
-                              role="tabpanel"
-                              aria-labelledby="all-lessons-tab"
-                              tabIndex={1}
-                            >
-                              <div className="row">
-                                <div className="col-md-3 col-12 mb-4">
-                                  <div className="corp-edu-card">
-                                    <div
-                                      className="card-img"
-                                      style={{
-                                        backgroundImage:
-                                          'url("https://tobeto.s3.cloud.ngn.com.tr/23_EAH_1_45f7232003.jpg")',
-                                      }}
-                                    ></div>
-                                    <div className="card-content">
-                                      <div className="d-flex flex-column">
-                                        <span>
-                                          Dr. Ecmel Ayral'dan Hoşgeldin Mesajı
-                                        </span>
-                                        <span className="platform-course-date">
-                                          21 Eylül 2023 15:20
-                                        </span>
-                                      </div>
-                                      <a className="apply-btn">Eğitime Git</a>
-                                    </div>
-                                  </div>
-                                </div>
-                                {/* Diğer eğitim kartlarını ekleyin */}
-                              </div>
-                            </div>
-
-                            {/* Started Tab Pane */}
-                            <div
-                              className="tab-pane fade"
-                              id="started-tab-pane"
-                              role="tabpanel"
-                              aria-labelledby="started-tab"
-                              tabIndex={0}
-                            >
-                              <div className="row">
-                                {/* Başlamış eğitim kartlarını ekleyin */}
-                              </div>
-                            </div>
-
-                            {/* Done Lessons Tab Pane */}
-                            <div
-                              className="tab-pane fade"
-                              id="done-lessons-tab-pane"
-                              role="tabpanel"
-                              aria-labelledby="done-lessons-tab"
-                              tabIndex={0}
-                            >
-                              <div className="row">
-                                {/* Tamamlanmış eğitim kartlarını ekleyin */}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="showMoreBtn">Daha Fazla Göster</div>
-                    </div>
+                    <LessonsTab activeTab={activeTab}></LessonsTab>
                     {/* Buraya Lessons tab panelini ve içeriğini ekle */}
 
                     {/* Notification Tab Panel */}
-                    <div
-                      className={`tab-pane fade ${
-                        activeTab === "notification-tab-pane"
-                          ? "show active"
-                          : ""
-                      }`}
-                      id="notification-tab-pane"
-                      role="tabpanel"
-                      aria-labelledby="notification-tab"
-                      tabIndex={0}
-                    >
-                      <div className="row">
-                        <div className="col-md-4 col-12 my-4">
-                          <div className="notfy-card notify">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex justify-content-between mb-4">
-                                <span className="type">Duyuru</span>
-                                <span className="corp-names type">
-                                  İstanbul Kodluyor
-                                </span>
-                              </div>
-                              <span className="header">Mindset Anketi</span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <span className="date">31.01.2024</span>
-                              <span className="read-more">Devamını Oku</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-md-4 col-12 my-4">
-                          <div className="notfy-card notify">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex justify-content-between mb-4">
-                                <span className="type">Duyuru</span>
-                                <span className="corp-names type">
-                                  İstanbul Kodluyor
-                                </span>
-                              </div>
-                              <span className="header">
-                                Ocak Ayı Tercih Formu Bilgilendirmesi
-                              </span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <span className="date">12.01.2024</span>
-                              <span className="read-more">Devamını Oku</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-md-4 col-12 my-4">
-                          <div className="notfy-card notify">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex justify-content-between mb-4">
-                                <span className="type">Duyuru</span>
-                                <span className="corp-names type">
-                                  İstanbul Kodluyor
-                                </span>
-                              </div>
-                              <span className="header">
-                                11 Ocak Kampüs Buluşması
-                              </span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <span className="date">06.01.2024</span>
-                              <span className="read-more">Devamını Oku</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="showMoreBtn">Daha Fazla Göster</div>
-                      </div>
-                    </div>
+                    <NotificationTab activeTab={activeTab}></NotificationTab>
                     {/* Buraya Notification tab panelini ve içeriğini ekle */}
 
                     {/* Applications Tab Panel */}
-                    <div
-                      className={`tab-pane fade ${
-                        activeTab === "applications-tab-pane"
-                          ? "show active"
-                          : ""
-                      }`}
-                      id="applications-tab-pane"
-                      role="tabpanel"
-                      aria-labelledby="applications-tab"
-                      tabIndex={0}
-                    >
-                      <div className="row">
-                        <div className="col-md-4 col-12 my-4">
-                          <div className="notfy-card news">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex justify-content-between mb-4">
-                                <span className="type">Mülakat</span>
-                                <span className="corp-names type">
-                                  İstanbul Kodluyor
-                                </span>
-                              </div>
-                              <span className="header">Mindset Anketi</span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <span className="date">31.01.2024</span>
-                              <span className="read-more">
-                                Mülakatı Değerlendir
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-md-4 col-12 my-4">
-                          <div className="notfy-card news">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex justify-content-between mb-4">
-                                <span className="type">Mülakat</span>
-                                <span className="corp-names type">
-                                  İstanbul Kodluyor
-                                </span>
-                              </div>
-                              <span className="header">
-                                Ocak Ayı Tercih Formu Bilgilendirmesi
-                              </span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <span className="date">12.01.2024</span>
-                              <span className="read-more">
-                                Mülakatı Değerlendir
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-md-4 col-12 my-4">
-                          <div className="notfy-card news">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex justify-content-between mb-4">
-                                <span className="type">Mülakat</span>
-                                <span className="corp-names type">
-                                  İstanbul Kodluyor
-                                </span>
-                              </div>
-                              <span className="header">
-                                11 Ocak Kampüs Buluşması
-                              </span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                              <span className="date">06.01.2024</span>
-                              <span className="read-more">
-                                Mülakatı Değerlendir
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="showMoreBtn">Daha Fazla Göster</div>
-                      </div>
-                    </div>
+                    <ApplicationsTab activeTab={activeTab}></ApplicationsTab>
                     {/* Buraya Applications tab panelini ve içeriğini ekle */}
 
                     {/* MySurvey Tab Panel */}
-                    <div
-                      className={`tab-pane fade ${
-                        activeTab === "mySurvey-tab-pane"
-                          ? "show active"
-                          : ""
-                      }`}
-                      id="mySurvey-tab-pane"
-                      role="tabpanel"
-                      aria-labelledby="mySurvey-tab"
-                      tabIndex={0}
-                    >
-                      <div className="row">
-                        <div className="noDataCard">
-                          <p>Atanmış herhangi bir anketiniz bulunmamaktadır</p>
-                        </div>
-                      </div>
-                    </div>
+                    <MySurveyTab activeTab={activeTab} />
                     {/* Buraya MySurvey tab panelini ve içeriğini ekle */}
                   </div>
                 </div>

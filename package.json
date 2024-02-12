@@ -61,6 +61,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react-datepicker": "^4.19.6"
+    "@types/react-datepicker": "^4.19.6",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.33.2"
   }
 }
