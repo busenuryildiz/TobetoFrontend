@@ -1,8 +1,4 @@
-import React from 'react';
-
-interface CoursesProps {
-    courses: Course[];
-}
+import React, { useState } from 'react';
 
 export interface Course {
     id: number;
@@ -16,12 +12,28 @@ export interface Course {
     categoryName: string;
     price: number;
     totalLikes: number;
+    courseType:string;
 }
-const Courses: React.FC<CoursesProps> = ({ courses: propsCourses }) => {
+
+interface CoursesProps {
+    courses: Course[];
+}
+
+const Courses: React.FC<CoursesProps> = ({ courses }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [coursesPerPage] = useState(12);
+    const indexOfLastCourse = currentPage * coursesPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+    const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    // Change page
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    const totalPages = Math.ceil(courses.length / coursesPerPage);
+
     return (
         <div className="col-lg-9 col-md-8 col-12">
             <div className="row gy-6 gx-3">
-                {propsCourses &&propsCourses.map(course => {
+            {currentCourses.filter(course => course.courseType === "catalog").map(course => {
                         const hours = Math.floor(course.duration / 60);
                         const minutes = course.duration % 60;
                         const formattedDuration = hours > 0 ? `${hours} sa ${minutes} dk` : `${minutes} dk`;
@@ -34,7 +46,7 @@ const Courses: React.FC<CoursesProps> = ({ courses: propsCourses }) => {
                                 <div>
                                     <div className="property">
                                         <div>
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/1200/svg"><path d="M13.3334 14V12.6667C13.3334 11.9594 13.0525 11.2811 12.5524 10.781C12.0523 10.281 11.374 10 10.6667 10H5.33341C4.62617 10 3.94789 10.281 3.4478 10.781C2.9477 11.2811 2.66675 11.9594 2.66675 12.6667V14" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.99992 7.33333C9.47268 7.33333 10.6666 6.13943 10.6666 4.66667C10.6666 3.19391 9.47268 2 7.99992 2C6.52716 2 5.33325 3.19391 5.33325 4.66667C5.33325 6.13943 6.52716 7.33333 7.99992 7.33333Z" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/1200/svg"><path d="M13.3334 14V12.6667C13.3334 11.9594 13.0525 11.2811 12.5524 10.781C12.0523 10.281 11.374 10 10.6667 10H5.33341C4.62617 10 3.94789 10.281 3.4478 10.781C2.9477 11.2811 2.66675 11.9594 2.66675 12.6667V14" stroke="#fff" strokeLinecap="round" strokeLinejoin="round"></path><path d="M7.99992 7.33333C9.47268 7.33333 10.6666 6.13943 10.6666 4.66667C10.6666 3.19391 9.47268 2 7.99992 2C6.52716 2 5.33325 3.19391 5.33325 4.66667C5.33325 6.13943 6.52716 7.33333 7.99992 7.33333Z" stroke="#fff" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                                             <span className="pro">{course.instructorName}</span>
                                         </div>
                                         <div>
@@ -64,6 +76,21 @@ const Courses: React.FC<CoursesProps> = ({ courses: propsCourses }) => {
                    
                 })}
             </div>
+            <ul className="pagination justify-content-center mt-4" role="navigation" aria-label="Pagination">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <button className="page-link" tabIndex={0} role="link" aria-disabled={currentPage === 1} aria-label="Previous page" onClick={() => paginate(currentPage - 1)}></button>
+                </li>
+                {Array.from(Array(totalPages).keys()).map(number => (
+                    <li key={number + 1} className={`page-item ${currentPage === number + 1 ? 'active' : ''}`}>
+                        <button role="link" className="page-link" tabIndex={0} aria-label={`Page ${number + 1}`} onClick={() => paginate(number + 1)}>
+                            {number + 1}
+                        </button>
+                    </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                    <button className="page-link" tabIndex={0} role="link" aria-disabled={currentPage === totalPages} aria-label="Next page" onClick={() => paginate(currentPage + 1)}></button>
+                </li>
+            </ul>
         </div>
     );
 };
