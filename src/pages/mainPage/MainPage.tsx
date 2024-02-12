@@ -10,9 +10,14 @@ import ApplicationsTab from "../../components/mainPage/applicationsTabPanel/appl
 import MySurveyTab from "../../components/mainPage/mySurveyTabPanel/mySurveyTab";
 
 function MainPage() {
+  const [activeTab, setActiveTab] = useState("applications-tab-pane");
+
+  const handleTabClick = (tabId: string) => {
+    console.log("tabId ", tabId);
+    setActiveTab(tabId);
+  };
 
   return (
-<<<<<<< HEAD
     <div className="plaform-page" style={{ minHeight: "120vh" }}>
       <Navi2 />
       {/* SECTİON 1 */}
@@ -401,12 +406,3 @@ function MainPage() {
 }
 
 export default MainPage;
-=======
-    <Navi2 />
-
-
-  )
-  }
-
-  export default MainPage;
->>>>>>> 5aa6d5c9ddac2e0aee3a010a39f609f9084c1bed
