@@ -1,5 +1,5 @@
 import React from "react";
-import Navi2 from "../../components/navbar/Navi2";
+import Navi from "../../components/navbar/Navi";
 import Footer from "../../components/footer/footer";
 import ApplicationStatus from "../../components/mainPage/applyTabPanel/appyTab";
 import LessonsTab from "../../components/mainPage/lessonsTabPanel/lessonsTab";
@@ -19,7 +19,7 @@ function MainPage() {
 
   return (
     <div className="plaform-page" style={{ minHeight: "120vh" }}>
-      <Navi2 />
+      <Navi />
       {/* SECTİON 1 */}
       <section className="dropdown custom-dropdown">
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
