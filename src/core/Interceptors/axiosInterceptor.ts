@@ -3,7 +3,7 @@ import {handleError} from "../errorHandlers/errorHandlers";
 import { BASE_API_URL } from "../../enviroment/enviroment";
 import {addRequest, removeRequest} from "../../store/slices/loadingSlice";
 import tokenService from "../services/tokenService";
-import {store} from "../../store/store"
+import {store} from "../../store"
 
 const axiosInstance = axios.create({
 	baseURL: BASE_API_URL,

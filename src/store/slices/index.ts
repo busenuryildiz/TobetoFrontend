@@ -1,4 +1,5 @@
 import { combineReducers  } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
 import personalInformationReducer from './personalInformationSlice';
@@ -18,10 +19,19 @@ const rootReducer = combineReducers({
   skill: skillsReducer,
 });
 
-export default rootReducer;
-
 // Configuration for redux-persist
+const persistConfig = {
+  key: 'root',
+  storage,
+  // Optionally, you can blacklist or whitelist specific reducers
+  // blacklist: ['loading'],
+  // whitelist: ['auth'],
+};
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+
+export default persistedReducer;
 
 
 

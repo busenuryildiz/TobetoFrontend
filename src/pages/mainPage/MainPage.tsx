@@ -1,5 +1,5 @@
 import React from "react";
-import Navi2 from "../../components/navbar/Navi2";
+import Navi from "../../components/navbar/Navi";
 import Footer from "../../components/footer/footer";
 import ApplicationStatus from "../../components/mainPage/applyTabPanel/appyTab";
 import LessonsTab from "../../components/mainPage/lessonsTabPanel/lessonsTab";
@@ -10,11 +10,16 @@ import ApplicationsTab from "../../components/mainPage/applicationsTabPanel/appl
 import MySurveyTab from "../../components/mainPage/mySurveyTabPanel/mySurveyTab";
 
 function MainPage() {
+  const [activeTab, setActiveTab] = useState("applications-tab-pane");
+
+  const handleTabClick = (tabId: string) => {
+    console.log("tabId ", tabId);
+    setActiveTab(tabId);
+  };
 
   return (
-<<<<<<< HEAD
     <div className="plaform-page" style={{ minHeight: "120vh" }}>
-      <Navi2 />
+      <Navi />
       {/* SECTİON 1 */}
       <section className="dropdown custom-dropdown">
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -401,12 +406,3 @@ function MainPage() {
 }
 
 export default MainPage;
-=======
-    <Navi2 />
-
-
-  )
-  }
-
-  export default MainPage;
->>>>>>> 5aa6d5c9ddac2e0aee3a010a39f609f9084c1bed

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-<<<<<<< HEAD
 import { loginUser } from "../../store/actions/authActions";
 import { AppDispatch } from "../../store/index";
-=======
-import {login } from "../../store/slices/authSlice";
-import { AppDispatch } from "../../store/store";
->>>>>>> 5aa6d5c9ddac2e0aee3a010a39f609f9084c1bed
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

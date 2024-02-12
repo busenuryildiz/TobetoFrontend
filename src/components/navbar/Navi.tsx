@@ -1,43 +1,15 @@
-<<<<<<< HEAD
-import React from 'react'
-import { Navbar, Container, Nav } from 'react-bootstrap'
-import { logoutUser } from '../../store/actions/authActions'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../../store/index';
-import { useNavigate } from 'react-router-dom';
-=======
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { logout } from "../../store/slices/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../store/store";
+import { logoutUser } from "../../store/actions/authActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
->>>>>>> 5aa6d5c9ddac2e0aee3a010a39f609f9084c1bed
 function Navi() {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const auth = useSelector((state:any) => state.auth);
-
-<<<<<<< HEAD
-const handleLogout = () => {
-    dispatch(logoutUser()); 
-    navigate('/')
-}
-    return (
-        <Navbar className="position-relative" expand="xxl"  bg="white">
-            <Container fluid>
-            <Navbar.Brand href="platform">
-                    <img
-                        src="/Assets/image/tobeto-logo.png" 
-                        alt="Tobeto Logo" 
-                        style={{ width: '170px', height: '35px', objectFit: 'cover', background: 'transparent' }}
-                    />
-                </Navbar.Brand>
-=======
->>>>>>> 5aa6d5c9ddac2e0aee3a010a39f609f9084c1bed
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
     navigate("/");
   };
   return (
@@ -164,7 +136,7 @@ const handleLogout = () => {
                   />
                 </div>
                 <div className="me-3">
-                  <p className="mb-0 name">{auth.currentUser.firstName} {auth.currentUser.lastName}</p>
+                  <p className="mb-0 name">Buse Yıldız</p>
                 </div>
                 <span>
                   <svg
