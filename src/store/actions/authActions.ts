@@ -48,6 +48,7 @@ export const loginUser = createAsyncThunk(
         },
         body: JSON.stringify(loginData),
       });
+      console.log("response ", response)
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -55,6 +56,8 @@ export const loginUser = createAsyncThunk(
       }
 
       const responseData: LoginResponse = await response.json();
+      console.log("response ", responseData)
+    
       return responseData;
     } catch (error) {
       return thunkAPI.rejectWithValue("Bir hata oluştu");

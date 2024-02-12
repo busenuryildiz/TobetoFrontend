@@ -1,9 +1,9 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { logoutUser } from "../../store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../store/actions/authActions";
 function Navi() {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
