@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import { logout } from '../../store/slices/authSlice'
+import { logoutUser } from '../../store/actions/authActions'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../store/index';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ const navigate = useNavigate();
 const dispatch: AppDispatch = useDispatch();
 
 const handleLogout = () => {
-    dispatch(logout()); 
+    dispatch(logoutUser()); 
     navigate('/')
 }
     return (

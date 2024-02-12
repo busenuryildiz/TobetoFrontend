@@ -5,9 +5,9 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import personalInformationReducer from './personalInformationSlice';
 import { courseReducer } from './courseSlice';
 import { loadingReducer } from './loadingSlice';
-import { authReducer } from './authSlice';
 import { lessonCourseReducer } from './lessonCourseSlice';
 import { skillsReducer } from './mySkillSlice';
+import authReducer from './authSlice';
 
 // Root reducer
 const rootReducer = combineReducers({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { RegisterData, register } from "../../store/slices/authSlice";
+import { registerUser } from "../../store/actions/authActions";
 import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,18 @@ const Register = () => {
       console.log("Şifreler eşleşmiyor!");
       return; // Şifreler eşleşmiyorsa kayıt işlemine devam etmeyi durdur
     }
+
+    interface RegisterData {
+      firstName: string;
+      lastName: string;
+      email: string;
+      imagePath: string;
+      password: string;
+      nationalIdentity: string;
+      birthDate: any;
+      phoneNumber: string;
+    }
+
     const userRegisterData: RegisterData = {
       firstName,
       lastName,
@@ -37,7 +49,7 @@ const Register = () => {
       nationalIdentity: defaultNationalIdentity,
     };
 
-    dispatch(register(userRegisterData)).then(() => {
+    dispatch(registerUser(userRegisterData)).then(() => {
       navigate("/login");
     });
     console.log("register", firstName, lastName, email, password);

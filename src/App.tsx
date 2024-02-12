@@ -9,7 +9,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import { useDispatch, useSelector } from 'react-redux';
 import {useEffect } from 'react';
-import { getCurrentUser } from './store/slices/authSlice';
+// import { getCurrentUser } from './store/slices/authSlice';
 import { AppDispatch } from './store/index';
 import PlatformPage from './pages/platformPage/PlatformPage';
 import Review from './pages/reviews/Review';
@@ -26,17 +26,17 @@ import MyExperiences from './pages/profile/editProfile/myExperiences/myExperienc
 
 function App() {
 
-  const dispatch: AppDispatch = useDispatch();
-  const auth = useSelector((state:any) => state.auth);
+  // const dispatch: AppDispatch = useDispatch();
+  const auth = useSelector((state:any) => state.auth.user);
 
 
-  useEffect(() => {
-    if (auth.currentUser && auth.currentUser.id) {
-      dispatch(getCurrentUser(auth.currentUser.id));
-    }
-  }, [dispatch, auth]);
+  // useEffect(() => {
+  //   if (auth.currentUser && auth.currentUser.id) {
+  //     dispatch(getCurrentUser(auth.currentUser.id));
+  //   }
+  // }, [dispatch, auth]);
   
-  console.log(auth);
+  // console.log(auth);
 
 
   const certificatesData :any = [
@@ -50,7 +50,7 @@ function App() {
     <div>
       <Router>
       <Routes>
-        <Route path="/" element={auth.currentUser ? <PlatformPage /> : <MainPage />} />
+        {/* <Route path="/" element={auth ? <PlatformPage /> : <MainPage />} /> */}
 
         <Route path="/" element={<MainPage />} />
         <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />} />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {login } from "../../store/slices/authSlice";
+import { loginUser } from "../../store/actions/authActions";
 import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
 
@@ -10,16 +10,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   const onSubmit = (e: any) => {
     e.preventDefault();
-    const userData = { email, password};
-    dispatch(login(userData)).then(action=>{
-
-        localStorage.setItem('accessToken', action.payload.token);
-        navigate("/platform")
-    })
-    console.log("login", email, password)
+    const userData = { email, password };
+    dispatch(loginUser(userData)).then(() => {
+      navigate("/platform");
+    });
+    console.log("login", email, password);
   };
   return (
     <div>
