@@ -10,7 +10,6 @@ import Register from './pages/register/Register';
 import { useDispatch, useSelector } from 'react-redux';
 import {useEffect } from 'react';
 // import { getCurrentUser } from './store/slices/authSlice';
-import { AppDispatch } from './store/index';
 import PlatformPage from './pages/platformPage/PlatformPage';
 import Review from './pages/reviews/Review';
 import MySkill from './pages/profile/editProfile/mySkills/mySkill';
