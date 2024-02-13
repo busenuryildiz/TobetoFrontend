@@ -1,73 +1,91 @@
-// import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
+import { Course } from './courses';
+import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, LANGUAGE_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS } from './constants'; // INSTRUCTOR_OPTIONS ve STATUS_OPTIONS eklendi
+import FilterOption from './filterOption';
+import { handlePriceFilterChange, handleLanguageFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange, handleInstructorFilterChange, handleStatusFilterChange } from './filter'; // handleInstructorFilterChange ve handleStatusFilterChange eklendi
 
-// interface Category {
-//   value: string;
-//   label: string;
-// }
+interface FilterCourseProps {
+  courses: Course[];
+  onFilterChange: (filteredCourses: Course[]) => void;
+}
 
-// interface CategoryFilterProps {
-//   categories: Category[];
-//   onChange: (value: string) => void;
-// }
+const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) => {
+  const [priceFilter, setPriceFilter] = useState<string | null>(null);
+  const [educationFilter, setEducationFilter] = useState<string | null>(null);
+  const [courseLevelFilter, setCourseLevelFilter] = useState<string | null>(null);
+  const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
+  const [languageFilter, setLanguageFilter] = useState<string | null>(null);
+  const [instructorFilter, setInstructorFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | null>(null); // statusFilter state'i eklendi
 
-// const CategoryFilter: React.FC<CategoryFilterProps> = ({ categories, onChange }) => {
-//   const [selectedCategory, setSelectedCategory] = useState('');
+  const handleFilterChange = (filterType: string, selectedOption: string) => {
+    switch (filterType) {
+      case 'Kategori':
+        setPriceFilter(selectedOption);
+        handlePriceFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Eğitimler':
+        setEducationFilter(selectedOption);
+        handleEducationFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Seviye':
+        setCourseLevelFilter(selectedOption);
+        handleCourseLevelFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Konu':
+        setSubjectFilter(selectedOption);
+        handleSubjectFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Yazılım Dili':
+        setLanguageFilter(selectedOption);
+        handleLanguageFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Eğitmen':
+        setInstructorFilter(selectedOption);
+        handleInstructorFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Durum': // 'Durum' case'i eklendi
+        setStatusFilter(selectedOption);
+        handleStatusFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      default:
+        break;
+    }
+  };
 
-//   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-//     setSelectedCategory(e.target.value);
-//     onChange(e.target.value);
-//   };
+  return (
+    <div className="col-lg-3 col-md-4 col-12 light">
+      <div className="filter dm-none">
+        <h2>Filtrele</h2>
+        <hr className="mt-0" />
+        <button
+          className="mb-3 w-100"
+          style={{
+            backgroundColor: 'white',
+            border: '2px solid rgb(153, 51, 255)',
+            borderRadius: '50px',
+            color: 'rgb(24, 24, 24)',
+            fontWeight: '600',
+            padding: '8px 16px',
+            textAlign: 'left'
+          }}
+          type="button" >
+          <div className=" w-100">
+            <span>
+              Bana Özel
+            </span>
+          </div>
+        </button>
+        <FilterOption options={PRICE_OPTIONS} filterOption={(option) => handleFilterChange('Kategori', option)} filterType="Kategori" />
+        <FilterOption options={EDUCATION_OPTIONS} filterOption={(option) => handleFilterChange('Eğitimler', option)} filterType="Eğitimler" />
+        <FilterOption options={COURSE_LEVEL_OPTIONS} filterOption={(option) => handleFilterChange('Seviye', option)} filterType="Seviye" />
+        <FilterOption options={SUBJECT_OPTIONS} filterOption={(option) => handleFilterChange('Konu', option)} filterType="Konu" />
+        <FilterOption options={LANGUAGE_OPTIONS} filterOption={(option) => handleFilterChange('Yazılım Dili', option)} filterType="Yazılım Dili" />
+        <FilterOption options={INSTRUCTOR_OPTIONS} filterOption={(option) => handleFilterChange('Eğitmen', option)} filterType="Eğitmen" />
+        <FilterOption options={STATUS_OPTIONS} filterOption={(option) => handleFilterChange('Durum', option)} filterType="Durum" />
+      </div>
+    </div>
+  );
+};
 
-//   return (
-//     <div>
-//       <label>Kategori:</label>
-//       <select value={selectedCategory} onChange={handleCategoryChange}>
-//         <option value="">Tümü</option>
-//         {categories.map((category) => (
-//           <option key={category.value} value={category.value}>
-//             {category.label}
-//           </option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// };
-
-// interface FilterCourseProps {
-//   onApplyFilters: (filters: { category: string }) => void;
-// }
-
-// const FilterCourse: React.FC<FilterCourseProps> = ({ onApplyFilters }) => {
-//   const [selectedFilters, setSelectedFilters] = useState({
-//     category: '',
-//     // Diğer filtreler burada eklenebilir
-//   });
-
-//   const handleFilterChange = (filterName: string, value: string) => {
-//     setSelectedFilters({ ...selectedFilters, [filterName]: value });
-//   };
-
-//   const applyFilters = () => {
-//     onApplyFilters(selectedFilters);
-//   };
-
-//   return (
-//     <div className="col-md-4">
-//       <div className="card">
-//         <div className="card-body">
-//           <h2>Filtrele</h2>
-//           <CategoryFilter
-//             categories={[
-//               { value: '1', label: 'Ücretli Eğitimler' },
-//               { value: '0', label: 'Ücretsiz Eğitimler' },
-//             ]}
-//             onChange={(value) => handleFilterChange('category', value)}
-//           />
-//           <button className="btn btn-primary mt-3" onClick={applyFilters}>Filtrele</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default FilterCourse;
+export default FilterCourse;

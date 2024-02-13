@@ -6,13 +6,15 @@ export interface Course {
     imagePath: string;
     instructorName: string;
     duration: number;
-    courseLevel: string;
-    softwareLanguage: number;
+    courseLevelName: string;
+    softwareLanguageName: string;
     category: string;
     categoryName: string;
     price: number;
     totalLikes: number;
     courseType:string;
+    courseSubjectName: string;
+    status: string;
 }
 
 interface CoursesProps {
@@ -26,7 +28,6 @@ const Courses: React.FC<CoursesProps> = ({ courses }) => {
     const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
     const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
 
-    // Change page
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
     const totalPages = Math.ceil(courses.length / coursesPerPage);
 
