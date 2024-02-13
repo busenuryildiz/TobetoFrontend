@@ -63,6 +63,7 @@ export const handleLanguageFilterChange = (selectedLanguage: string, courses: Co
     });
     onFilterChange(filteredCourses);
 };
+
 export const handleInstructorFilterChange = (selectedInstructor: string, courses: Course[], onFilterChange: (filteredCourses: Course[]) => void) => {
     if (selectedInstructor === "Tüm Eğitmenler") {
         onFilterChange(courses);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Course } from './courses';
-import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, LANGUAGE_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS } from './constants'; // INSTRUCTOR_OPTIONS ve STATUS_OPTIONS eklendi
+import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS, LANGUAGE_OPTIONS } from './constants'; // LANGUAGE_OPTIONS eklendi
 import FilterOption from './filterOption';
-import { handlePriceFilterChange, handleLanguageFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange, handleInstructorFilterChange, handleStatusFilterChange } from './filter'; // handleInstructorFilterChange ve handleStatusFilterChange eklendi
+import { handlePriceFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange, handleInstructorFilterChange, handleStatusFilterChange, handleLanguageFilterChange } from './filter'; // handleLanguageFilterChange eklendi
 
 interface FilterCourseProps {
   courses: Course[];
@@ -14,9 +14,11 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
   const [educationFilter, setEducationFilter] = useState<string | null>(null);
   const [courseLevelFilter, setCourseLevelFilter] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
-  const [languageFilter, setLanguageFilter] = useState<string | null>(null);
+
   const [instructorFilter, setInstructorFilter] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string | null>(null); // statusFilter state'i eklendi
+
+  const [languageFilter, setLanguageFilter] = useState<string | null>(null); // languageFilter state'i eklendi
 
   const handleFilterChange = (filterType: string, selectedOption: string) => {
     switch (filterType) {
@@ -36,17 +38,17 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
         setSubjectFilter(selectedOption);
         handleSubjectFilterChange(selectedOption, courses, onFilterChange);
         break;
-      case 'Yazılım Dili':
-        setLanguageFilter(selectedOption);
-        handleLanguageFilterChange(selectedOption, courses, onFilterChange);
-        break;
       case 'Eğitmen':
         setInstructorFilter(selectedOption);
         handleInstructorFilterChange(selectedOption, courses, onFilterChange);
         break;
-      case 'Durum': // 'Durum' case'i eklendi
+      case 'Durum':
         setStatusFilter(selectedOption);
         handleStatusFilterChange(selectedOption, courses, onFilterChange);
+        break;
+      case 'Yazılım Dili': // 'Yazılım Dili' case'i eklendi
+        setLanguageFilter(selectedOption);
+        handleLanguageFilterChange(selectedOption, courses, onFilterChange);
         break;
       default:
         break;
