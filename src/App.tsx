@@ -7,9 +7,7 @@ import IstanbulCoding from './pages/istanbulCoding/IstanbulCoding';
 import { OverlayLoader } from './components/overlayLoader/overlayLoader';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
-import { useDispatch, useSelector } from 'react-redux';
-import {useEffect } from 'react';
-// import { getCurrentUser } from './store/slices/authSlice';
+import {  useSelector } from 'react-redux';
 import PlatformPage from './pages/platformPage/PlatformPage';
 import Review from './pages/reviews/Review';
 import MySkill from './pages/profile/editProfile/mySkills/mySkill';
@@ -29,13 +27,7 @@ function App() {
   const auth = useSelector((state:any) => state.auth.user);
 
 
-  // useEffect(() => {
-  //   if (auth.currentUser && auth.currentUser.id) {
-  //     dispatch(getCurrentUser(auth.currentUser.id));
-  //   }
-  // }, [dispatch, auth]);
-  
-  // console.log(auth);
+ 
 
 
   const certificatesData :any = [
@@ -49,9 +41,9 @@ function App() {
     <div>
       <Router>
       <Routes>
-        {/* <Route path="/" element={auth ? <PlatformPage /> : <MainPage />} /> */}
+        <Route path="/" element={auth ? <PlatformPage /> : <MainPage />} />
 
-        <Route path="/" element={<MainPage />} />
+        {/* <Route path="/" element={<MainPage />} /> */}
         <Route path="profilim/profilimi-duzenle/kisisel-bilgilerim" element={<PersonalInformation />} />
         <Route path="profilim/profilimi-duzenle/deneyimlerim" element={<MyExperiences />} />
         <Route path="profilim/profilimi-duzenle/egitim-hayatim" element={<EducationLife />} />
