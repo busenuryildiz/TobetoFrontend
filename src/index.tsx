@@ -8,9 +8,11 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
+import Modal from 'react-modal';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement, 
 );
+Modal.setAppElement('#root');
 
 root.render(
     <Provider store={store}>
