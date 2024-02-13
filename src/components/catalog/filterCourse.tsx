@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Course } from './courses';
 import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS, LANGUAGE_OPTIONS } from './constants'; // LANGUAGE_OPTIONS eklendi
-import FilterOption from './filterOption';
 import { handlePriceFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange, handleInstructorFilterChange, handleStatusFilterChange, handleLanguageFilterChange } from './filter'; // handleLanguageFilterChange eklendi
+import FilterOption from './filterOption';
 
 interface FilterCourseProps {
   courses: Course[];
@@ -14,11 +14,9 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
   const [educationFilter, setEducationFilter] = useState<string | null>(null);
   const [courseLevelFilter, setCourseLevelFilter] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
-
   const [instructorFilter, setInstructorFilter] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState<string | null>(null); // statusFilter state'i eklendi
-
-  const [languageFilter, setLanguageFilter] = useState<string | null>(null); // languageFilter state'i eklendi
+  const [statusFilter, setStatusFilter] = useState<string | null>(null); 
+  const [languageFilter, setLanguageFilter] = useState<string | null>(null);
 
   const handleFilterChange = (filterType: string, selectedOption: string) => {
     switch (filterType) {
