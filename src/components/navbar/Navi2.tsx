@@ -48,7 +48,10 @@ const Navbar: React.FC = () => {
                 <span
                   style={{
                     boxSizing: "border-box",
-                    display: "block",
+                    filter: 'brightness(0) invert(1)',
+                    display: 'block',
+                    maxWidth: '55%',
+                    maxHeight: '55%',
                     width: "initial",
                     height: "initial",
                     background: "none",
@@ -56,13 +59,12 @@ const Navbar: React.FC = () => {
                     border: "0px",
                     margin: "0px",
                     padding: "0px",
-                    maxWidth: "100%",
                   }}
                 >
                   <img
                     alt=""
                     aria-hidden="true"
-                    src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27165%27%20height=%2734%27/%3e"
+                    src="../Assets/image/tobeto-logo.png"
                     style={{
                       display: "block",
                       maxWidth: "100%",

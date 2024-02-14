@@ -4,13 +4,14 @@ import Footer from "../../components/footer/footer";
 import ApplicationStatus from "../../components/mainPage/applyTabPanel/appyTab";
 import LessonsTab from "../../components/mainPage/lessonsTabPanel/lessonsTab";
 import NotificationTab from "../../components/mainPage/notificationTabPanel/notificationTab";
-
 import { useState } from "react";
 import ApplicationsTab from "../../components/mainPage/applicationsTabPanel/applicationsTab";
 import MySurveyTab from "../../components/mainPage/mySurveyTabPanel/mySurveyTab";
+import { useSelector } from "react-redux";
 
 function PlatformPage() {
   const [activeTab, setActiveTab] = useState("applications-tab-pane");
+  const auth = useSelector((state:any) => state.auth);
 
   const handleTabClick = (tabId: string) => {
     console.log("tabId ", tabId);
@@ -89,16 +90,16 @@ function PlatformPage() {
                     <img
                       alt=""
                       aria-hidden="true"
-                      src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27150%27%20height=%27150%27/%3e"
+                      src="https://tobeto.com/_next/static/media/dot-purple.e0e5c9d8.svg"
                       style={{
                         display: "block",
-                        maxWidth: "100%",
+                        maxWidth: "60%",
                         width: "initial",
                         height: "initial",
                         background: "none",
                         opacity: 1,
                         border: "0px",
-                        margin: "0px",
+                        margin:"0px",
                         padding: "0px",
                       }}
                     />
@@ -106,7 +107,7 @@ function PlatformPage() {
                   <img
                     alt=""
                     srcSet="/_next/static/media/dot-purple.e0e5c9d8.svg 1x, /_next/static/media/dot-purple.e0e5c9d8.svg 2x"
-                    src="/_next/static/media/dot-purple.e0e5c9d8.svg"
+                    src="https://tobeto.com/_next/static/media/dot-purple.e0e5c9d8.svg"
                     decoding="async"
                     data-nimg="intrinsic"
                     style={{
@@ -130,11 +131,11 @@ function PlatformPage() {
               <div className="container text-center">
                 <div className="mw-5xl mx-auto">
                   <h3>
-                    <span className="text-secondary">TOBETO</span>
-                    <span className="fw-normal text-info">'ya</span>
-                    <span className="fw-normal text-info"> hoş geldin</span>
+                    <span className="fs-1" style={{color:'#9933FF'}}><strong>TOBETO</strong></span>
+                    <span className="fw-normal fs-2 " style={{color:'#4D4D4D'}}>'ya</span>
+                    <span className="fw-normal fs-2" style={{color:'#4D4D4D'}}> hoş geldin</span>
                   </h3>
-                  <h4 className="fw-normal text-info mb-5">Kerem</h4>
+                  <h4 className="fw-normal fs-2" style={{color:'#4D4D4D'}}>{auth.user.firstName}</h4>
                   <p className="tobeto-slogan">
                     Yeni nesil öğrenme deneyimi ile Tobeto kariyer yolculuğunda
                     senin yanında!
@@ -183,7 +184,7 @@ function PlatformPage() {
                         <img
                           alt=""
                           aria-hidden="true"
-                          src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%271137%27%20height=%27443%27/%3e"
+                          src=""
                           style={{
                             display: "block",
                             maxWidth: "100%",

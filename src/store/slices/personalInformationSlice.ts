@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '..';
-
 // Diğer arayüzleri ekleyin
 import {
   GetListUserResponse,
   GetListAddressResponse,
   GetListCityResponse,
   GetListCountryResponse,
-  UpdateUserRequest,
-  UpdatedUserResponse,
+  UpdateAllUserInformationRequest,
+  UpdatedAllUserInformationResponse,
   CreateAddressRequest,
   CreatedAddressResponse,
   UpdateAddressRequest,
@@ -56,9 +55,13 @@ export const personalInformationSlice = createSlice({
       state.error = action.payload;
     },
     // Yeni action'ları buraya ekleyin
-    updateUserInfo: (state, action: PayloadAction<UpdatedUserResponse>) => {
+    updateAllUserInfo: (state, action: PayloadAction<UpdatedAllUserInformationResponse>) => {
       if (state.user) {
-        state.user = { ...state.user, ...action.payload };
+        state.user = {
+          ...state.user,
+          ...action.payload,
+          birthDate: action.payload.birthDate ? new Date(action.payload.birthDate) : null,
+        } as GetListUserResponse;
       }
     },
     addAddress: (state, action: PayloadAction<CreatedAddressResponse>) => {
@@ -79,7 +82,7 @@ export const {
   setCountries,
   setLoading,
   setError,
-  updateUserInfo,
+  updateAllUserInfo,
   addAddress,
   updateAddress,
 } = personalInformationSlice.actions;

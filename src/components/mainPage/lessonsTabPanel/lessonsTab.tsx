@@ -94,7 +94,7 @@ const LessonsTab: React.FC<Props> = ({ activeTab }) => {
               </div>
             </div>
 
-            {/* Done Lessons Tab Pane */}
+
 
             <div
               className="tab-pane fade"

@@ -4,7 +4,7 @@ import { loginUser, logoutUser, registerUser } from '../actions/authActions'; //
 // State türü
 interface AuthState {
   isAuthenticated: boolean;
-  user: User | null;
+  user: User | null ;
   token: string | null;
   loading: boolean;
   error: string | null;

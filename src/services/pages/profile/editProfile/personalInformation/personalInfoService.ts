@@ -52,30 +52,46 @@ export interface GetListDistrictResponse {
 }
 
 // Kullanıcı bilgisini güncellemek için istek arayüzü
-export interface UpdateUserRequest {
-  id: string;
-  firstName?: string;
-  lastName?: string;
-  email: string;
-  imagePath: string;
-  password: string;
-  nationalIdentity: string;
-  birthDate: string | Date | null;
-  phoneNumber: string;
-}
-
-
-// Güncellenmiş kullanıcı bilgisini içeren arayüz
-export interface UpdatedUserResponse {
-  id: string;
+// PersonalInformationService içinde
+export interface UpdateAllUserInformationRequest {
+  userId: string;
   firstName: string;
   lastName: string;
   email: string;
+  imagePath?: string;
+  password?: string;
   nationalIdentity: string;
-  birthDate: Date;
+  birthDate: Date|string|null ;
   phoneNumber: string;
-  address?: UpdatedAddressResponse; // Güncellenmiş adres bilgisini içerir, isteğe bağlı olabilir
+  districtName: string;
+  cityName: string;
+  countryName: string;
+  addressName: string;
+  description: string;
 }
+
+
+
+// Güncellenmiş kullanıcı bilgisini içeren arayüz
+
+export interface UpdatedAllUserInformationResponse {
+  id: any;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  imagePath?: string;
+  password?: string;
+  nationalIdentity: string;
+  birthDate: Date|string|null ;
+  phoneNumber: string;
+  districtName: string;
+  cityName: string;
+  countryName: string;
+  addressName: string;
+  description: string;
+}
+
 
 // Adres eklemek için istek arayüzü
 export interface CreateAddressRequest {
@@ -149,8 +165,8 @@ class PersonalInformationService {
     return axiosInstance.post<AddUsersResponse>(`Users/Add`, request);
   }
   // Kullanıcı bilgisini güncelle
-  updateUserInformation(request: UpdateUserRequest): Promise<AxiosResponse<UpdatedUserResponse>> {
-    return axiosInstance.put<UpdatedUserResponse>(`Users/Update`, request);
+  updateAllUserInformation(request: UpdateAllUserInformationRequest): Promise<AxiosResponse<UpdatedAllUserInformationResponse>> {
+    return axiosInstance.put<UpdatedAllUserInformationResponse>(`Users/UpdateAllUserInformation`, request);
   }
 
   // Adres ekle
