@@ -19,7 +19,7 @@ function PlatformPage() {
   };
 
   return (
-    <div className="plaform-page" style={{ minHeight: "120vh" }}>
+    <div className="plaform-page">
       <Navi />
       {/* SECTİON 1 */}
       <section className="dropdown custom-dropdown">

@@ -19,12 +19,12 @@ const Navbar: React.FC = () => {
               Burada!
             </span>
           </div>
-          <div className="">
+          <div>
             <button className="ik-btn">Başvur</button>
           </div>
         </div>
 
-        <nav className="navbar bg-web navbar-expand-xxl w-100 m-0 z-index-999 position-fixed border-0 px-3 py-5">
+        <nav className="navbar bg-web navbar-expand-xxl w-100 m-0 z-index-999 position-fixed border-0 px-2 py-4">
           <div className="container-fluid">
             {/* Birinci banner */}
             <a href="#">
