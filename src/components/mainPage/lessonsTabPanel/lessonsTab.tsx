@@ -24,7 +24,7 @@ const LessonsTab: React.FC<Props> = ({ activeTab }) => {
     fetchStudentCourses(studentId, pageIndex, pageSize)
       .then((data) => {
         console.log("12421", data);
-        setCourses(data); // Alınan kursları state'e atama
+        setCourses(data)  ; // Alınan kursları state'e atama
       })
       .catch((error) => {
         console.error("Dersler alınamadı:", error);
