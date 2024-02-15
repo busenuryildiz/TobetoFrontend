@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { store, persistor } from './store'; // store ve persistor'u içeri aktar
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import Modal from 'react-modal';

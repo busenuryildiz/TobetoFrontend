@@ -175,10 +175,6 @@ function Navi() {
                 <li>
                   <hr
                     className="dropdown-divider"
-                    style={{
-                      backgroundColor: "rgba(100, 100, 100, 0.5)",
-                      height: "1px",
-                    }}
                   />
                 </li>
                 <li>

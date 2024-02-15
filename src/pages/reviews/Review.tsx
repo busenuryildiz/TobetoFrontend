@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navi from '../../components/navbar/Navi'
 import Footer from '../../components/footer/footer'
-import 'bootstrap/dist/css/bootstrap.css';
 import { Container } from 'react-bootstrap';
-
 function Review() {
     const [examData, setExamData] = useState<any>(null);
 
@@ -15,7 +13,6 @@ function Review() {
             .catch(error => console.error('Error:', error));
     }, []);
     if (examData && examData.hasTakenExam) {
-        // Now it's safe to access `user.hasTakenExam`
         console.log(examData.hasTakenExam);
     } else {
         console.log('User or hasTakenExam is not available');
@@ -26,27 +23,18 @@ function Review() {
             <section className="py-5">
                 <div className="position-relative mt-12">
                     <div className="vector">
-                        <span
-                        >
-                            <span style={{
-                                background: 'none',
-                                border: '0px',
-                                boxSizing: 'border-box',
-                                display: 'block',
-                                height: '150px',
-                                margin: '0px',
-                                maxWidth: '100%',
+                        <span>
+                            <span 
+                            style={{
+                                background: 'none', border: '0px', boxSizing: 'border-box', display: 'block',  height: '150px',  margin: '0px',  maxWidth: '100%',
                                 opacity: '1',
                                 padding: '0px',
                                 width: '150px'
-                            }}
-                            >
-
-                            </span>
+                            }} > </span>
                         </span>
                         <span>
                             <img
-                                alt=""
+                              alt=""
                                 data-nimg="intrinsic"
                                 decoding="async"
                                 src="https://tobeto.com/_next/static/media/dot-purple.e0e5c9d8.svg"

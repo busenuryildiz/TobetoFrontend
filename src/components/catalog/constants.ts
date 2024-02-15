@@ -9,7 +9,7 @@ export const EDUCATION_OPTIONS = [
     "Tüm Eğitimler", "Dijital Gelişim", "Profesyonel Gelişim"
 ];
 export const SOFTWARE_LANGUAGE_OPTIONS = [
-    "Tüm Diller", "ASPNET", "Bootsrap", "SASS", "JavaScript", "JQuery", "AJAX", "SQL", "C#", "HTML", "CSS", "Javascript", "React"
+    "Tüm Diller", "ASPNET", "Bootstrap", "SASS", "JavaScript", "JQuery", "AJAX", "SQL", "C#", "HTML", "CSS", "Javascript", "React"
 ];
 
 export const COURSE_LEVEL_OPTIONS = [

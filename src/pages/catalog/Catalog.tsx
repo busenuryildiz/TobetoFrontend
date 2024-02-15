@@ -3,6 +3,7 @@ import Courses, { Course } from '../../components/catalog/courses';
 import SearchSection from '../../components/catalog/searchSection';
 import Navi from '../../components/navbar/Navi';
 import FilterCourse from '../../components/catalog/filterCourse';
+import Footer from '../../components/footer/footer';
 
 export default function Catalog() {
   const [filteredData, setFilteredData] = useState<Course[]>([]);
@@ -49,6 +50,7 @@ export default function Catalog() {
           <Courses courses={filteredData} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
