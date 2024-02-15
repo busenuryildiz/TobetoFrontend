@@ -19,12 +19,12 @@ const Navbar: React.FC = () => {
               Burada!
             </span>
           </div>
-          <div className="">
+          <div>
             <button className="ik-btn">Başvur</button>
           </div>
         </div>
 
-        <nav className="navbar bg-web navbar-expand-xxl w-100 m-0 z-index-999 position-fixed border-0 px-3 py-5">
+        <nav className="navbar bg-web navbar-expand-xxl w-100 m-0 z-index-999 position-fixed border-0 px-2 py-4">
           <div className="container-fluid">
             {/* Birinci banner */}
             <a href="#">
@@ -48,7 +48,10 @@ const Navbar: React.FC = () => {
                 <span
                   style={{
                     boxSizing: "border-box",
-                    display: "block",
+                    filter: 'brightness(0) invert(1)',
+                    display: 'block',
+                    maxWidth: '55%',
+                    maxHeight: '55%',
                     width: "initial",
                     height: "initial",
                     background: "none",
@@ -56,13 +59,12 @@ const Navbar: React.FC = () => {
                     border: "0px",
                     margin: "0px",
                     padding: "0px",
-                    maxWidth: "100%",
                   }}
                 >
                   <img
                     alt=""
                     aria-hidden="true"
-                    src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27165%27%20height=%2734%27/%3e"
+                    src="../Assets/image/tobeto-logo.png"
                     style={{
                       display: "block",
                       maxWidth: "100%",
@@ -184,7 +186,7 @@ const Navbar: React.FC = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/takvim-anasayfa">
+                    <a className="m-0 nav-link" href="/takvim">
                       Takvim
                     </a>
                   </li>
@@ -365,7 +367,7 @@ const Navbar: React.FC = () => {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="m-0 nav-link" href="/takvim-anasayfa">
+                        <a className="m-0 nav-link" href="/takvim">
                           Takvim
                         </a>
                       </li>

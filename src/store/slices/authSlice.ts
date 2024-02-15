@@ -4,7 +4,7 @@ import { loginUser, logoutUser, registerUser } from '../actions/authActions'; //
 // State türü
 interface AuthState {
   isAuthenticated: boolean;
-  user: User | null;
+  user: User | null ;
   token: string | null;
   loading: boolean;
   error: string | null;
@@ -49,7 +49,7 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = (action.payload as string) || "Bir hata oluştu";
-
+        state.isAuthenticated = false;
       })
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
