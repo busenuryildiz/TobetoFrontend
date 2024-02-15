@@ -7,7 +7,7 @@ import { logoutUser } from "../../store/actions/authActions";
 function Navi() {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const auth = useSelector((state:any) => state.auth);
+  const auth = useSelector((state: any) => state.auth);
 
   const [isOpen, setIsOpen] = useState(false);
   const handleLogout = () => {
@@ -44,11 +44,7 @@ function Navi() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              fill="#828282"
-            />
+            <path fillRule="evenodd" clipRule="evenodd" fill="#828282" />
           </svg>
         </button>
 
@@ -137,7 +133,11 @@ function Navi() {
                   />
                 </div>
                 <div className="me-3">
-                  <p className="mb-0 name">{auth.user.firstName}</p>
+                  <p className="mb-0 name">
+                    {auth.user && auth.user.firstName
+                      ? auth.user.firstName
+                      : ""}
+                  </p>
                 </div>
                 <span>
                   <svg
@@ -159,9 +159,7 @@ function Navi() {
               </button>
               <ul className={`profile dropdown-menu`}>
                 <li>
-                  <button
-                    className="dropdown-item profil-dropdown"
-                  >
+                  <button className="dropdown-item profil-dropdown">
                     Profil Bilgileri
                   </button>
                 </li>

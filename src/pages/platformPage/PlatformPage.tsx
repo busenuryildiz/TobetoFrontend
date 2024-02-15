@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 function PlatformPage() {
   const [activeTab, setActiveTab] = useState("applications-tab-pane");
-  const auth = useSelector((state:any) => state.auth);
+  const auth = useSelector((state: any) => state.auth);
 
   const handleTabClick = (tabId: string) => {
     console.log("tabId ", tabId);
@@ -99,7 +99,7 @@ function PlatformPage() {
                         background: "none",
                         opacity: 1,
                         border: "0px",
-                        margin:"0px",
+                        margin: "0px",
                         padding: "0px",
                       }}
                     />
@@ -131,11 +131,29 @@ function PlatformPage() {
               <div className="container text-center">
                 <div className="mw-5xl mx-auto">
                   <h3>
-                    <span className="fs-1" style={{color:'#9933FF'}}><strong>TOBETO</strong></span>
-                    <span className="fw-normal fs-2 " style={{color:'#4D4D4D'}}>'ya</span>
-                    <span className="fw-normal fs-2" style={{color:'#4D4D4D'}}> hoş geldin</span>
+                    <span className="fs-1" style={{ color: "#9933FF" }}>
+                      <strong>TOBETO</strong>
+                    </span>
+                    <span
+                      className="fw-normal fs-2 "
+                      style={{ color: "#4D4D4D" }}
+                    >
+                      'ya
+                    </span>
+                    <span
+                      className="fw-normal fs-2"
+                      style={{ color: "#4D4D4D" }}
+                    >
+                      {" "}
+                      hoş geldin
+                    </span>
                   </h3>
-                  <h4 className="fw-normal fs-2" style={{color:'#4D4D4D'}}>{auth.user.firstName}</h4>
+                  <h4 className="fw-normal fs-2" style={{ color: "#4D4D4D" }}>
+                    {" "}
+                    {auth.user && auth.user.firstName
+                      ? auth.user.firstName
+                      : ""}
+                  </h4>
                   <p className="tobeto-slogan">
                     Yeni nesil öğrenme deneyimi ile Tobeto kariyer yolculuğunda
                     senin yanında!

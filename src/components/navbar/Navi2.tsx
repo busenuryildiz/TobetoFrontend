@@ -186,7 +186,7 @@ const Navbar: React.FC = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/takvim-anasayfa">
+                    <a className="m-0 nav-link" href="/takvim">
                       Takvim
                     </a>
                   </li>
@@ -367,7 +367,7 @@ const Navbar: React.FC = () => {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="m-0 nav-link" href="/takvim-anasayfa">
+                        <a className="m-0 nav-link" href="/takvim">
                           Takvim
                         </a>
                       </li>
