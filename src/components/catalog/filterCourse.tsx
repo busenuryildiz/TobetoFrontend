@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Course } from './courses';
-import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS, LANGUAGE_OPTIONS } from './constants'; // LANGUAGE_OPTIONS eklendi
-import { handlePriceFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange, handleInstructorFilterChange, handleStatusFilterChange, handleLanguageFilterChange } from './filter'; // handleLanguageFilterChange eklendi
+import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS, SOFTWARE_LANGUAGE_OPTIONS } from './constants'; 
+import { handlePriceFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange,handleSoftwareLanguageFilterChange, handleInstructorFilterChange, handleStatusFilterChange  } from './filter'; 
 import FilterOption from './filterOption';
 
 interface FilterCourseProps {
@@ -14,9 +14,9 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
   const [educationFilter, setEducationFilter] = useState<string | null>(null);
   const [courseLevelFilter, setCourseLevelFilter] = useState<string | null>(null);
   const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
+  const [softwareLanguageFilter, setSoftwareLanguageFilter] = useState<string | null>(null);
   const [instructorFilter, setInstructorFilter] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string | null>(null); 
-  const [languageFilter, setLanguageFilter] = useState<string | null>(null);
 
   const handleFilterChange = (filterType: string, selectedOption: string) => {
     switch (filterType) {
@@ -36,6 +36,10 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
         setSubjectFilter(selectedOption);
         handleSubjectFilterChange(selectedOption, courses, onFilterChange);
         break;
+        case 'Yazılım Dili': 
+          setSoftwareLanguageFilter(selectedOption);
+          handleSoftwareLanguageFilterChange(selectedOption, courses, onFilterChange);
+          break;
       case 'Eğitmen':
         setInstructorFilter(selectedOption);
         handleInstructorFilterChange(selectedOption, courses, onFilterChange);
@@ -43,10 +47,6 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
       case 'Durum':
         setStatusFilter(selectedOption);
         handleStatusFilterChange(selectedOption, courses, onFilterChange);
-        break;
-      case 'Yazılım Dili': // 'Yazılım Dili' case'i eklendi
-        setLanguageFilter(selectedOption);
-        handleLanguageFilterChange(selectedOption, courses, onFilterChange);
         break;
       default:
         break;
@@ -80,7 +80,7 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
         <FilterOption options={EDUCATION_OPTIONS} filterOption={(option) => handleFilterChange('Eğitimler', option)} filterType="Eğitimler" />
         <FilterOption options={COURSE_LEVEL_OPTIONS} filterOption={(option) => handleFilterChange('Seviye', option)} filterType="Seviye" />
         <FilterOption options={SUBJECT_OPTIONS} filterOption={(option) => handleFilterChange('Konu', option)} filterType="Konu" />
-        <FilterOption options={LANGUAGE_OPTIONS} filterOption={(option) => handleFilterChange('Yazılım Dili', option)} filterType="Yazılım Dili" />
+        <FilterOption options={SOFTWARE_LANGUAGE_OPTIONS} filterOption={(option) => handleFilterChange('Yazılım Dili', option)} filterType="Yazılım Dili" />
         <FilterOption options={INSTRUCTOR_OPTIONS} filterOption={(option) => handleFilterChange('Eğitmen', option)} filterType="Eğitmen" />
         <FilterOption options={STATUS_OPTIONS} filterOption={(option) => handleFilterChange('Durum', option)} filterType="Durum" />
       </div>

@@ -52,14 +52,14 @@ export const handleSubjectFilterChange = (selectedSubject: string, courses: Cour
     });
     onFilterChange(filteredCourses);
 };
-export const handleLanguageFilterChange = (selectedLanguage: string, courses: Course[], onFilterChange: (filteredCourses: Course[]) => void) => {
-    if (selectedLanguage === "Tüm Diller") {
+export const handleSoftwareLanguageFilterChange = (selectedSoftwareLanguage: string, courses: Course[], onFilterChange: (filteredCourses: Course[]) => void) => {
+    if (selectedSoftwareLanguage === "Tüm Diller") {
         onFilterChange(courses);
         return;
     }
 
     const filteredCourses = courses.filter(course => {
-        return course.softwareLanguageName === selectedLanguage;
+        return course.softwareLanguageName === selectedSoftwareLanguage;
     });
     onFilterChange(filteredCourses);
 };

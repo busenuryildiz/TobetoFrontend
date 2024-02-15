@@ -18,7 +18,7 @@ const FilterOption: React.FC<FilterOptionProps> = ({ options, filterOption, filt
     filterOption(option);
   };
 
-  const collapseId = `${filterType.toLowerCase()}Collapse`;
+  const collapseId = `${filterType.replace(/\s+/g, '')}Collapse`;
 
   return (
     <div className="accordion">

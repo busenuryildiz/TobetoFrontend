@@ -8,7 +8,7 @@ export const PRICE_OPTIONS = [
 export const EDUCATION_OPTIONS = [
     "Tüm Eğitimler", "Dijital Gelişim", "Profesyonel Gelişim"
 ];
-export const LANGUAGE_OPTIONS = [
+export const SOFTWARE_LANGUAGE_OPTIONS = [
     "Tüm Diller", "ASPNET", "Bootsrap", "SASS", "JavaScript", "JQuery", "AJAX", "SQL", "C#", "HTML", "CSS", "Javascript", "React"
 ];
 
