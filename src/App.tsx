@@ -22,6 +22,7 @@ import Catalog from "./pages/catalog/Catalog";
 import Review from "./pages/reviews/Review";
 import TobetoSuccessModel from "./pages/TobetoSuccessModel/TobetoSuccessModel";
 import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
+import Blog from "./pages/blog/Blog";
 
 function App() {
   // const dispatch: AppDispatch = useDispatch();
@@ -89,6 +90,7 @@ function App() {
             element={<ProtectedRoute element={<PlatformPage />} />}  />
           <Route path="loading" element={<OverlayLoader />} />
           <Route path="/codecademy" element={<Codecademy />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="degerlendirmeler" element={<Review />} />
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli" element={<TobetoSuccessModel />} />
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
