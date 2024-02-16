@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from '../../store';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
 import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 import Navi from '../../components/navbar/Navi';
+import Footer2 from '../../components/footer/Footer2';
 
 
 const CalendarPage: React.FC = () => {
@@ -127,6 +128,7 @@ return (
       <Calendar lessonCourses={filteredLessonCourses} />
     </div>
   </div>
+  <Footer2/>
   </div>
 );
 };
