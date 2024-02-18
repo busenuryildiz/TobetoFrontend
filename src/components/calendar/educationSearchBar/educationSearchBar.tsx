@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 type EducationSearchBarProps = {
   onSearch: (searchTerm: string) => void;
 };
@@ -24,15 +23,23 @@ function EducationSearchBar({ onSearch }: EducationSearchBarProps) {
   };
 
   return (
-    <div>
+    <div className='d-flex flex-column'>
+      <div className='filter-header mb-2'>
+        <span>Eğitim Arama</span>
+      </div>
       <input
+        id='search-event'
+        className='cal-filter-input'
+        placeholder='Eğitim arayın...'
         type="text"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          handleSearch();
+        }}
         ref={inputRef}
         onKeyDown={handleKeyDown}
-        />
-      <button onClick={handleSearch}>Search</button>
+      />
     </div>
   );
 }

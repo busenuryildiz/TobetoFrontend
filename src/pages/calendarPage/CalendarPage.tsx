@@ -9,16 +9,14 @@ import { AppDispatch, RootState } from '../../store';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
 import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 import Navi from '../../components/navbar/Navi';
-import Footer2 from '../../components/footer/Footer2';
-
+import Footer from '../../components/footer/footer';
 
 const CalendarPage: React.FC = () => {
-  const dispatch : AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const lessonCoursesState: GetAllLessonCourseResponse[] | null = useSelector((state: RootState) => state.lessonCourse.lessonCourses);
-  // console.log(lessonCoursesState);
   const [filteredLessonCourses, setFilteredLessonCourses] = useState<GetAllLessonCourseResponse[]>([]);
   const [teachers, setTeachers] = useState<string[]>([]);
-  
+
   useEffect(() => {
     dispatch(getAllLessonCourses()); // Tüm dersleri alma eylemini tetikle
   }, [dispatch]);
@@ -31,7 +29,7 @@ const CalendarPage: React.FC = () => {
         uniqueTeachersSet.add(course.instructorName);
       });
       const uniqueTeachers = Array.from(uniqueTeachersSet);
-  
+
       // Set filteredLessonCourses and teachers
       setFilteredLessonCourses(lessonCoursesState);
       setTeachers(uniqueTeachers);
@@ -39,10 +37,10 @@ const CalendarPage: React.FC = () => {
       // Handle the case where lessonCoursesState is falsy or an error occurs
       console.error("An error occurred while processing lessonCoursesState:", error);
     }
-  }, [lessonCoursesState]);  
-  
+  }, [lessonCoursesState]);
 
-   const handleSearch = (searchTerm: string) => {
+
+  const handleSearch = (searchTerm: string) => {
     const filteredCourses = lessonCoursesState.filter((lessonCourse) =>
       lessonCourse.courseName.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -56,81 +54,79 @@ const CalendarPage: React.FC = () => {
     setFilteredLessonCourses(filteredCourses);
   };
 
- const handleEducationStatusFilter = (status: string) => {
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0); // Set the time to the beginning of the day
+  const handleEducationStatusFilter = (status: string) => {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set the time to the beginning of the day
 
-  let filteredCourses: GetAllLessonCourseResponse[] = [];
+    let filteredCourses: GetAllLessonCourseResponse[] = [];
 
-  switch (status) {
-    case 'past':
-      filteredCourses = lessonCoursesState.filter(
-        (course) => {
-          const lessonDate = new Date(course.lessonTime);
-          console.log("Lesson Date:", lessonDate);
-          console.log("Current Date:", currentDate);
-          return lessonDate < currentDate;
-        }
-      );
-      break;
-    case 'current':
-      filteredCourses = lessonCoursesState.filter(
-        (course) => {
-          const lessonDate = new Date(course.lessonTime);
-          console.log("Lesson Date:", lessonDate);
-          console.log("Current Date:", currentDate);
-          return lessonDate >= currentDate && lessonDate < new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
-        }
-      );
-      break;
-    case 'future':
-      filteredCourses = lessonCoursesState.filter(
-        (course) => {
-          const lessonDate = new Date(course.lessonTime);
-          console.log("Lesson Date:", lessonDate);
-          console.log("Current Date:", currentDate);
-          return lessonDate >= new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
-        }
-      );
-      break;
-    default:
-      // No specific status selected, show all courses
-      filteredCourses = lessonCoursesState;
-      break;
-  }
+    switch (status) {
+      case 'past':
+        filteredCourses = lessonCoursesState.filter(
+          (course) => {
+            const lessonDate = new Date(course.lessonTime);
+            console.log("Lesson Date:", lessonDate);
+            console.log("Current Date:", currentDate);
+            return lessonDate < currentDate;
+          }
+        );
+        break;
+      case 'current':
+        filteredCourses = lessonCoursesState.filter(
+          (course) => {
+            const lessonDate = new Date(course.lessonTime);
+            console.log("Lesson Date:", lessonDate);
+            console.log("Current Date:", currentDate);
+            return lessonDate >= currentDate && lessonDate < new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+          }
+        );
+        break;
+      case 'future':
+        filteredCourses = lessonCoursesState.filter(
+          (course) => {
+            const lessonDate = new Date(course.lessonTime);
+            console.log("Lesson Date:", lessonDate);
+            console.log("Current Date:", currentDate);
+            return lessonDate >= new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+          }
+        );
+        break;
+      default:
+        // No specific status selected, show all courses
+        filteredCourses = lessonCoursesState;
+        break;
+    }
 
-  console.log("Filtered Courses:", filteredCourses);
-  setFilteredLessonCourses(filteredCourses);
-};
+    console.log("Filtered Courses:", filteredCourses);
+    setFilteredLessonCourses(filteredCourses);
+  };
 
-const handleTeacherSelect = (selectedTeacher: string) => {
-  const filteredCourses = lessonCoursesState.filter(course => course.instructorName === selectedTeacher);
-  setFilteredLessonCourses(filteredCourses);
-};
+  const handleTeacherSelect = (selectedTeacher: string) => {
+    const filteredCourses = lessonCoursesState.filter(course => course.instructorName === selectedTeacher);
+    setFilteredLessonCourses(filteredCourses);
+  };
 
 
-return (
-  <div>
-    <Navi/>
-  <div className="CalendarPageContainer mt-5">
-    <div className="CalendarPageLeftSection">
-      <h1>Calendar Page</h1>
-      <EducationSearchBar onSearch={handleSearch} />
-      <div style={{ marginBottom: '20px' }}>
-      <h2 style={{ margin: '20px 0' }}>Öğretmen Ara</h2>
-      <TeacherSearchBar teachers={teachers} onTeacherSelect={handleTeacherSelect} onSearch={handleSearchTeacher} />
-
-        <h2 style={{ margin: '20px 0' }}>Eğitim Durumu</h2>
-        <EducationStatus onFilter={handleEducationStatusFilter} />
+  return (
+    <div>
+      <Navi />
+      <div className="p-0 light-calendar container-fluid">
+        <div className="row mx-0">
+          <div className="col-lg-3 col-md-4 col-12 mt-3 p-0">
+            <div className="filter-left equal-box">
+              <EducationSearchBar onSearch={handleSearch} />
+              <TeacherSearchBar teachers={teachers} onTeacherSelect={handleTeacherSelect} onSearch={handleSearchTeacher} />
+              <EducationStatus onFilter={handleEducationStatusFilter} />
+            </div>
+          </div>
+          <div className="filter-right col-lg-9 col-md-8 col-12 mt-3 p-0 mb-5" style={{height:'70%'}}>
+            <Calendar lessonCourses={filteredLessonCourses} />
+          </div>
+        </div>
       </div>
+      <Footer />
     </div>
-    <div className="CalendarPageRightSection">
-      <Calendar lessonCourses={filteredLessonCourses} />
-    </div>
-  </div>
-  <Footer2/>
-  </div>
-);
+  );
 };
 
 export default CalendarPage;

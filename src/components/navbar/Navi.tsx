@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/index";
@@ -9,13 +9,12 @@ function Navi() {
   const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: any) => state.auth);
 
-  const [isOpen, setIsOpen] = useState(false);
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate("/");
   };
   return (
-    <Navbar className="position-relative" expand="xxl" bg="white">
+    <Navbar className="position-relative " expand="xxl py-5"  bg="white">
       <Container fluid className="mt-3 mb-3">
         <Navbar.Brand href="platform">
           <img

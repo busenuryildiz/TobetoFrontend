@@ -1,16 +1,25 @@
 .event-box {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .bg-red {
-    background-color: #ffcccc; /* Kırmızı rengin daha soft tonu */
-    color: #990000; /* Yazı rengi */
-  }
-  
-  .bg-blue {
-    background-color: #cce5ff; /* Mavi rengin daha soft tonu */
-    color: #004080; /* Yazı rengi */
-  }
-  
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.bg-red {
+  background-color: #ffcccc;
+  /* Kırmızı rengin daha soft tonu */
+  color: #990000;
+  /* Yazı rengi */
+}
+
+.bg-blue {
+  background-color: #cce5ff;
+  /* Mavi rengin daha soft tonu */
+  color: #004080;
+  /* Yazı rengi */
+}
+
+.light-calendar .cal-filter-input {
+  height: 42px;
+  border: 2px solid #ddd !important;
+  padding: 8px 12px;
+}
