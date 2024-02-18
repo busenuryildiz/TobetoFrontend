@@ -35,6 +35,7 @@ import ManagementPanel from "./pages/managementPanel/managementPanel";
 import TobetoSuccessModel from "./pages/TobetoSuccessModel/TobetoSuccessModel";
 import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
 import Blog from "./pages/blog/Blog";
+import CourseDetail from "./pages/course-detail/course-detail";
 
 function App() {
   // const dispatch: AppDispatch = useDispatch();
@@ -120,6 +121,7 @@ function App() {
             path="profilim/degerlendirmeler/tobeto-iste-basari-modeli"
             element={<TobetoSuccessModel />}
           />
+          <Route path="/course-detail" element={<CourseDetail/>}/>
           <Route
             path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1"
             element={<SuccessModel1 />}
