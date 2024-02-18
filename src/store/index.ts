@@ -2,9 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import persistedReducer from './slices'; // Import the persisted reducer
 import { persistStore } from 'redux-persist';
 
+
 // Create the Redux store
 export const store = configureStore({
   reducer: persistedReducer, // Use the persisted reducer
+
 });
 
 export default store;

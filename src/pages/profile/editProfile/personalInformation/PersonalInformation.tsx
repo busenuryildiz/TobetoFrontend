@@ -1,134 +1,153 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../store';
-import { loginUser } from '../../../../store/actions/authActions';
-import { AppDispatch } from '../../../../store';
-import User from '../../../../models/User';
-import { setPersonalInformation, setAddresses, setCities, setCountries, setLoading, setError, updateAddress, updateAllUserInfo } from '../../../../store/slices/personalInformationSlice';
-import Footer from '../../../../components/footer/footer';
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import PersonalInformationService, { UpdateAddressRequest, UpdatedAllUserInformationResponse } from '../../../../services/pages/profile/editProfile/personalInformation/personalInfoService';import Navi from '../../../../components/navbar/Navi';
+import PersonalInformationService from '../../../../services/pages/profile/editProfile/personalInformation/personalInfoService';
+import Navi from '../../../../components/navbar/Navi';
+import Footer from '../../../../components/footer/footer';
+import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
+import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
+import axios from 'axios';
+//import CloudinaryUpload from '../../../../components/cloudinary/cloudinary';
 
 const PersonalInformation = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user as User|null);
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  });
 
-  const personalInformationService = new PersonalInformationService();
+  const user = useSelector((state: any) => state.auth.user);
+  const [file, setFile] = useState<File | null>(null); // Use File type for the file state
+  const [showFileUploadCard, setShowFileUploadCard] = useState(false);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const selectedFile = event.target.files[0];
+  
+      // Update the imagePath in the formik state to trigger re-render
+      formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
+  
+      setFile(selectedFile);
+    }
+  };
+
+  const handleUpload = async () => {
+    try {
+      if (!file) {
+        console.error('No file selected for upload.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('formFile', file);
+
+      // Assuming userId is known or stored in state
+      const userId = user.id;
+
+      const response = await axios.post(
+        `http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      // Handle the response, e.g., update the UI with the new image URL
+      console.log('Image uploaded successfully:', response.data);
+    } catch (error) {
+      // Handle errors, e.g., display an error message to the user
+      console.error('Error uploading image:', error);
+    }
+  };
+
+  const handleNationalIdentityChange = (e: any) => {
+    const inputValue = e.target.value;
+
+    // Sadece sayılardan oluşan bir string olup olmadığını kontrol et
+    const isValidInput = /^\d+$/.test(inputValue);
+
+    if (inputValue.length <= 11 && isValidInput) {
+      // Eğer gelen input 11 haneli ve sadece sayılardan oluşuyorsa değeri güncelle
+      formik.setFieldValue('nationalIdentity', inputValue);
+    } else {
+      // Sadece sayılardan oluşmuyorsa kullanıcıyı uyar
+      alert('National Identity yalnızca sayılardan oluşmalıdır ve en fazla 11 haneli olmalıdır.');
+    }
+  };
 
 
-  // useFormik hook'unu kullanarak formun başlangıç değerlerini ve submit fonksiyonunu tanımla
+  useEffect(() => {
+    // Kullanıcı varsa bilgileri çek
+    if (user) {
+      const userId = user.id;
+      PersonalInformationService.getUserInformation(userId);
+    }
+  }, [user]);
+
   const formik = useFormik({
     initialValues: {
-      name: user?.firstName || '',
-      surname: user?.lastName || '',
-      phoneNumber: user?.phoneNumber || '',
-      birthDate: user?.birthDate ? new Date(user?.birthDate):null ,
-      identifier: user?.nationalIdentity ? user.nationalIdentity.toString() : '',
-      email: user?.email || '',
-      country: user?.address?.country || '',
-      city: user?.address?.city || '',
-      district: user?.address?.district || '',
-      address: user?.address?.name || '',
-      description: user?.address?.description || '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      imagePath: '',
+      nationalIdentity: '',
+      birthDate: null as Date | null,
+      phoneNumber: '',
+      districtName: '',
+      cityName: '',
+      countryName: '',
+      addressName: '',
+      description: '',
     },
-    onSubmit: async (values:any) => {
+    // Form submit işlemi
+    onSubmit: async (values) => {
       try {
-        dispatch(setLoading(true));
-        const formattedBirthDate = values.birthDate ? new Date(values.birthDate).toISOString(): null;
-
-        if (!formik.isValid) {
-          return;
-        }
-
-        const updatedUser = await personalInformationService.updateAllUserInformation({
-          userId: user?.id || '',
-          firstName: formik.values.name,
-          lastName: formik.values.surname,
-          email: formik.values.email,
-          imagePath: '', // Eğer bu bilgi formdan gelmiyorsa, uygun şekilde güncelle
-          password: '', // Eğer bu bilgi formdan gelmiyorsa, uygun şekilde güncelle
-          nationalIdentity: formik.values.identifier.toString(),
-          birthDate: formik.values.birthDate ? new Date(formik.values.birthDate).toISOString():null,
-          phoneNumber: formik.values.phoneNumber,
-          districtName: formik.values.district,
-          cityName: formik.values.city,
-          countryName: formik.values.country,
-          addressName: formik.values.address,
-          description: formik.values.description,
-        });
-
-        const updatedUserResponse: UpdatedAllUserInformationResponse = {
-          id: updatedUser.data.id,
-          firstName: updatedUser.data.firstName,
-          lastName: updatedUser.data.lastName,
-          email: updatedUser.data.email,
-          nationalIdentity: updatedUser.data.nationalIdentity,
-          birthDate: updatedUser.data.birthDate,
-          phoneNumber: updatedUser.data.phoneNumber,
-          userId: '',
-          districtName: '',
-          cityName: '',
-          countryName: '',
-          addressName: '',
-          description: ''
+        // Oluşturulan updatedInfo nesnesine state değerlerini ekleyin
+        const updatedInfo: UpdatedUserAllInformationRequest = {
+          userId: user.id,
+          ...values, // Diğer form değerlerini ekleyin (firstName, lastName vb.)
         };
 
-        // Kullanıcının adres bilgisini güncelle veya ekle
-        const updatedAddress = await personalInformationService.updateAddress({
-          id: user?.address?.id || 0, // Kullanıcının adres ID'si varsa kullan, yoksa 0 olarak belirle
-          userId: updatedUserResponse.id,
-          districtId: parseInt(values.district, 10),
-          name: values.address,
-          description: values.description,
-        });
+        // updateUserInformation fonksiyonunu çağırın
+        const response = await PersonalInformationService.updateUserInformation(updatedInfo);
 
-        // Redux store'u güncelle
-        dispatch(updateAllUserInfo(updatedUser.data));
+        // Başarılı güncellemeyi işleyin (gerekirse Redux'a gönderin)
+        console.log('Kullanıcı bilgileri başarıyla güncellendi:', response);
+
+        // Formu sıfırlayın (isteğe bağlı)
       } catch (error) {
-        console.error('Kişisel bilgileri kaydetme hatası:', error);
-        dispatch(setError('Kişisel bilgileri kaydetme hatası.'));
-      } finally {
-        dispatch(setLoading(false));
+        console.error('Kullanıcı bilgilerini güncellerken hata:', error);
+        // Hataları işleyin
       }
     },
-  });
+  }
+  );
 
-  // Sayfa yüklendiğinde verileri getir
   useEffect(() => {
-    
-
-    const autoLogin = async () => {
-      try {
-        if (!user && (!loginData.email || !loginData.password)) {
-          const response = await fetch('http://localhost:6280/api/login');
-          const data = await response.json();
-
-          setLoginData({
-            email: data.email,
-            password: data.password,
+    // Kullanıcı bilgileri geldiğinde formu doldur
+    if (user) {
+      PersonalInformationService.getUserInformation(user.id)
+        .then((response) => {
+          formik.setValues({
+            firstName: response?.firstName || '',
+            lastName: response?.lastName || '',
+            email: response?.email || '',
+            imagePath: response?.imagePath || '',
+            nationalIdentity: response?.nationalIdentity || '',
+            birthDate: response?.birthDate || null,
+            phoneNumber: response?.phoneNumber || '',
+            districtName: response?.districtName || '',
+            cityName: response?.cityName || '',
+            countryName: response?.countryName || '',
+            addressName: response?.addressName || '',
+            description: response?.description || '',
           });
+        })
+        .catch((error) => {
+          console.error("Error fetching user information:", error);
+        });
+    }
+  }, [user]);
 
-          const userId = data.userId;
-
-          const userInformationResponse = await personalInformationService.getUserInformation(userId);
-
-          // Kullanıcı bilgileri burada kullanılabilir
-          const loggedInUser = userInformationResponse.data;
-          console.log('Kullanıcı Bilgileri:', loggedInUser);
-        }
-      } catch (error) {
-        console.error('Otomatik giriş hatası:', error);
-      }
-    };
-
-    autoLogin();
-  }, [dispatch, user, loginData, personalInformationService]);
 
 
   return (
@@ -179,61 +198,85 @@ const PersonalInformation = () => {
                 <div className="row mb-2">
                   <div className="col-12 mb-6 text-center">
                     <label className="input-label-text">Profil Fotoğrafı</label>
-                    <input
-                      name="profilePicture"
-                      className="form-control tobeto-input"
-                      type="file"
-                      accept="image/*"
-                    />
+                    <div style={{ position: "relative" }}>
+                      {formik.values.imagePath && (
+                        <>
+                          <img
+                            src={formik.values.imagePath}
+                            alt="Profil"
+                            className="rounded-circle"
+                            style={{ width: "150px", height: "150px" }}
+                          />
+                          <div style={{ position: "absolute", bottom: "0", right: "0", transform: "translate(50%, 50%)", cursor: "pointer" }}>
+                            <span role="img" aria-label="Fotoğrafı Değiştir" onClick={() => setShowFileUploadCard(true)}>🔄</span>
+                          </div>
+                        </>
+                      )}
+                      {!formik.values.imagePath && (
+                        <>
+                          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", cursor: "pointer" }}>
+                            <span role="img" aria-label="Dosya Seç" onClick={() => setShowFileUploadCard(true)}>📁</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    {!formik.values.imagePath && (
+                      <button onClick={() => setShowFileUploadCard(true)}>Fotoğrafı Yükle</button>
+                    )}
                   </div>
+
+                  {/* File Upload Card */}
+                  {showFileUploadCard && (
+                    <div className="file-upload-card">
+                      <input type="file" onChange={handleFileChange} />
+                      <button onClick={() => { handleUpload(); setShowFileUploadCard(false); }}>Fotoğrafı Yükle</button>
+                      <button onClick={() => setShowFileUploadCard(false)}>İptal</button>
+                    </div>
+                  )}
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">Adınız*</label>
                     <input
-                      name="name"
+                      name="firstName"
                       className="form-control tobeto-input"
                       type="text"
-                      value={formik.values.name}
+                      value={formik.values.firstName}
                       onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">Soyadınız*</label>
                     <input
-                      name="surname"
+                      name="lastName"
                       className="form-control tobeto-input"
                       type="text"
-                      value={formik.values.surname}
+                      value={formik.values.lastName}
                       onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">Telefon Numaranız*</label>
-                    <input
-                      name="phoneNumber"
-                      className="form-control tobeto-input"
-                      type="tel"
-                      value={formik.values.phoneNumber}
-                      onChange={formik.handleChange}
+                    <PhoneNumberValidation
+                      phoneNumber={formik.values.phoneNumber}
+                      onChange={(value) => formik.setFieldValue('phoneNumber', value)}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">Doğum Tarihiniz*</label>
                     <DatePicker
                       selected={formik.values.birthDate}
-                      onChange={(date) => {
-                        formik.setFieldValue('birthDate', date);
-                      }}
+                      onChange={(date) => formik.setFieldValue('birthDate', date)}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">TC Kimlik No*</label>
                     <input
-                      name="identifier"
+                      name="nationalIdentity"
                       className="form-control tobeto-input mb-2"
-                      type="number"
-                      value={formik.values.identifier}
-                      onChange={formik.handleChange}
+                      type="text"
+                      value={formik.values.nationalIdentity}
+                      onChange={handleNationalIdentityChange}
                     />
+
                     <span className="text-danger" style={{ fontStyle: 'italic', fontSize: '14px' }}>
                       *Aboneliklerde fatura için doldurulması zorunlu alan
                     </span>
@@ -251,30 +294,30 @@ const PersonalInformation = () => {
                   <div className="col-12 mb-6">
                     <label className="input-label-text">Ülke*</label>
                     <input
-                      name="country"
+                      name="countryName"
                       className="form-control tobeto-input"
                       type="text"
-                      value={formik.values.country}
+                      value={formik.values.countryName}
                       onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">İl*</label>
                     <input
-                      name="city"
+                      name="cityName"
                       className="form-control tobeto-input"
                       type="text"
-                      value={formik.values.city}
+                      value={formik.values.cityName}
                       onChange={formik.handleChange}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">İlçe*</label>
                     <input
-                      name="district"
+                      name="districtName"
                       className="form-control tobeto-input"
                       type="text"
-                      value={formik.values.district}
+                      value={formik.values.districtName}
                       onChange={formik.handleChange}
                     />
                   </div>
@@ -282,9 +325,9 @@ const PersonalInformation = () => {
                     <label className="input-label-text">Mahalle / Sokak</label>
                     <textarea
                       rows={5}
-                      name="address"
+                      name="addressName"
                       className="form-control tobeto-input"
-                      value={formik.values.address}
+                      value={formik.values.addressName}
                       onChange={formik.handleChange}
                     ></textarea>
                   </div>
@@ -298,19 +341,18 @@ const PersonalInformation = () => {
                       onChange={formik.handleChange}
                     ></textarea>
                   </div>
-                  {/* Diğer input alanlarını buraya ekleyin */}
+                  <button className="btn btn-primary py-2 mb-3 d-inline-block mobil-btn" type="submit">
+                    Kaydet
+                  </button>
                 </div>
-                <button className="btn btn-primary py-2 mb-3 d-inline-block mobil-btn" type="submit">
-                  Kaydet
-                </button>
               </form>
             </div>
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
-    
+
   );
 };
 

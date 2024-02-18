@@ -2,7 +2,7 @@ import { combineReducers  } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
-import personalInformationReducer from './personalInformationSlice';
+
 import { courseReducer } from './courseSlice';
 import { loadingReducer } from './loadingSlice';
 import { lessonCourseReducer } from './lessonCourseSlice';
@@ -11,7 +11,6 @@ import authReducer from './authSlice';
 
 // Root reducer
 const rootReducer = combineReducers({
-  personalInformation: personalInformationReducer,
   course: courseReducer,
   loading: loadingReducer,
   auth: authReducer,
