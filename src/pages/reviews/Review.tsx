@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react'
 import Navi from '../../components/navbar/Navi'
 import Footer from '../../components/footer/footer'
 import { Container } from 'react-bootstrap';
+
+export interface Exam {
+    id: number;
+    name: string;
+}
+
 function Review() {
     const [examData, setExamData] = useState<any>(null);
     const [popupIsOpen, setPopupIsOpen] = useState(false);
 
     useEffect(() => {
-        fetch('https://your-api-url.com/exams')
+        fetch('http://localhost:6280/api/Exam/GetList?PageSize=30')
             .then(response => response.json())
             .then(data => setExamData(data))
             .catch(error => console.error('Error:', error));
     }, []);
-    if (examData && examData.hasTakenExam) {
-        console.log(examData.hasTakenExam);
-    } else {
-        console.log('User or hasTakenExam is not available');
-    }
     return (
         <div>
             <Navi />
@@ -152,7 +153,7 @@ function Review() {
 
                             <div className="dashboard-card-slim">
                                 <div className="d-flex align-items-center" style={{ gap: '14px' }}>
-                                    {examData.hasTakenExam ? (
+                                    {/* {examData.hasTakenExam ? ( */}
                                         <>
                                             <div className="single-chart">
                                                 <svg viewBox="0 0 36 36" className="circular-chart orange">
@@ -161,17 +162,17 @@ function Review() {
                                                     <text x="18" y="20.35" className="percentage">80</text>
                                                 </svg>
                                             </div>
-                                            <span>{examData.title}</span>
+                                            {/* <span>{examData.title}</span> */}
                                         </>
-                                    ) : (
+                                    {/* ) : ( */}
                                         <>
                                             <div className="platformIcon" />
-                                            <span>{examData.title}</span>
+                                            {/* <span>{examData.title}</span> */}
                                         </>
-                                    )}
+                                    {/* )} */}
                                 </div>
                                 <button className="btn btn-light" onClick={() => setPopupIsOpen(true)}>
-                                    {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'}
+                                    {/* {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'} */}
                                 </button>
 
                                 {popupIsOpen && (
@@ -208,8 +209,7 @@ function Review() {
                                                             <div className="row ">
                                                                 <button
                                                                     className="btn btn-primary mt-8 ms-auto me-auto"
-                                                                    style={{ width: 'max-content' }}
-                                                                >
+                                                                    style={{ width: 'max-content' }} >
                                                                     Raporu Görüntüle
                                                                 </button>
                                                             </div>

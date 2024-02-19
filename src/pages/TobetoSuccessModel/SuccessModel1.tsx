@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../../components/footer/footer';
 import Navi from '../../components/navbar/Navi';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface Question {
     id: number;
@@ -18,22 +19,34 @@ export default function SuccessModel1() {
         setAnswers({ ...answers, [questionId]: value });
     };
 
-    const handleNextClick = () => {
-        setCurrentSection(currentSection + 1);
+    const handlePrevClick = () => {
+        if (currentSection > 1) {
+            setCurrentSection(currentSection - 1);
+        }
     };
 
-    const totalQuestionCount = 80; 
-
-    
-    const selectedQuestionCount = 10; 
+    const handleNextClick = () => {
+        if (currentSection < totalQuestionCount / 10) { // Assuming each section has 10 questions
+            setCurrentSection(currentSection + 1);
+        }
+    };
+    const handleFinishClick = () => {
+    };
+    const totalQuestionCount = 80;
+    const selectedQuestionCount = 10;
 
     const progressWidth = (selectedQuestionCount / totalQuestionCount) * 100;
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const questionsResponse = await axios.get('http://localhost:6280/api/Surveys/surveyquestions?PageSize=100');
+                const response = await axios.get('http://localhost:6280/api/Surveys/surveys/1');
                 const averagesResponse = await axios.get('http://localhost:6280/api/Surveys/surveyansweraverages');
-                setQuestions(questionsResponse.data);
+                const { surveyQuestions } = response.data;
+                const formattedQuestions = surveyQuestions.map((questionData: any) => ({
+                    id: questionData.questionId,
+                    text: questionData.questionText,
+                }));
+                setQuestions(formattedQuestions);
                 setAverages(averagesResponse.data);
             } catch (error) {
                 // Handle errors gracefully
@@ -103,8 +116,15 @@ export default function SuccessModel1() {
                                 </div>
                             </div>
                             <div className="col-12 text-center mt-4">
-                                <button className="btn btn-primary d-inline-block" style={{ marginRight: "10px" }} disabled={currentSection === 1}>Geri</button>
-                                <button className="btn btn-primary d-inline-block" onClick={handleNextClick}>İleri</button>
+                                <button className="btn btn-primary d-inline-block" style={{ marginRight: "10px" }} onClick={handlePrevClick} disabled={currentSection === 1}>Geri</button>
+                                {currentSection < totalQuestionCount / 10 ? (
+                                    <button className="btn btn-primary d-inline-block" onClick={handleNextClick}>İleri</button>
+                                ) : (
+
+                                    <Link to="/profilim/degerlendirmeler/rapor/tobeto-iste-basari-modeli/1" className="btn btn-primary d-inline-block" onClick={handleFinishClick}>
+                                        Değerlendirmeyi Bitir
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>
