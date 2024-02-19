@@ -36,8 +36,7 @@ import TobetoSuccessModel from "./pages/TobetoSuccessModel/TobetoSuccessModel";
 import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
 import Blog from "./pages/blog/Blog";
 import CourseDetail from "./pages/course-detail/course-detail";
-
-
+import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 
 function App() {
   // const dispatch: AppDispatch = useDispatch();
@@ -113,7 +112,6 @@ function App() {
           <Route path="/veri-bilimi" element={<DataScience />} />
           <Route path="/siber-güvenlik" element={<CyberSecurity />} />
           <Route path="/ui-ux" element={<UIUX />} />
-
           <Route path="/management" element={<ManagementPanel />}></Route>
           <Route path="loading" element={<OverlayLoader />} />
           <Route path="/codecademy" element={<Codecademy />} />
@@ -123,7 +121,9 @@ function App() {
             path="profilim/degerlendirmeler/tobeto-iste-basari-modeli"
             element={<TobetoSuccessModel />}
           />
-          <Route path="/course-detail" element={<CourseDetail/>}/>
+          <Route path="/egitimlerim" element={<Egitimlerim />}></Route>
+          <Route path="/course/:id" element={<CourseDetail />} />{" "}
+          {/* /course/:id yolunu CourseDetail bileşenine eşliyoruz */}
           <Route
             path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1"
             element={<SuccessModel1 />}
