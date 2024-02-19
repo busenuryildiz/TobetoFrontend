@@ -4,7 +4,7 @@ import Footer from '../../components/footer/footer'
 import { Container } from 'react-bootstrap';
 function Review() {
     const [examData, setExamData] = useState<any>(null);
-
+    const [popupIsOpen, setPopupIsOpen] = useState(false);
 
     useEffect(() => {
         fetch('https://your-api-url.com/exams')
@@ -24,17 +24,17 @@ function Review() {
                 <div className="position-relative mt-12">
                     <div className="vector">
                         <span>
-                            <span 
-                            style={{
-                                background: 'none', border: '0px', boxSizing: 'border-box', display: 'block',  height: '150px',  margin: '0px',  maxWidth: '100%',
-                                opacity: '1',
-                                padding: '0px',
-                                width: '150px'
-                            }} > </span>
+                            <span
+                                style={{
+                                    background: 'none', border: '0px', boxSizing: 'border-box', display: 'block', height: '150px', margin: '0px', maxWidth: '100%',
+                                    opacity: '1',
+                                    padding: '0px',
+                                    width: '150px'
+                                }} > </span>
                         </span>
                         <span>
                             <img
-                              alt=""
+                                alt=""
                                 data-nimg="intrinsic"
                                 decoding="async"
                                 src="https://tobeto.com/_next/static/media/dot-purple.e0e5c9d8.svg"
@@ -152,27 +152,74 @@ function Review() {
 
                             <div className="dashboard-card-slim">
                                 <div className="d-flex align-items-center" style={{ gap: '14px' }}>
-                                    {/* {examData.hasTakenExam ? ( */}
-                                    <>
-                                        <div className="single-chart">
-                                            <svg viewBox="0 0 36 36" className="circular-chart orange">
-                                                <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                <path className="circle" strokeDasharray='80,100' d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
-                                                <text x="18" y="20.35" className="percentage">80</text>
-                                            </svg>
-                                        </div>
-                                        {/* <span>{examData.title}</span> */}
-                                    </>
-                                    {/* ) : ( */}
-                                    <>
-                                        <div className="platformIcon" />
-                                        {/* <span>{examData.title}</span> */}
-                                    </>
-                                    {/* )} */}
+                                    {examData.hasTakenExam ? (
+                                        <>
+                                            <div className="single-chart">
+                                                <svg viewBox="0 0 36 36" className="circular-chart orange">
+                                                    <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                                    <path className="circle" strokeDasharray='80,100' d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                                    <text x="18" y="20.35" className="percentage">80</text>
+                                                </svg>
+                                            </div>
+                                            <span>{examData.title}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="platformIcon" />
+                                            <span>{examData.title}</span>
+                                        </>
+                                    )}
                                 </div>
-                                <button className="btn btn-light">
-                                    {/* {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'} */}
+                                <button className="btn btn-light" onClick={() => setPopupIsOpen(true)}>
+                                    {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'}
                                 </button>
+
+                                {popupIsOpen && (
+                                    <div
+                                        aria-labelledby="contained-modal-title-vcenter"
+                                        aria-modal="true"
+                                        className="fade modal show"
+                                        role="dialog"
+                                        style={{ display: 'block' }}
+                                        tabIndex={-1}
+                                    >
+                                        <div className="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-sm-down">
+                                            <div className="modal-content">
+                                                <div className="modal-body">
+                                                    <div className="quiz-screen">
+                                                        <div className="d-flex justify-content-between mb-8">
+                                                            <span className="quiz-details-header">Front End</span>
+                                                            <button
+                                                                aria-label="Close"
+                                                                className="btn-close"
+                                                                type="button"
+                                                                onClick={() => setPopupIsOpen(false)}
+                                                            />
+                                                        </div>
+                                                        <div className="join-screen">
+                                                            <p />
+                                                            <p>{examData.description}</p>
+                                                            <p />
+                                                            <div>
+                                                                <span>{examData.ExamDuration}</span>
+                                                                <span>Soru Sayısı : 25</span>
+                                                                <span>{examData.type}</span>
+                                                            </div>
+                                                            <div className="row ">
+                                                                <button
+                                                                    className="btn btn-primary mt-8 ms-auto me-auto"
+                                                                    style={{ width: 'max-content' }}
+                                                                >
+                                                                    Raporu Görüntüle
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

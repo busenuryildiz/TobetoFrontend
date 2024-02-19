@@ -1,35 +1,147 @@
-.teacher-search-bar {
+.css-b62m3t-container {
     position: relative;
-  }
-  
-  .teacher-search-bar input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .teacher-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .teacher-dropdown div {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .teacher-dropdown div:hover {
-    background-color: #f0f0f0;
-  }
-  
+    box-sizing: border-box;
+}
+.css-7pg0cj-a11yText {
+  z-index: 9999;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+}
+.css-14cgata-control {
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  min-height: 38px;
+  position: relative;
+  transition: all 100ms ease 0s;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 42px;
+  border: 2px solid rgb(221, 221, 221);
+  outline: 0px !important;
+}
+.css-hlgwow {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: grid;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  overflow: hidden;
+  padding: 2px 8px;
+  box-sizing: border-box;
+}
+.css-1jqq78o-placeholder {
+  grid-area: 1/1/2/3;
+  color: hsl(0, 0%, 50%);
+  margin-left: 2px;
+  margin-right: 2px;
+  box-sizing: border-box;
+}
+.css-19bb58m {
+  visibility: visible;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: inline-grid;
+  grid-area: 1/1/2/3;
+  grid-template-columns: 0 min-content;
+  margin: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  color: hsl(0, 0%, 20%);
+  box-sizing: border-box;
+}
+.react-select-input {
+  color: inherit;
+  background: 0px center;
+  opacity: 1;
+  width: 100%;
+  grid-area: 1 / 2;
+  font: inherit;
+  min-width: 2px;
+  border: 0px;
+  margin: 0px;
+  outline: 0px;
+  padding: 0px;
+}
+.css-1wy0on6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.css-1u9des2-indicatorSeparator {
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  width: 1px;
+  background-color: hsl(0, 0%, 80%);
+  margin-bottom: 8px;
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+.css-1xc3v61-indicatorContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  color: hsl(0, 0%, 80%);
+  padding: 8px;
+  box-sizing: border-box;
+}
+.css-8mmkcg {
+  display: inline-block;
+  fill: currentColor;
+  line-height: 1;
+  stroke: currentColor;
+  stroke-width: 0;
+}
+.css-14cgata-control {
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  min-height: 38px;
+  position: relative;
+  transition: all 100ms ease 0s;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 42px;
+  border: 2px solid rgb(221, 221, 221);
+  outline: 0px !important;
+}

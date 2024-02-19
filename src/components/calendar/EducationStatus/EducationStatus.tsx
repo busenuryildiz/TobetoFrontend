@@ -1,7 +1,6 @@
 // EducationStatus.tsx
 import React, { useState } from 'react';
-import './EducationStatus.css'; // Import the CSS file
-
+import '../calendar.css';
 interface EducationStatusProps {
   onFilter: (status: string) => void;
 }
@@ -15,38 +14,54 @@ const EducationStatus: React.FC<EducationStatusProps> = ({ onFilter }) => {
   };
 
   return (
-    <div className="EducationStatusContainer">
-      <label>
-        <input
-          type="checkbox"
-          checked={selectedStatus === 'past'}
-          onChange={() => handleCheckboxChange('past')}
-        />
-        Past Lessons
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={selectedStatus === 'current'}
-          onChange={() => handleCheckboxChange('current')}
-        />
-        Current Lessons
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={selectedStatus === 'future'}
-          onChange={() => handleCheckboxChange('future')}
-        />
-        Future Lessons
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => handleCheckboxChange('purchased')}
-        />
-        Satın Alınmış Dersler
-      </label>
+    <div className="d-flex flex-column">
+      <div className="filter-header mb-2">
+        <span>Eğitim Durumu</span>
+      </div>
+      <div className='edu-status-filter'  >
+        <span>
+          <input
+            className="form-check-input me-2 checkEventEnded"
+            value="eventEnded"
+            name="eventEnded"
+            type="checkbox"
+            checked={selectedStatus === 'past'}
+            onChange={() => handleCheckboxChange('past')}
+          />
+          Bitmiş Dersler
+        </span>
+        <span>
+          <input
+            className="form-check-input me-2 checkEventContinue"
+            value="eventContinue"
+            name="eventContinue"
+            type="checkbox"
+            checked={selectedStatus === 'current'}
+            onChange={() => handleCheckboxChange('current')}
+          />
+          Devam Eden Dersler
+        </span>
+        <span>
+          <input
+            className="form-check-input me-2 checkEventBuyed"
+            type="checkbox"
+            name="eventBuyed"
+            value="eventBuyed"
+            checked={selectedStatus === 'purchased'}
+            onChange={() => handleCheckboxChange('purchased')} />
+          Satın Alınmış Dersler
+        </span>
+        <span>
+          <input
+            className="form-check-input me-2 checkEventNotStarted"
+            type="checkbox"
+            name="eventNotStarted"
+            value="eventNotStarted"
+            checked={selectedStatus === 'future'}
+            onChange={() => handleCheckboxChange('future')} />
+          Başlamamış Dersler
+        </span>
+      </div>
     </div>
   );
 };

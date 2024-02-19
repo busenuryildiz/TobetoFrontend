@@ -37,6 +37,8 @@ import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
 import Blog from "./pages/blog/Blog";
 import CourseDetail from "./pages/course-detail/course-detail";
 
+
+
 function App() {
   // const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: any) => state.auth.user);
