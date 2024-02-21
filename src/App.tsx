@@ -36,6 +36,7 @@ import TobetoSuccessModel from "./pages/TobetoSuccessModel/TobetoSuccessModel";
 import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
 import Blog from "./pages/blog/Blog";
 import CourseDetail from "./pages/course-detail/course-detail";
+import MyProfile from "./pages/profile/myProfile/MyProfile";
 
 
 
@@ -58,6 +59,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/profilim" element={<ProtectedRoute element={<MyProfile/>}/>}/>
           <Route
             path="/profilim/profilimi-duzenle/kisisel-bilgilerim"
             element={<ProtectedRoute element={<PersonalInformation />} />}

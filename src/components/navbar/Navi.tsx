@@ -2,7 +2,7 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/index";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/actions/authActions";
 function Navi() {
   const navigate = useNavigate();
@@ -56,14 +56,14 @@ function Navi() {
           >
             Ana Sayfa
           </Nav.Link>
-          <Nav.Link
-            href="profilim/profilimi-duzenle/kisisel-bilgilerim"
-            className={`nav-link me-3 c-gray-3 ${
+          <Link
+              to="/profilim"
+              className={`nav-link me-3 c-gray-3 ${
               window.location.pathname === "/profilim" ? "nav-active" : ""
             }`}
           >
             Profilim
-          </Nav.Link>
+          </Link>
           <Nav.Link
             href="degerlendirmeler"
             className={`nav-link me-3 c-gray-3 ${
