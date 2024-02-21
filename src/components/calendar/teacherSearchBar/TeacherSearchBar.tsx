@@ -80,7 +80,7 @@ const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacher
                 aria-owns={isOpen ? "react-select-3-listbox": undefined}
               />
               {isOpen && (
-                <div className="teacher-dropdown">
+                <div className="teacher-dropdown dropdown-menu">
                   {filteredTeachers.map((teacher, index) => (
                     <div key={index} onClick={() => handleTeacherClick(teacher)}>
                       {teacher}

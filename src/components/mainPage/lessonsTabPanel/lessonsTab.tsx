@@ -24,7 +24,7 @@ const LessonsTab: React.FC<Props> = ({ activeTab }) => {
     fetchStudentCourses(studentId, pageIndex, pageSize)
       .then((data) => {
         console.log("12421", data);
-        setCourses(data)  ; // Alınan kursları state'e atama
+        setCourses(data); // Alınan kursları state'e atama
       })
       .catch((error) => {
         console.error("Dersler alınamadı:", error);
@@ -71,7 +71,7 @@ const LessonsTab: React.FC<Props> = ({ activeTab }) => {
                             {/* Burada kurs tarih bilgisini gösterebilirsiniz */}
                           </span>
                         </div>
-                        <a className="apply-btn" href="#">
+                        <a className="apply-btn" href={`/course/${course.Id}`}>
                           Eğitime Git
                         </a>
                       </div>
@@ -93,8 +93,6 @@ const LessonsTab: React.FC<Props> = ({ activeTab }) => {
                 {/* Başlamış eğitim kartlarını ekleyin */}
               </div>
             </div>
-
-
 
             <div
               className="tab-pane fade"
