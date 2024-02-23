@@ -48,14 +48,14 @@ function Navi() {
         </button>
 
         <Nav className="d-none d-xxl-flex navbar-nav fw-medium">
-          <Nav.Link
-            href="platform"
+          <Link
+            to="/platform"
             className={`nav-link me-3 c-gray-3 ${
               window.location.pathname === "/platform" ? "nav-active" : ""
             }`}
           >
             Ana Sayfa
-          </Nav.Link>
+          </Link>
           <Link
               to="/profilim"
               className={`nav-link me-3 c-gray-3 ${
@@ -64,8 +64,8 @@ function Navi() {
           >
             Profilim
           </Link>
-          <Nav.Link
-            href="degerlendirmeler"
+          <Link
+            to="/degerlendirmeler"
             className={`nav-link me-3 c-gray-3 ${
               window.location.pathname === "/degerlendirmeler"
                 ? "nav-active"
@@ -73,9 +73,9 @@ function Navi() {
             }`}
           >
             Değerlendirmeler
-          </Nav.Link>
-          <Nav.Link
-            href="platform-katalog"
+          </Link>
+          <Link
+            to="/platform-katalog"
             className={`nav-link me-3 c-gray-3 ${
               window.location.pathname === "/platform-katalog"
                 ? "nav-active"
@@ -83,17 +83,17 @@ function Navi() {
             }`}
           >
             Katalog
-          </Nav.Link>
-          <Nav.Link
-            href="takvim"
+          </Link>
+          <Link
+            to="/takvim"
             className={`nav-link me-3 c-gray-3 ${
               window.location.pathname === "/takvim" ? "nav-active" : ""
             }`}
           >
             Takvim
-          </Nav.Link>
-          <Nav.Link
-            href="istanbul-kodluyor"
+          </Link>
+          <Link
+            to="/istanbul-kodluyor"
             className={`nav-link me-3 c-gray-3 ${
               window.location.pathname === "/istanbul-kodluyor"
                 ? "nav-active"
@@ -101,19 +101,19 @@ function Navi() {
             }`}
           >
             İstanbul Kodluyor
-          </Nav.Link>
+          </Link>
         </Nav>
 
         <div className="d-none d-xxl-block">
           <div className="d-flex justify-space-between align-items-center">
-            <div
+            <Link
+             to="/"
               className="mx-3 align-items-center d-flex align-items-center"
               style={{ gap: "1em" }}
               onClick={() => window.location.href='/'}
             >
-              <span className="tbt-gradient">
-              </span>
-            </div>
+              <span className="tbt-gradient"></span>
+            </Link>
             <div className="btn-group header-avatar">
               <button
                 type="button"
@@ -160,9 +160,9 @@ function Navi() {
               </button>
               <ul className={`profile dropdown-menu`}>
                 <li>
-                  <button className="dropdown-item profil-dropdown">
+                  <Link to="/profilim/profilimi-duzenle/kisisel-bilgilerim" className="dropdown-item profil-dropdown">
                     Profil Bilgileri
-                  </button>
+                  </Link>
                 </li>
                 <li>
                   <hr

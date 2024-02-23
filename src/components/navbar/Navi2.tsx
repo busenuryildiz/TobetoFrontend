@@ -1,6 +1,18 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
+import { logoutUser } from "../../store/actions/authActions";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const auth = useSelector((state: any) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/");
+  };
   return (
     <div
       className="bg-front-dark bg-front-width"
@@ -198,6 +210,94 @@ const Navbar: React.FC = () => {
                 </ul>
               </li>
             </ul>
+            
+            {auth.isAuthenticated ? (
+  <div className="d-none d-xxl-block">
+  <div className="d-flex justify-space-between align-items-center">
+    <Link
+     to="/"
+      className="mx-3 align-items-center d-flex align-items-center"
+      style={{ gap: "1em" }}
+    >
+      <span className="tbt-gradient"></span>
+    </Link>
+    <div className="btn-group header-avatar">
+      <button
+        type="button"
+        className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <div className="me-2">
+          <img
+            className="cv-pp-img rounded-circle"
+            src="Assets/image/Avatar.png"
+            alt=""
+            style={{
+              width: "36px",
+              height: "36px",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+        <div className="me-3">
+          <p className="mb-0 name">
+            {auth.user && auth.user.firstName
+              ? auth.user.firstName
+              : ""}
+          </p>
+        </div>
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="M6 9L12 15L18 9"
+              stroke="#828282"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></path>
+          </svg>
+        </span>
+      </button>
+      <ul className={`profile dropdown-menu`}>
+        <li>
+          <Link to ="/profilim/profilimi-duzenle/kisisel-bilgilerim" className="dropdown-item profil-dropdown">
+            Profil Bilgileri
+          </Link>
+        </li>
+        <li>
+          <hr
+            className="dropdown-divider"
+            style={{
+              backgroundColor: "rgb(204, 204, 204)",
+              height: "1px",
+            }}
+          />
+        </li>
+        <li>
+          <hr
+            className="dropdown-divider"
+          />
+        </li>
+        <li>
+          <button
+            className="dropdown-item profil-dropdown"
+            onClick={handleLogout}
+          >
+            Oturumu Kapat
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>) : (
+
             <div className="d-none d-xl-block">
               <a className="btn border-light text-light mx-4" href="/login">
                 Giriş Yap
@@ -205,7 +305,7 @@ const Navbar: React.FC = () => {
               <a className="btn mx-4 btn-rainbow" href="/register">
                 Ücretsiz Üye Ol
               </a>
-            </div>
+            </div>)}
           </div>
         </nav>
         {/* İkinci banner (offcanvas) */}
