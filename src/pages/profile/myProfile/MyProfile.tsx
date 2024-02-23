@@ -6,7 +6,6 @@ import AboutMe from "./AboutMe";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import UserProfileResponse from "./UserProfileResponse";
-import StudentSkillsResponse from "./StudentSkillResponse";
 import UserSkills from "./UserSkills";
 import UserLanguageResponse from "./UserLanguageResponse";
 import UserLanguages from "./UserLanguages";
@@ -15,9 +14,15 @@ import UserCertificateResponse from "./UserCertificateResponse";
 import UserCertificates from "./UserCertificates";
 import UserSocialMediaAccounts from "./UserSocialMediaAccounts";
 import UserSocialMediaAccountResponse from "./SocialMediaAccountResponse";
-import TobetoSuccessModel from "../../TobetoSuccessModel/TobetoSuccessModel";
 import TobetoSuccessModelChart from "./TobetoSuccessModelChart";
 import UserExam from "./UserExam";
+import UserBadges from "./UserBadges";
+import CalendarHeatmapComponent from "./CalendarHeatMap";
+import UserAssignmentsAndDatesResponse from "./UserAssignmentsAndDatesResponse";
+import UserExperienceResponse from "./UserExperienceResponse";
+import UserEducationResponse from "./UserEducationResponse";
+import UserExperienceAndEducation from "./UserExperienceAndEducation";
+import StudenSkillIdAndStudentSkillNameResponse from "./StudenSkillIdAndStudentSkillNameResponse ";
 
 const MyProfile = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -32,7 +37,9 @@ const MyProfile = () => {
     description: null,
   });
 
-  const [userSkills, setUserSkills] = useState<string[]>([]);
+  const [userSkills, setUserSkills] = useState<
+    StudenSkillIdAndStudentSkillNameResponse[]
+  >([]);
   const [userLanguages, setUserLanguages] = useState<UserLanguageResponse[]>(
     []
   );
@@ -43,6 +50,16 @@ const MyProfile = () => {
     UserSocialMediaAccountResponse[]
   >([]);
   const [examResults, setExamResults] = useState<UserExamResponse[]>([]);
+  const [userBadges, setUserBadges] = useState<UserBadgesResponse[]>([]);
+  const [assignments, setAssignments] = useState<
+    UserAssignmentsAndDatesResponse[]
+  >([]);
+  const [experienceData, setExperienceData] = useState<
+    UserExperienceResponse[]
+  >([]);
+  const [educationData, setEducationData] = useState<UserEducationResponse[]>(
+    []
+  );
 
   useEffect(() => {
     if (user) {
@@ -58,11 +75,14 @@ const MyProfile = () => {
         });
 
       axios
-        .get<StudentSkillsResponse>(
-          `http://localhost:6280/api/Students/GetStudentSkillsByUserIdAsync?userId=${user.id}`
+        .get<StudenSkillIdAndStudentSkillNameResponse[]>(
+          `http://localhost:6280/api/StudentSkills/GetStudentSkillsByUserIdAsync?userId=${user.id}`
         )
         .then((response) => {
-          setUserSkills(response.data.skillName);
+
+          setUserSkills(response.data);
+
+          console.log(response.data);
         })
         .catch((error) => {
           console.error("Error fetching user skills:", error);
@@ -111,6 +131,45 @@ const MyProfile = () => {
         .catch((error) => {
           console.error("Error fetching exam results:", error);
         });
+
+      axios
+        .get<UserBadgesResponse[]>(
+          `http://localhost:6280/api/StudentCourses/GetBadgesForCompletedCourses?userId=${user.id}`
+        )
+        .then((response) => {
+          setUserBadges(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching badge images:", error);
+        });
+
+      axios
+        .get<UserAssignmentsAndDatesResponse[]>(
+          `http://localhost:6280/api/StudentAssignments/GetStudentAssignmentAndDateByUserId?userId=${user.id}`
+        )
+        .then((response) => {
+          setAssignments(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching assignment data:", error);
+        });
+
+      axios
+        .get(
+          `http://localhost:6280/api/Users/GetUserExperienceAndEducationByUserId?userId=${user.id}`
+        )
+        .then((response) => {
+          setExperienceData(
+            response.data.items[0].userExperienceResponses || []
+          );
+          setEducationData(
+            response.data.items[0].userEducationInformationResponses || []
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching experience and education data:", error);
+        });
     }
   }, [user]);
 
@@ -141,7 +200,13 @@ const MyProfile = () => {
           <div className="col-md-8 col-12">
             <div className="row">
               <TobetoSuccessModelChart />
-                <UserExam examResults={examResults} />
+              <UserExam examResults={examResults} />
+              <UserBadges userBadges={userBadges} />
+              <CalendarHeatmapComponent assignmentData={assignments} />
+              <UserExperienceAndEducation
+                experienceData={experienceData}
+                educationData={educationData}
+              />
             </div>
           </div>
         </div>

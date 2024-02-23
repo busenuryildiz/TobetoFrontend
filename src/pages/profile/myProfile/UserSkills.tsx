@@ -1,6 +1,7 @@
+import StudenSkillIdAndStudentSkillNameResponse from "./StudenSkillIdAndStudentSkillNameResponse ";
 import { useState } from "react";
 
-const UserSkills = ({ skills }: { skills: string[] }) => {
+const UserSkills = ({ skills }: { skills: StudenSkillIdAndStudentSkillNameResponse[] }) => {
     const [showModal, setShowModal] = useState(false);
 
     const toggleModal = () => {
@@ -20,9 +21,9 @@ const UserSkills = ({ skills }: { skills: string[] }) => {
           </div>
           <div>
             <div className="skills">
-              {skills.slice(0, 5).map((skill, index) => (
-                <span key={index} className="skill">
-                  {skill}
+              {skills.slice(0, 5).map((skill) => (
+                <span key={skill.studentSkillId} className="skill">
+                  {skill.studentSkillName}
                 </span>
               ))}
             </div>
@@ -43,9 +44,9 @@ const UserSkills = ({ skills }: { skills: string[] }) => {
                 <div className="modal-body">
                   <div>
                     <div className="skills">
-                      {skills.map((skill, index) => (
-                        <span key={index} className="skill">
-                          {skill}
+                      {skills.map((skill) => (
+                        <span key={skill.studentSkillId} className="skill">
+                          {skill.studentSkillName}
                         </span>
                       ))}
                     </div>
