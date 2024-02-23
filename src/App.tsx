@@ -38,6 +38,7 @@ import Blog from "./pages/blog/Blog";
 import CourseDetail from "./pages/course-detail/course-detail";
 import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 import MyProfile from "./pages/profile/myProfile/MyProfile";
+import NotFoundPage from "./components/notFound/notFound";
 
 
 
@@ -56,54 +57,25 @@ function App() {
     console.log(`Sosyal Medya: ${socialMedia}, URL: ${socialMediaUrl}`);
   };
   return (
-    <div>
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/profilim" element={<ProtectedRoute element={<MyProfile/>}/>}/>
-          <Route
-            path="/profilim/profilimi-duzenle/kisisel-bilgilerim"
-            element={<ProtectedRoute element={<PersonalInformation />} />}
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/deneyimlerim"
-            element={<MyExperiences />}
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/egitim-hayatim"
-            element={<EducationLife />}
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/yetkinliklerim"
-            element={<MySkill />}
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/sertifikalarim"
-            element={<MyCertificates certificates={certificatesData} />}
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/medya-hesaplarim"
-            element={<MediaAccounts onSave={handleMediaAccountSave} />}
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/yabanci-dil"
-            element={
-              <ForeignLanguages onSave={(languageName, proficiency) => {}} />
-            }
-          />
-          <Route
-            path="/profilim/profilimi-duzenle/ayarlar"
-            element={<MySettings />}
-          />
+          <Route path="/profilim" element={<ProtectedRoute element={<MyProfile />} />} />
+          <Route path="/profilim/profilimi-duzenle/kisisel-bilgilerim" element={<ProtectedRoute element={<PersonalInformation />} />} />
+          <Route path="/profilim/profilimi-duzenle/deneyimlerim" element={<MyExperiences />} />
+          <Route path="/profilim/profilimi-duzenle/egitim-hayatim" element={<EducationLife />} />
+          <Route path="/profilim/profilimi-duzenle/yetkinliklerim" element={<MySkill />} />
+          <Route path="/profilim/profilimi-duzenle/sertifikalarim" element={<MyCertificates certificates={certificatesData} />} />
+          <Route path="/profilim/profilimi-duzenle/medya-hesaplarim" element={<MediaAccounts onSave={handleMediaAccountSave} />} />
+          <Route path="/profilim/profilimi-duzenle/yabanci-dil" element={
+            <ForeignLanguages onSave={(languageName, proficiency) => { }} />} />
+          <Route path="/profilim/profilimi-duzenle/ayarlar" element={<MySettings />} />
           <Route path="/takvim" element={<CalendarPage />} />
           <Route path="platform-katalog" element={<Catalog />} />
           <Route path="istanbul-kodluyor" element={<IstanbulCoding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/platform"
-            element={<ProtectedRoute element={<PlatformPage />} />}
-          />
+          <Route path="/platform" element={<ProtectedRoute element={<PlatformPage />} />} />
           <Route path="/hakkimizda" element={<AboutUs />} />
           <Route path="/bireyler-icin" element={<ForIndividuals />} />
           <Route path="/kurumlar-icin" element={<ForBusinesses />} />
@@ -121,20 +93,13 @@ function App() {
           <Route path="/codecademy" element={<Codecademy />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="degerlendirmeler" element={<Review />} />
-          <Route
-            path="profilim/degerlendirmeler/tobeto-iste-basari-modeli"
-            element={<TobetoSuccessModel />}
-          />
+          <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli" element={<TobetoSuccessModel />} />
           <Route path="/egitimlerim" element={<Egitimlerim />}></Route>
           <Route path="/course/:id" element={<CourseDetail />} />{" "}
-          {/* /course/:id yolunu CourseDetail bileşenine eşliyoruz */}
-          <Route
-            path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1"
-            element={<SuccessModel1 />}
-          />
+          <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
-    </div>
   );
 }
 
