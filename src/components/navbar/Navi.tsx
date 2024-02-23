@@ -110,7 +110,6 @@ function Navi() {
              to="/"
               className="mx-3 align-items-center d-flex align-items-center"
               style={{ gap: "1em" }}
-              onClick={() => window.location.href='/'}
             >
               <span className="tbt-gradient"></span>
             </Link>
