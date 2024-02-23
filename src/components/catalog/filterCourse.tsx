@@ -59,24 +59,25 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange, th
       <div className="filter dm-none">
         <h2>Filtrele</h2>
         <hr className="mt-0" />
-        <button
-          className="mb-3 w-100"
-          style={{
-            backgroundColor: 'white',
-            border: '2px solid rgb(153, 51, 255)',
-            borderRadius: '50px',
-            color: 'rgb(24, 24, 24)',
-            fontWeight: '600',
-            padding: '8px 16px',
-            textAlign: 'left'
-          }}
-          type="button" >
-          <div className=" w-100">
-            <span>
-              Bana Özel
-            </span>
-          </div>
-        </button>
+        {theme === 'light' && (
+          <button
+            className="mb-3 w-100"
+            style={{
+              backgroundColor: 'white',
+              border: '2px solid rgb(153, 51, 255)',
+              borderRadius: '50px',
+              color: 'rgb(24, 24, 24)',
+              fontWeight: '600',
+              padding: '8px 16px',
+              textAlign: 'left'
+            }}
+            type="button"
+          >
+            <div className=" w-100">
+              <span>Bana Özel</span>
+            </div>
+          </button>
+        )}
         <FilterOption options={PRICE_OPTIONS} filterOption={(option) => handleFilterChange('Kategori', option)} filterType="Kategori" />
         <FilterOption options={EDUCATION_OPTIONS} filterOption={(option) => handleFilterChange('Eğitimler', option)} filterType="Eğitimler" />
         <FilterOption options={COURSE_LEVEL_OPTIONS} filterOption={(option) => handleFilterChange('Seviye', option)} filterType="Seviye" />

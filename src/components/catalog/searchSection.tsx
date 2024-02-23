@@ -35,7 +35,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch }) => {
                 onChange={(e) => setCourseName(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
-              <button className="btn btn-primary" onClick={handleSearch}>
+              <button className="btn btn-primary" onClick={handleSearch} title="Search">
                 <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'end' }}>
                   <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

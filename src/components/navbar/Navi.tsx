@@ -33,7 +33,7 @@ function Navi() {
           className="btn p-0 d-xxl-none navbar-burger"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasExample"
-          aria-controls="offcanvasExample"
+          title="Toggle Offcanvas"
         >
           <svg
             width="24"

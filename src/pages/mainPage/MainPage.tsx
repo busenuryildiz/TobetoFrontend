@@ -10,41 +10,6 @@ export default function MainPage() {
       <Navi2 />
       <div>
         <main className="bg-front-dark">
-          <div className="tobeto-banner">
-            <div className="container">
-              <div className="row">
-                <div className="col-9">
-                  <span className="text-white fw-bold">
-                    Tobeto ile geleceğini keşfet
-                  </span>
-                </div>
-                <div className="col-3">
-                  <a
-                    data-bs-toggle="modal"
-                    href="#TobetoVideo"
-                    role="button"
-                    className="video-btn"
-                  >
-                    İzle
-                    <svg
-                      width={22}
-                      height={22}
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4.5835 2.75L17.4168 11L4.5835 19.25V2.75Z"
-                        stroke="#3171FF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
           <div
             className="modal fade"
             id="TobetoVideo"
@@ -1266,17 +1231,7 @@ export default function MainPage() {
                       alt=""
                       aria-hidden="true"
                       src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27246%27%20height=%2788%27/%3e"
-                      style={{
-                        display: "block",
-                        maxWidth: "100%",
-                        width: "initial",
-                        height: "initial",
-                        background: "none",
-                        opacity: 1,
-                        border: 0,
-                        margin: 0,
-                        padding: 0,
-                      }}
+                    
                     />
                   </span>
                   <img

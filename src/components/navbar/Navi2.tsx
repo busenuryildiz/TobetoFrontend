@@ -14,10 +14,7 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div
-      className="bg-front-dark bg-front-width"
-      style={{ height: "0.5rem", overflow: "visible", width: "auto" }}
-    >
+    <div className="bg-front-dark bg-front-width" >
       <section className="web-header">
         <div className="ik-banner-top">
           <div className="">
@@ -35,12 +32,9 @@ const Navbar = () => {
             <a href="istanbul-kodluyor"><button className="btn  d-md-inline-block btn-primary mt-3">Başvur</button></a>
           </div>
         </div>
-
         <nav className="navbar bg-web navbar-expand-xxl w-100 m-0 z-index-999 position-fixed border-0 px-2 py-4">
           <div className="container-fluid">
-            {/* Birinci banner */}
             <a href="/">
-              {/* Banner içeriği */}
               <span
                 style={{
                   boxSizing: "border-box",
@@ -90,36 +84,15 @@ const Navbar = () => {
                     }}
                   />
                 </span>
-                <img
-                  alt=""
-                  srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTebeto-logo-yatay-beyaz.8c2d6927.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTebeto-logo-yatay-beyaz.8c2d6927.png&amp;w=384&amp;q=75 2x"
-                  src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTebeto-logo-yatay-beyaz.8c2d6927.png&amp;w=384&amp;q=75"
-                  decoding="async"
-                  data-nimg="intrinsic"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    boxSizing: "border-box",
-                    padding: 0,
-                    border: "none",
-                    margin: "auto",
-                    display: "block",
-                    width: 0,
-                    height: 0,
-                    minWidth: "100%",
-                    maxWidth: "100%",
-                    minHeight: "100%",
-                    maxHeight: "100%",
-                  }}
-                />
               </span>
             </a>
             <button
-              className="btn p-0 d-xl-none"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasExample"
               aria-controls="offcanvasExample"
+              className="btn p-0 d-xl-none "
+              data-bs-target="#offcanvasExample"
+              data-bs-toggle="offcanvas"
+              type="button"
+              title="offcanvasExample"
             >
               <svg
                 width="32"
@@ -137,7 +110,6 @@ const Navbar = () => {
               </svg>
             </button>
             <ul className="d-none d-xl-flex flex-row justify-content-center navbar-nav">
-              {/* Menü öğeleri */}
               <li className="nav-item">
                 <a className="nav-link" href="/hakkimizda">
                   Biz Kimiz?
@@ -210,102 +182,102 @@ const Navbar = () => {
                 </ul>
               </li>
             </ul>
-            
-            {auth.isAuthenticated ? (
-  <div className="d-none d-xxl-block">
-  <div className="d-flex justify-space-between align-items-center">
-    <Link
-     to="/"
-      className="mx-3 align-items-center d-flex align-items-center"
-      style={{ gap: "1em" }}
-    >
-      <span className="tbt-gradient"></span>
-    </Link>
-    <div className="btn-group header-avatar">
-      <button
-        type="button"
-        className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <div className="me-2">
-          <img
-            className="cv-pp-img rounded-circle"
-            src="Assets/image/Avatar.png"
-            alt=""
-            style={{
-              width: "36px",
-              height: "36px",
-              objectFit: "cover",
-            }}
-          />
-        </div>
-        <div className="me-3">
-          <p className="mb-0 name">
-            {auth.user && auth.user.firstName
-              ? auth.user.firstName
-              : ""}
-          </p>
-        </div>
-        <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <path
-              d="M6 9L12 15L18 9"
-              stroke="#828282"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
-        </span>
-      </button>
-      <ul className={`profile dropdown-menu`}>
-        <li>
-          <Link to ="/profilim/profilimi-duzenle/kisisel-bilgilerim" className="dropdown-item profil-dropdown">
-            Profil Bilgileri
-          </Link>
-        </li>
-        <li>
-          <hr
-            className="dropdown-divider"
-            style={{
-              backgroundColor: "rgb(204, 204, 204)",
-              height: "1px",
-            }}
-          />
-        </li>
-        <li>
-          <hr
-            className="dropdown-divider"
-          />
-        </li>
-        <li>
-          <button
-            className="dropdown-item profil-dropdown"
-            onClick={handleLogout}
-          >
-            Oturumu Kapat
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>) : (
 
-            <div className="d-none d-xl-block">
-              <a className="btn border-light text-light mx-4" href="/login">
-                Giriş Yap
-              </a>
-              <a className="btn mx-4 btn-rainbow" href="/register">
-                Ücretsiz Üye Ol
-              </a>
-            </div>)}
+            {auth.isAuthenticated ? (
+              <div className="d-none d-xxl-block">
+                <div className="d-flex justify-space-between align-items-center">
+                  <Link
+                    to="/"
+                    className="mx-3 align-items-center d-flex align-items-center"
+                    style={{ gap: "1em" }}
+                  >
+                    <span className="tbt-gradient"></span>
+                  </Link>
+                  <div className="btn-group header-avatar">
+                    <button
+                      type="button"
+                      className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <div className="me-2">
+                        <img
+                          className="cv-pp-img rounded-circle"
+                          src="Assets/image/Avatar.png"
+                          alt=""
+                          style={{
+                            width: "36px",
+                            height: "36px",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </div>
+                      <div className="me-3">
+                        <p className="mb-0 name">
+                          {auth.user && auth.user.firstName
+                            ? auth.user.firstName
+                            : ""}
+                        </p>
+                      </div>
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M6 9L12 15L18 9"
+                            stroke="#828282"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          ></path>
+                        </svg>
+                      </span>
+                    </button>
+                    <ul className={`profile dropdown-menu`}>
+                      <li>
+                        <Link to="/profilim/profilimi-duzenle/kisisel-bilgilerim" className="dropdown-item profil-dropdown">
+                          Profil Bilgileri
+                        </Link>
+                      </li>
+                      <li>
+                        <hr
+                          className="dropdown-divider"
+                          style={{
+                            backgroundColor: "rgb(204, 204, 204)",
+                            height: "1px",
+                          }}
+                        />
+                      </li>
+                      <li>
+                        <hr
+                          className="dropdown-divider"
+                        />
+                      </li>
+                      <li>
+                        <button
+                          className="dropdown-item profil-dropdown"
+                          onClick={handleLogout}
+                        >
+                          Oturumu Kapat
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>) : (
+
+              <div className="d-none d-xl-block">
+                <a className="btn border-light text-light mx-4" href="/login">
+                  Giriş Yap
+                </a>
+                <a className="btn mx-4 btn-rainbow" href="/register">
+                  Ücretsiz Üye Ol
+                </a>
+              </div>)}
           </div>
         </nav>
         {/* İkinci banner (offcanvas) */}
@@ -520,7 +492,7 @@ const Navbar = () => {
                   Burada!
                 </span>
               </div>
-              <div className="" onClick={() => window.location.href='/istanbul-kodluyor'}>
+              <div className="" onClick={() => window.location.href = '/istanbul-kodluyor'}>
                 <button className="ik-btn">Başvur</button>
               </div>
             </div>
