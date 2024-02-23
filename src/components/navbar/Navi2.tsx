@@ -420,7 +420,7 @@ const Navbar: React.FC = () => {
                   Burada!
                 </span>
               </div>
-              <div className="">
+              <div className="" onClick={() => window.location.href='/istanbul-kodluyor'}>
                 <button className="ik-btn">Başvur</button>
               </div>
             </div>

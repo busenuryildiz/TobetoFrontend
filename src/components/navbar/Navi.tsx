@@ -109,8 +109,10 @@ function Navi() {
             <div
               className="mx-3 align-items-center d-flex align-items-center"
               style={{ gap: "1em" }}
+              onClick={() => window.location.href='/'}
             >
-              <span className="tbt-gradient"></span>
+              <span className="tbt-gradient">
+              </span>
             </div>
             <div className="btn-group header-avatar">
               <button

@@ -1,14 +1,12 @@
 
 import React from "react";
 import Footer2 from "../../components/footer/Footer2";
-import TobetoBanner from "../../components/tobeto-banner/TobetoBanner";
 import Navbar from "../../components/navbar/Navi2";
 
 const AboutUs = () => {
 
   return (
     <div className="bg-front-dark bg-front-width">
-      <TobetoBanner />
       <Navbar />
       <section className="py-24" style={{ marginTop: '70px' }} >
         <div className="position-relative">
