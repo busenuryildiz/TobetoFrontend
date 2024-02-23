@@ -52,20 +52,20 @@ const FilterOption: React.FC<FilterOptionProps> = ({ options, filterOption, filt
             <div className="mb-3" style={{ maxHeight: '200px', overflowY: 'auto' }}>
               {options.filter(filterOptions).map((option, index) => (
                 <div key={option} className="form-check">
-                    <div style={{ paddingLeft: '5px' }}>
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name={`${filterType.toLowerCase()}Option`}
-                    id={`${filterType.toLowerCase()}Option${index}`}
-                    value={option}
-                    defaultChecked={option === "Tüm Eğitimler"}
-                    onChange={(e) => handleFilterChange(e, option)}
-                  />
-                  <label className="form-check-label" htmlFor={`${filterType.toLowerCase()}Option${index}`}>
-                    {option}
-                  </label>
-                </div>
+                    <div style={{ paddingLeft: '5px', color: '#828282', fontWeight: 400, fontSize: '15px', lineHeight: '21px' }}>
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name={`${filterType.toLowerCase()}Option`}
+                        id={`${filterType.toLowerCase()}Option${index}`}
+                        value={option}
+                        defaultChecked={option === "Tüm Eğitimler"}
+                        onChange={(e) => handleFilterChange(e, option)}
+                      />
+                      <label className="form-check-label" htmlFor={`${filterType.toLowerCase()}Option${index}`}>
+                        {option}
+                      </label>
+                    </div>
                 </div>
               ))}
             </div>

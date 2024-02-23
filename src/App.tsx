@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/mainPage/MainPage";
 import PersonalInformation from "./pages/profile/editProfile/personalInformation/PersonalInformation";
 import CalendarPage from "./pages/calendarPage/CalendarPage";
-import Catalog from "./pages/catalog/Catalog";
 import IstanbulCoding from "./pages/istanbulCoding/IstanbulCoding";
 import { OverlayLoader } from "./components/overlayLoader/overlayLoader";
 import Login from "./pages/login/Login";
@@ -39,6 +38,9 @@ import CourseDetail from "./pages/course-detail/course-detail";
 import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 import MyProfile from "./pages/profile/myProfile/MyProfile";
 import NotFoundPage from "./components/notFound/notFound";
+import PlatformCatalog from "./pages/catalog/PlatformCatalog";
+import Catalog from "./pages/catalog/Catalog";
+
 
 
 
@@ -71,8 +73,9 @@ function App() {
             <ForeignLanguages onSave={(languageName, proficiency) => { }} />} />
           <Route path="/profilim/profilimi-duzenle/ayarlar" element={<MySettings />} />
           <Route path="/takvim" element={<CalendarPage />} />
-          <Route path="platform-katalog" element={<Catalog />} />
-          <Route path="istanbul-kodluyor" element={<IstanbulCoding />} />
+          <Route path="/platform-katalog" element={<PlatformCatalog />} />
+          <Route path="/katalog" element={<Catalog />} />
+          <Route path="/istanbul-kodluyor" element={<IstanbulCoding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/platform" element={<ProtectedRoute element={<PlatformPage />} />} />

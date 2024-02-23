@@ -7,9 +7,10 @@ import FilterOption from './filterOption';
 interface FilterCourseProps {
   courses: Course[];
   onFilterChange: (filteredCourses: Course[]) => void;
+  theme: 'light' | 'dark';
 }
 
-const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) => {
+const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange, theme }) => {
   const [priceFilter, setPriceFilter] = useState<string | null>(null);
   const [educationFilter, setEducationFilter] = useState<string | null>(null);
   const [courseLevelFilter, setCourseLevelFilter] = useState<string | null>(null);
@@ -54,7 +55,7 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange }) 
   };
 
   return (
-    <div className="col-lg-3 col-md-4 col-12 light">
+    <div className={`col-lg-3 col-md-4 col-12 ${theme}`}>
       <div className="filter dm-none">
         <h2>Filtrele</h2>
         <hr className="mt-0" />
