@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../components/footer/footer";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import Navbar from "../../components/navbar/Navi2";
+import Navi2 from "../../components/navbar/Navi2";
 import Footer2 from "../../components/footer/Footer2";
 
 const Codecademy = () => {
@@ -14,7 +14,7 @@ const Codecademy = () => {
   };
   return (
     <div className="mt-5">
-      <Navbar />
+      <Navi2 />
       <main className="bg-front-dark">
         <div className="ik-banner">
           <div className="container">

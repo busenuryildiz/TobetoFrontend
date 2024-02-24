@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
 import { logoutUser } from "../../store/actions/authActions";
 
-const Navbar = () => {
+const Navi2 = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: any) => state.auth);
@@ -167,9 +167,9 @@ const Navbar = () => {
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/katalog">
+                <Link className="nav-link" to="/platform-katalog">
                   Katalog
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/codecademy">
@@ -433,9 +433,9 @@ const Navbar = () => {
                   </div>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/katalog">
+                  <Link className="nav-link" to="/platform-katalog">
                     Katalog
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/codecademy">
@@ -531,4 +531,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navi2;

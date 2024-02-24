@@ -114,7 +114,7 @@ export default function MainPage() {
                     </div>
                   </span>
                   <Link
-                  to="/register"
+                    to="/register"
                     className="btn d-md-inline-block mt-5 btn-secondary"
                   >
                     Ücretsiz Üye Ol
@@ -481,7 +481,10 @@ export default function MainPage() {
                       </div>
                     </div>
                     <div className="my-10 d-flex justify-content-end">
-                      <Link to="/platform-katalog" className="tab-link mobile-mx-auto">
+                      <Link
+                        to="/platform-katalog"
+                        className="tab-link mobile-mx-auto"
+                      >
                         Tümünü İncele &gt;
                       </Link>
                     </div>
@@ -591,9 +594,8 @@ export default function MainPage() {
                           </p>
                           <link href="/kayit-ol" />
                           <Link
-                          to="/register"
+                            to="/register"
                             className="btn d-md-inline-block mt-3 mx-2 btn-secondary"
-                            
                           >
                             Hemen Başla
                           </Link>
