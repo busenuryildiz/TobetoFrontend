@@ -1,45 +1,66 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Navi from '../../../../components/navbar/Navi';
-
-interface FormValues {
-    corporationName: string;
-    position: string;
-    sector: string;
-    country: string;
-    startDate: Date | null;
-    endDate: Date | null;
-    continueCurrentJob: boolean;
-    description: string;
-}
+import { MyExperienceService } from '../../../../services/pages/profile/editProfile/experience/myExperienceService';
+import { useSelector } from 'react-redux';
+import { UserExperiencesResponse } from '../../../../models/responses/Users/userExperienceResponse';
+import { AddUserExperiencesRequest } from '../../../../models/requests/UserExperience/addUserExperiencesRequest';
 
 const cities = [
-    'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Aksaray', 'Amasya', 'Ankara', 'Antalya',
-    // Add more cities as needed
+    'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Amasya',
+    'Ankara', 'Antalya', 'Artvin', 'Aydın', 'Balıkesir',
+    'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur',
+    'Bursa', 'Çanakkale', 'Çankırı', 'Çorum', 'Denizli',
+    'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum',
+    'Eskişehir', 'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkâri',
+    'Hatay', 'Isparta', 'Mersin', 'İstanbul', 'İzmir',
+    'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 'Kırşehir',
+    'Kocaeli', 'Konya', 'Kütahya', 'Malatya', 'Manisa',
+    'Kahramanmaraş', 'Mardin', 'Muğla', 'Muş', 'Nevşehir',
+    'Niğde', 'Ordu', 'Rize', 'Sakarya', 'Samsun',
+    'Siirt', 'Sinop', 'Sivas', 'Tekirdağ', 'Tokat',
+    'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak', 'Van',
+    'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman',
+    'Kırıkkale', 'Batman', 'Şırnak', 'Bartın', 'Ardahan',
+    'Iğdır', 'Yalova', 'Karabük', 'Kilis', 'Osmaniye', 'Düzce'
 ];
 
 const MyExperiences = () => {
-    const [formValues, setFormValues] = useState<FormValues>({
-        corporationName: '',
+    const user = useSelector((state: any) => state.auth.user);
+    const [userExperiences, setUserExperiences] = useState<UserExperiencesResponse[]>([]);
+    const initialFormValues: AddUserExperiencesRequest = {
+        userId: user?.id || '',
+        establishmentName: '',
         position: '',
         sector: '',
-        country: '',
-        startDate: null,
-        endDate: null,
-        continueCurrentJob: false,
+        city: '',
+        workBeginDate: new Date(),
+        workEndDate: new Date(),
         description: '',
-    });
+    };
+    const [formValues, setFormValues] = useState<AddUserExperiencesRequest>(initialFormValues);
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    useEffect(() => {
+        const storedExperiences = localStorage.getItem('userExperiences');
+        if (storedExperiences) {
+            setUserExperiences(JSON.parse(storedExperiences));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('userExperiences', JSON.stringify(userExperiences));
+    }, [userExperiences]);
+
+    const handleInputChange = (
+        e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => {
         const { name, value, type } = e.target;
-
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
         }));
     };
-
 
     const handleDateChange = (name: string, date: Date | null) => {
         setFormValues((prevValues) => ({
@@ -48,11 +69,46 @@ const MyExperiences = () => {
         }));
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Add your form submission logic here
-        console.log(formValues);
+
+        if (formValues.workBeginDate > formValues.workEndDate) {
+            console.error('Başlangıç tarihi, bitiş tarihinden büyük olamaz.');
+            return;
+        }
+
+        try {
+            const newExperience = await MyExperienceService.addUserExperience(
+                formValues as AddUserExperiencesRequest
+            );
+            console.log("Deneyim Başarı ile Eklendi.");
+            setUserExperiences((prevExperiences) => {
+                const updatedExperiences = Array.isArray(prevExperiences)
+                    ? [...prevExperiences, newExperience]
+                    : [newExperience];
+
+                return updatedExperiences;
+            });
+
+            setFormValues(initialFormValues);
+        } catch (error) {
+            console.error('Form gönderimi sırasında hata:', error);
+        }
     };
+
+
+    const handleDelete = async (experienceId: number) => {
+        try {
+            await MyExperienceService.deleteUserExperience(experienceId);
+            console.log("Deneyim Başarı ile Silindi.");
+            setUserExperiences((prevExperiences) =>
+                prevExperiences.filter((exp) => exp.id !== experienceId)
+            );
+        } catch (error) {
+            console.error('Deneyim silme sırasında hata:', error);
+        }
+    };
+
 
     return (
         <div>
@@ -97,17 +153,17 @@ const MyExperiences = () => {
                             </div>
                         </div>
                         <div className='col-12 col-lg-9'>
-                            <form action="#" data-hs-cf-bound="true" onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit}>
                                 <div className="row mb-2">
                                     <div className="col-12 col-md-6 mb-6">
                                         <label className="input-label-text">Kurum Adı*</label>
                                         <input
-                                            name="corporationName"
+                                            name="establishmentName"
                                             className="form-control tobeto-input"
                                             type="text"
-                                            placeholder="Kampüs 365"
-                                            value={formValues.corporationName}
+                                            value={formValues.establishmentName}
                                             onChange={handleInputChange}
+                                            placeholder="Kampüs 365"
                                         />
                                     </div>
                                     <div className="col-12 col-md-6 mb-6">
@@ -116,9 +172,9 @@ const MyExperiences = () => {
                                             name="position"
                                             className="form-control tobeto-input"
                                             type="text"
-                                            placeholder="Front-End Developer"
                                             value={formValues.position}
                                             onChange={handleInputChange}
+                                            placeholder="Front-End Developer"
                                         />
                                     </div>
                                     <div className="col-12 col-md-6 mb-6">
@@ -127,18 +183,17 @@ const MyExperiences = () => {
                                             name="sector"
                                             className="form-control tobeto-input"
                                             type="text"
-                                            placeholder="Yazılım"
                                             value={formValues.sector}
                                             onChange={handleInputChange}
+                                            placeholder="Yazılım"
                                         />
                                     </div>
                                     <div className="col-12 col-md-6 mb-6">
                                         <label className="input-label-text">Şehir Seçiniz*</label>
                                         <select
-                                            name="country"
+                                            name="city"
                                             className="form-select tobeto-input"
-                                            aria-label=""
-                                            value={formValues.country}
+                                            value={formValues.city}
                                             onChange={handleInputChange}
                                         >
                                             <option value="">İl Seçiniz</option>
@@ -153,24 +208,30 @@ const MyExperiences = () => {
                                         <label className="input-label-text">İş Başlangıcı*</label>
                                         <div className="react-datepicker-wrapper">
                                             <DatePicker
-                                                selected={formValues.startDate}
-                                                onChange={(date) => handleDateChange('startDate', date)}
+                                                selected={formValues.workBeginDate || undefined}
+                                                onChange={(date) => handleDateChange('workBeginDate', date)}
                                                 placeholderText="gg.aa.yyyy"
                                                 dateFormat="dd.MM.yyyy"
                                                 className="form-control tobeto-input"
+                                                showMonthDropdown
+                                                showYearDropdown
+                                                dropdownMode="select"
                                             />
+
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-6 mb-6">
                                         <label className="input-label-text">İş Bitiş*</label>
                                         <div className="react-datepicker-wrapper">
                                             <DatePicker
-                                                selected={formValues.endDate}
-                                                onChange={(date) => handleDateChange('endDate', date)}
+                                                selected={formValues.workEndDate}
+                                                onChange={(date) => handleDateChange('workEndDate', date)}
                                                 placeholderText="gg.aa.yyyy"
                                                 dateFormat="dd.MM.yyyy"
                                                 className="form-control tobeto-input"
-                                                disabled={formValues.continueCurrentJob}
+                                                showMonthDropdown
+                                                showYearDropdown
+                                                dropdownMode="select"
                                             />
                                         </div>
                                         <label className="d-flex mt-3 text-start">
@@ -178,13 +239,11 @@ const MyExperiences = () => {
                                                 name="continueCurrentJob"
                                                 className="form-check-input me-4"
                                                 type="checkbox"
-                                                checked={formValues.continueCurrentJob}
                                                 onChange={handleInputChange}
                                             />
                                             <small className="text-muted">Çalışmaya Devam Ediyorum</small>
                                         </label>
                                     </div>
-
                                     <div className="col-12 col-md-12 mb-6">
                                         <label className="input-label-text">İş Açıklaması</label>
                                         <textarea
@@ -201,6 +260,27 @@ const MyExperiences = () => {
                                     Kaydet
                                 </button>
                             </form>
+                            <div>
+                                <ul className="list-group card-text ">
+                                    {Array.isArray(userExperiences) &&
+                                        userExperiences.map((experience) => (
+                                            <li key={experience.id} className="list-group-item">
+                                                <div className="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h6 className="mb-0">{experience.establishmentName}</h6>
+                                                        <p className="mb-0">{`${experience.position} | ${experience.sector}`}</p>
+                                                        <p className="mb-0">{`${experience.workBeginDate} - ${experience.workEndDate}`}</p>
+                                                        <p className="mb-0">{experience.city}</p>
+                                                        <p className="mb-0">{experience.description}</p>
+                                                    </div>
+                                                    <button className="btn btn-danger" onClick={() => handleDelete(experience.id)}>
+                                                        Sil
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
