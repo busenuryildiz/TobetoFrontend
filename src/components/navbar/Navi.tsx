@@ -15,7 +15,7 @@ function Navi() {
   };
   return (
     <Navbar className="position-relative " expand="xxl py-5"  bg="white">
-      <Container fluid className="mt-3 mb-3">
+      <Container fluid className="mt-1 mb-1">
         <Navbar.Brand href="platform">
           <img
             src="/Assets/image/tobeto-logo.png"
@@ -123,7 +123,7 @@ function Navi() {
                 <div className="me-2">
                   <img
                     className="cv-pp-img rounded-circle"
-                    src="Assets/image/Avatar.png"
+                    src={`${auth.user.imagePath}`}
                     alt=""
                     style={{
                       width: "36px",

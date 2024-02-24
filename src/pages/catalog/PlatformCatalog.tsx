@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Courses, { Course } from '../../components/catalog/courses';
 import SearchSection from '../../components/catalog/searchSection';
+import Navi from '../../components/navbar/Navi';
 import FilterCourse from '../../components/catalog/filterCourse';
-import Navbar from '../../components/navbar/Navi2';
-import Footer2 from '../../components/footer/Footer2';
+import Footer from '../../components/footer/footer';
 
-export default function Catalog() {
+export default function PlatformCatalog() {
   const [filteredData, setFilteredData] = useState<Course[]>([]);
   const [allCourses, setAllCourses] = useState<Course[]>([]);
 
@@ -41,18 +41,16 @@ export default function Catalog() {
   };
 
   return (
-    <div className="bg-front-dark">
-      <Navbar />
-      <div className="margin-top: 70px; padding-top: 70px">
+    <div>
+      <Navi />
       <SearchSection onSearch={handleSearch} />
       <div className="container mt-5 pb-20">
         <div className="row">
-          <FilterCourse theme="dark" courses={allCourses} onFilterChange={handleFilterChange} />
+          <FilterCourse theme="light" courses={allCourses} onFilterChange={handleFilterChange} />
           <Courses courses={filteredData} />
         </div>
       </div>
-      </div>
-      <Footer2 />
+      <Footer />
     </div>
   );
 }

@@ -11,7 +11,7 @@ const Footer2 = () => {
               <p className="mb-6 text-white fw-bold">Site Haritası</p>
               <ul className="list-unstyled">
                 <li className="mb-3">
-                <Link to="/hakkimizda" className="small text-white text-decoration-none">Hakkımızda</Link>
+                  <Link to="/hakkimizda" className="small text-white text-decoration-none">Hakkımızda</Link>
                 </li>
                 <li className="mb-3">
                   <Link to="/bireyler-icin"
@@ -183,74 +183,77 @@ const Footer2 = () => {
           </div>
           <div className="row pt-8 justify-content-between align-items-center">
             <div className="col-12 col-lg-auto text-center mb-8 mb-lg-0">
-              <a className="navbar-brand" href="#">
+              <a
+                className="navbar-brand"
+                href="#"
+              >
                 <span
                   style={{
-                    boxSizing: "border-box",
-                    display: "inline-block",
-                    overflow: "hidden",
-                    width: "initial",
-                    height: "initial",
-                    background: "none",
-                    opacity: 1,
-                    border: 0,
-                    margin: 0,
-                    padding: 0,
-                    position: "relative",
-                    maxWidth: "100%",
+                    background: 'none',
+                    border: '0px',
+                    boxSizing: 'border-box',
+                    display: 'inline-block',
+                    height: 'initial',
+                    margin: '0px',
+                    maxWidth: '100%',
+                    opacity: '1',
+                    overflow: 'hidden',
+                    padding: '0px',
+                    position: 'relative',
+                    width: 'initial'
                   }}
                 >
                   <span
                     style={{
-                      boxSizing: "border-box",
-                      display: "block",
-                      width: "initial",
-                      height: "initial",
-                      background: "none",
-                      opacity: 1,
-                      border: 0,
-                      margin: 0,
-                      padding: 0,
-                      maxWidth: "100%",
+                      background: 'none',
+                      border: '0px',
+                      boxSizing: 'border-box',
+                      display: 'block',
+                      height: 'initial',
+                      margin: '0px',
+                      maxWidth: '100%',
+                      opacity: '1',
+                      padding: '0px',
+                      width: 'initial'
                     }}
                   >
                     <img
                       alt=""
                       aria-hidden="true"
-                      src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27132%27%20height=%2727%27/%3e"
+                      src="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75"
                       style={{
-                        display: "block",
-                        maxWidth: "100%",
-                        width: "initial",
-                        height: "initial",
-                        background: "none",
-                        opacity: 1,
-                        border: 0,
-                        margin: 0,
-                        padding: 0,
+                        background: 'none',
+                        border: '0px',
+                        display: 'block',
+                        height: 'initial',
+                        margin: '0px',
+                        maxWidth: '100%',
+                        opacity: '1',
+                        padding: '0px',
+                        width: 'initial'
                       }}
                     />
                   </span>
                   <img
                     alt=""
-                    srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=256&q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75 2x"
-                    src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75"
-                    decoding="async"
                     data-nimg="intrinsic"
+                    decoding="async"
+                    src="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75"
+                    srcSet="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75 1x, https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75 2x"
                     style={{
-                      position: "absolute",
-                      inset: 0,
-                      boxSizing: "border-box",
-                      padding: 0,
-                      border: "none",
-                      margin: "auto",
-                      display: "block",
-                      width: 0,
-                      height: 0,
-                      minWidth: "100%",
-                      maxWidth: "100%",
-                      minHeight: "100%",
-                      maxHeight: "100%",
+                      border: 'none',
+                      boxSizing: 'border-box',
+                      display: 'block',
+                      height: '0px',
+                      inset: '0px',
+                      margin: 'auto',
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      minHeight: '100%',
+                      minWidth: '100%',
+                      padding: '0px',
+                      position: 'absolute',
+                      width: '0px'
                     }}
                   />
                 </span>

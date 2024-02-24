@@ -131,24 +131,24 @@ function PlatformPage() {
               <div className="container text-center">
                 <div className="mw-5xl mx-auto">
                   <h3>
-                    <span className="fs-1" style={{ color: "#9933FF" }}>
+                    <span className="fs-normal" style={{ color: "#9933FF" }}>
                       <strong>TOBETO</strong>
                     </span>
                     <span
-                      className="fw-normal fs-2 "
+                      className="fw-normal "
                       style={{ color: "#4D4D4D" }}
                     >
                       'ya
                     </span>
                     <span
-                      className="fw-normal fs-2"
+                      className="fw-normal"
                       style={{ color: "#4D4D4D" }}
                     >
                       {" "}
                       hoş geldin
                     </span>
                   </h3>
-                  <h4 className="fw-normal fs-2" style={{ color: "#4D4D4D" }}>
+                  <h4 className="fw-normal" style={{ color: "#4D4D4D" }}>
                     {" "}
                     {auth.user && auth.user.firstName
                       ? auth.user.firstName
