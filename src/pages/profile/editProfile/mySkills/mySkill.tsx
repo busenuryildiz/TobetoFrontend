@@ -1,137 +1,87 @@
-/*import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectSelectedSkill,
-  addSkillToUser,
-  selectSkills,
-  selectSkillsLoading,
-  selectSkillsError,
-} from '../../../../store/slices/mySkillSlice';
-import { AddSkillsRequest } from '../../../../models/requests/Skills/addSkillsRequest';
-import { Action as AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { RootState } from '../../../../store/configureStore';
-import skillService from '../../../../services/pages/profile/editProfile/skill/skillService'; // API çağrılarını yaptığınız modülün yolu
-
-const MySkill = () => {
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
-  const dispatch = useDispatch();
-  const skills = useSelector(selectSkills);
-  const loading = useSelector(selectSkillsLoading);
-  const error = useSelector(selectSkillsError);
-  const userId = 123;
-
-  useEffect(() => {
-    // API çağrısı ile beceri isimleri ile eşleşen beceri ID'lerini almak için skillService'i kullanın
-    const fetchSkillId = async () => {
-      try {
-        const response = await skillService.getSkillIdByName(selectedSkill);
-        setSelectedSkillId(response.data.id);
-      } catch (error) {
-        console.error('Error fetching skill ID:', error.message);
-      }
-    };
-
-    if (selectedSkill) {
-      fetchSkillId();
-    }
-  }, [selectedSkill]);
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSkill(e.target.value);
-  };
-
-  const handleSaveClick = async () => {
-    if (selectedSkillId !== null) {
-      try {
-        await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(addSkillToUser(userId, {
-          userId: userId.toString(),
-          name: selectedSkill,
-          id: selectedSkillId,
-          imagePath: '',
-        }));
-
-        console.log(`Skill '${selectedSkill}' (ID: ${selectedSkillId}) added to user with ID ${userId}`);
-      } catch (error:any) {
-        console.error('Error adding skill:', error.message);
-      }
-    }
-  };
-
-  return (
-    <div className="col-12 col-lg-9" style={{ minHeight: '90vh' }}>
-      <div className="row mb-2">
-        <div className="col-12 mb-6">
-          <label className="input-label-text">Yetkinlik</label>
-          <div className="css-b62m3t-container">
-            <select
-              value={selectedSkill || ''}
-              onChange={handleSelectChange}
-              className="css-13cymwt-control"
-            >
-              <option value="" disabled>Seçiniz</option>
-              {skills.map(skill => (
-                <option key={skill.name} value={skill.name}>
-                  {skill.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <button className="btn btn-primary py-2 mb-3 d-inline-block mobil-btn" onClick={handleSaveClick}>
-          Kaydet
-        </button>
-        <div className="col-12"></div>
-      </div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {selectedSkill && (
-        <div>
-          <h2>Seçilen Yetkinlik Detayları</h2>
-          <p>Name: {selectedSkill}</p>
-           
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default MySkill;
-*/
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import Navi from '../../../../components/navbar/Navi';
+import { mySkillService } from '../../../../services/pages/profile/editProfile/skill/skillService';
+import { DeleteSkillsResponse } from '../../../../models/responses/Skills/deleteSkillsResponse';
+import { GetAllStudentSkillsResponse } from '../../../../models/responses/Students/getAllStudentSkillsResponse';
+import { AddStudentSkillsbyUserIdRequest } from '../../../../models/requests/StudentSkill/addStudentSkillByUserIdRequest';
+import { useSelector } from 'react-redux';
+import { GetAllSkillsResponse, SkillItem } from '../../../../models/responses/Skills/getAllSkillsResponse';
+import { GetStudentSkillsByUserIdResponse } from '../../../../models/responses/StudentSkill/getStudentSkillsByUserIdResponse';
 
-interface MySkillProps {
-  // Define any props you need for your component
-}
+const MySkill = () => {
+  const [selectedOption, setSelectedOption] = useState<any>(null);
+  const user = useSelector((state: any) => state.auth.user);
+  const [skills, setSkills] = useState<GetStudentSkillsByUserIdResponse[]>([]);
+  const [dropdownOptions, setDropdownOptions] = useState<SkillItem[]>([]);
 
-const MySkill: React.FC<MySkillProps> = (props) => {
-  const [selectedOption, setSelectedOption] = useState<any>(null); // Initialize state for the selected option
+  useEffect(() => {
+    const storedSkills = localStorage.getItem('localSkills');
+    if (storedSkills) {
+      setSkills(JSON.parse(storedSkills));
+    }
+    const fetchSkills = async () => {
+      try {
+        const skillsResponse = await mySkillService.getAllSkills();
+        setDropdownOptions(skillsResponse);
+      } catch (error: any) {
+        console.error('Error fetching skills:', error.message);
+      }
+    };
+    fetchSkills();
+  }, []);
 
-  const options = [
-    // Define your options here
-    { value: 'C#', label: 'C#' },
-    { value: 'Javascript', label: 'Javascript' },
-    { value: 'Aktif Öğrenme', label: 'Aktif Öğrenme' },
-    { value: 'Aktif Dinleme', label: 'Aktif Dinleme' },
-    { value: 'SQL', label: 'SQL' },
-    { value: 'Algoritma', label: 'Algoritma' },
-    { value: 'İletişim', label: 'İletişim' },
-    // Add more options as needed
-  ];
+
 
   const handleChange = (selectedOption: any) => {
     setSelectedOption(selectedOption);
   };
 
-  const handleSaveClick = () => {
-    // Handle save click logic here
-    console.log('Selected Skill:', selectedOption);
+  const handleSaveClick = async () => {
+    try {
+      if (selectedOption) {
+        const newSkill: AddStudentSkillsbyUserIdRequest = {
+          userId: user.id,
+          skillId: selectedOption.value,
+        };
+
+        // Yeni beceriyi ekleyin
+        const response = await mySkillService.addSkill(newSkill);
+        console.log(`Skill '${selectedOption.label}' (ID: ${response.id}) başarıyla eklendi.`);
+
+        // Güncellenmiş beceri listesini almak için
+        const updatedSkills = await mySkillService.getAllStudentSkills(user.id);
+
+        // State'i güncelleyin
+        setSkills(updatedSkills);
+
+        localStorage.setItem('localSkills', JSON.stringify(updatedSkills));
+
+      }
+    } catch (error: any) {
+      console.error('Yetenek eklenirken hata oluştu:', error.message);
+    }
+  };
+
+  const handleDeleteSkill = async (studentSkillId: number) => {
+    try {
+      await mySkillService.deleteSkill(studentSkillId);
+
+      const updatedSkills = await mySkillService.getAllStudentSkills(user.id);
+
+      // State'i güncelleyin
+      setSkills(updatedSkills)
+
+      localStorage.setItem('localSkills', JSON.stringify(updatedSkills));
+
+    } catch (error: any) {
+      console.error('Yetenek silinirken hata oluştu:', error.message);
+    }
   };
 
   return (
     <div>
-      <Navi/>
+      <Navi />
       <section className='py-6 bg-white'>
         <div className="container">
           <div className="row">
@@ -176,7 +126,7 @@ const MySkill: React.FC<MySkillProps> = (props) => {
                 <div className="col-12 mb-6">
                   <label className="input-label-text">Yetkinlik</label>
                   <Select
-                    options={options}
+                    options={dropdownOptions.map(option => ({ value: option.id, label: option.name }))}
                     value={selectedOption}
                     onChange={handleChange}
                     placeholder="Seçiniz"
@@ -186,6 +136,21 @@ const MySkill: React.FC<MySkillProps> = (props) => {
                   Kaydet
                 </button>
               </div>
+              <ul className="list-group card-text ">
+                {Array.isArray(skills) &&
+                  skills.map((skill) => (
+                    <li key={skill.studentSkillId} className="list-group-item">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 className="mb-0">{skill.studentSkillName}</h6>
+                        </div>
+                        <button className="btn btn-danger" onClick={() => handleDeleteSkill(skill.studentSkillId)}>
+                          Sil
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -195,3 +160,4 @@ const MySkill: React.FC<MySkillProps> = (props) => {
 };
 
 export default MySkill;
+
