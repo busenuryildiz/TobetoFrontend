@@ -15,7 +15,7 @@ function Navi() {
   };
   return (
     <Navbar className="position-relative " expand="xxl py-5"  bg="white">
-      <Container fluid className="mt-3 mb-3">
+      <Container fluid >
         <Navbar.Brand href="platform">
           <img
             src="/Assets/image/tobeto-logo.png"

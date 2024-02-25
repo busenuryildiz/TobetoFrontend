@@ -22,9 +22,6 @@ const Question: React.FC<QuestionProps> = ({ question, average }) => {
 
     const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
-
-        // Seçilen cevabı sunucuya gönderin...
-
         console.log('Seçilen cevap:', selectedAnswer);
     };
 
