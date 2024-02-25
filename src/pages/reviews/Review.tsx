@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navi from '../../components/navbar/Navi'
-import Footer from '../../components/footer/footer'
+import Footer from '../../components/footer/Footer'
 import { Container } from 'react-bootstrap';
 
 export interface Exam {

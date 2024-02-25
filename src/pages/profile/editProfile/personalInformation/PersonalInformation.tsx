@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PersonalInformationService from '../../../../services/pages/profile/editProfile/personalInformation/personalInfoService';
 import Navi from '../../../../components/navbar/Navi';
-import Footer from '../../../../components/footer/footer';
+import Footer from '../../../../components/footer/Footer';
 import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
 import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
 import axios from 'axios';

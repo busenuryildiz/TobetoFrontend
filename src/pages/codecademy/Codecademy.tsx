@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/Footer";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Navi2 from "../../components/navbar/Navi2";

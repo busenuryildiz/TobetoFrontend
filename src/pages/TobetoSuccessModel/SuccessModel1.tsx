@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Footer from '../../components/footer/footer';
+import Footer from '../../components/footer/Footer';
 import Navi from '../../components/navbar/Navi';
 import axios from 'axios';
 import { Link } from 'react-router-dom';

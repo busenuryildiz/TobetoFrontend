@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navi2 from "../../components/navbar/Navi2";
 import Footer2 from "../../components/footer/Footer2";
-import SocialMediaShareButtons from "../../components/socialMediaShareButtons/SocialMediaShareButtons";
 import { useParams } from "react-router";
+import SocialMediaShareButtons from "../blog/SocialMediaShareButtons";
 
 const MediaPost = () => {
   const { id } = useParams<{ id: string }>();

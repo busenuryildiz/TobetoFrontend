@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from '../../store';
 import { getAllLessonCourses } from '../../store/slices/lessonCourseSlice';
 import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 import Navi from '../../components/navbar/Navi';
-import Footer from '../../components/footer/footer';
+import Footer from '../../components/footer/Footer';
 
 const CalendarPage: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

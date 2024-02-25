@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Navi from '../../components/navbar/Navi'
-import Footer from '../../components/footer/footer'
+import Footer from '../../components/footer/Footer'
 import ProgressBar from './ProgressBar';
 
 export default function TobetoSuccessModel() {
