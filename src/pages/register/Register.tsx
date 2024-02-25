@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../store/actions/authActions";
 import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/Navi2";
+import Navi2 from "../../components/navbar/Navi2";
+import Footer2 from "../../components/footer/Footer2";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const Register = () => {
   };
   return (
     <div>
-      <Navbar />
+      <Navi2 />
       <section className="position-relative py-lg-20 bg-light-light py-sm-10 mt-5">
         <div className="container mt-5 text-center">
           <div className="row justify-content-center">
@@ -129,6 +130,7 @@ const Register = () => {
           </div>
         </div>
       </section>
+      <Footer2/>
     </div>
   );
 };

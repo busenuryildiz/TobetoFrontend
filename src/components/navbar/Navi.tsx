@@ -123,7 +123,7 @@ function Navi() {
                 <div className="me-2">
                   <img
                     className="cv-pp-img rounded-circle"
-                    src="Assets/image/Avatar.png"
+                    src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
                     alt=""
                     style={{
                       width: "36px",

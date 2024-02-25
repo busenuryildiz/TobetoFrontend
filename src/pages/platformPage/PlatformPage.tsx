@@ -1,6 +1,6 @@
 import React from "react";
 import Navi from "../../components/navbar/Navi";
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/Footer";
 import ApplicationStatus from "../../components/mainPage/applyTabPanel/appyTab";
 import LessonsTab from "../../components/mainPage/lessonsTabPanel/lessonsTab";
 import NotificationTab from "../../components/mainPage/notificationTabPanel/notificationTab";
@@ -8,6 +8,9 @@ import { useState } from "react";
 import ApplicationsTab from "../../components/mainPage/applicationsTabPanel/applicationsTab";
 import MySurveyTab from "../../components/mainPage/mySurveyTabPanel/mySurveyTab";
 import { useSelector } from "react-redux";
+import ProfileContainers from "./ProfileContainers";
+import MyExams from "./MyExams";
+import PlatformHeader from "./PlatformHeader";
 
 function PlatformPage() {
   const [activeTab, setActiveTab] = useState("applications-tab-pane");
@@ -22,35 +25,7 @@ function PlatformPage() {
     <div className="plaform-page">
       <Navi />
       {/* SECTİON 1 */}
-      <section className="dropdown custom-dropdown">
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <div className="mega-menu">
-            <div className="notification-content">
-              <div className="user-form done">
-                <div className="d-flex flex-column">
-                  <div className="form-name">Form ismi</div>
-                  <div className="form-date">23.01.2023</div>
-                </div>
-                <a className="form-button" href="/platform"></a>
-              </div>
-              <div className="user-form pending">
-                <div className="d-flex flex-column">
-                  <div className="form-name">Form ismi</div>
-                  <div className="form-date">23.01.2023</div>
-                </div>
-                <a className="form-button" href="/platform"></a>
-              </div>
-              <div className="user-form notdone">
-                <div className="d-flex flex-column">
-                  <div className="form-name">Form ismi</div>
-                  <div className="form-date">23.01.2023</div>
-                </div>
-                <a className="form-button" href="/platform"></a>
-              </div>
-            </div>
-          </div>
-        </div>{" "}
-      </section>
+      <PlatformHeader/>
       <main>
         <div className="platform-page" style={{ minHeight: "120vh" }}>
           {/* İnner section 1 */}
@@ -131,24 +106,24 @@ function PlatformPage() {
               <div className="container text-center">
                 <div className="mw-5xl mx-auto">
                   <h3>
-                    <span className="fs-1" style={{ color: "#9933FF" }}>
+                    <span className="fs-normal" style={{ color: "#9933FF" }}>
                       <strong>TOBETO</strong>
                     </span>
                     <span
-                      className="fw-normal fs-2 "
+                      className="fw-normal "
                       style={{ color: "#4D4D4D" }}
                     >
                       'ya
                     </span>
                     <span
-                      className="fw-normal fs-2"
+                      className="fw-normal"
                       style={{ color: "#4D4D4D" }}
                     >
                       {" "}
                       hoş geldin
                     </span>
                   </h3>
-                  <h4 className="fw-normal fs-2" style={{ color: "#4D4D4D" }}>
+                  <h4 className="fw-normal" style={{ color: "#4D4D4D" }}>
                     {" "}
                     {auth.user && auth.user.firstName
                       ? auth.user.firstName
@@ -162,8 +137,9 @@ function PlatformPage() {
               </div>
             </div>
           </section>
-          {/* End of İnner section 1 */}
+          
           {/* İnner section 2 */}
+
           <section className="my-2">
             <div className="container">
               <div className="row cv-box cv-padding display-flex mmt-n-4">
@@ -351,75 +327,11 @@ function PlatformPage() {
             </div>
           </section>
 
-          {/* End of İnner section 2 */}
-
-          {/* End of İnner section 3 */}
-          <section className="my-2">
-            <div className="container">
-              <div className="row cv-box cv-padding">
-                <div className="col-12 position-relative">
-                  <span className="exams-header">Sınavlarım</span>
-                </div>
-                <div className="exams my-3">
-                  <div className="exam-card">
-                    <div className="exam-header">
-                      <span className="exam-name">
-                        Herkes için Kodlama 1D Değerlendirme Sınavı
-                      </span>
-                      <span className="lesson-name">
-                        Herkes İçin Kodlama - 1D
-                      </span>
-                    </div>
-                    <div className="exam-details">
-                      <div>
-                        <span className="exam_time">45 Dakika</span>
-                      </div>
-                    </div>
-                    <span className="status-done"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* End of İnner section 3 */}
-          {/* End of inner section 4 */}
-          <section className="my-2">
-            <div className="container">
-              <div className="new-packs my-10">
-                <div className="package-card">
-                  <div className="details pack-bg-2">
-                    <h1>
-                      <br />
-                      Profilini oluştur
-                    </h1>
-                    <button className="btn btn-primary w-100">Başla</button>
-                  </div>
-                </div>
-                <div className="package-card">
-                  <div className="details pack-bg-3">
-                    <h1 className="mb-6">
-                      <br />
-                      Kendini değerlendir
-                    </h1>
-                    <button className="btn btn-primary w-100">Başla</button>
-                  </div>
-                </div>
-                <div className="package-card">
-                  <div className="details pack-bg-1">
-                    <h1 className="mb-6">
-                      <br />
-                      Öğrenmeye başla
-                    </h1>
-                    <button className="btn btn-primary w-100">Başla</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* End of inner section 4 */}
+         <MyExams/>
+          <ProfileContainers/>
         </div>
       </main>
-      <Footer></Footer>
+      <Footer/>
     </div>
   );
 }

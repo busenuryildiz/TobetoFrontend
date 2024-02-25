@@ -23,7 +23,7 @@ const PhoneNumberValidation:React.FC<PhoneNumberValidationProps>  = ({ phoneNumb
   return (
     <div>
       <label>
-        Phone Number:
+        <label className="input-label-text">Telefon Numaranız*</label>
         <PhoneInput
           country={'in'}
           value={phoneNumber}

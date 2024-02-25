@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store";
 import { logoutUser } from "../../store/actions/authActions";
 
-const Navbar = () => {
+const Navi2 = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: any) => state.auth);
@@ -111,37 +111,37 @@ const Navbar = () => {
             </button>
             <ul className="d-none d-xl-flex flex-row justify-content-center navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/hakkimizda">
+                <Link className="nav-link" to="/hakkimizda">
                   Biz Kimiz?
-                </a>
+                </Link>
               </li>
               <li className="nav-item dropdown tbt-dropdown">
-                <a
+                <Link
                   className="nav-link tnav-link"
-                  href="#"
+                  to="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Neler Sunuyoruz?
-                </a>
+                </Link>
                 <ul className="dropdown-menu dd-bg w-100">
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/bireyler-icin">
+                    <Link className="m-0 nav-link" to="/bireyler-icin">
                       Bireyler için
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/kurumlar-icin">
+                    <Link className="m-0 nav-link" to="/kurumlar-icin">
                       Kurumlar için
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/katalog">
+                <Link className="nav-link" to="/platform-katalog">
                   Katalog
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/codecademy">
@@ -160,115 +160,116 @@ const Navbar = () => {
                 </a>
                 <ul className="dropdown-menu dd-bg w-100">
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/blog">
+                    <Link className="m-0 nav-link" to="/blog">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/basinda-biz">
+                    <Link className="m-0 nav-link" to="/mediapost">
                       Basında Biz
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/takvim">
+                    <Link className="m-0 nav-link" to="/takvim">
                       Takvim
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/istanbul-kodluyor">
+                    <Link className="m-0 nav-link" to="/istanbul-kodluyor">
                       İstanbul Kodluyor
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
             </ul>
 
             {auth.isAuthenticated ? (
-              <div className="d-none d-xxl-block">
-                <div className="d-flex justify-space-between align-items-center">
-                  <Link
-                    to="/"
-                    className="mx-3 align-items-center d-flex align-items-center"
-                    style={{ gap: "1em" }}
-                  >
-                    <span className="tbt-gradient"></span>
-                  </Link>
-                  <div className="btn-group header-avatar">
-                    <button
-                      type="button"
-                      className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <div className="me-2">
-                        <img
-                          className="cv-pp-img rounded-circle"
-                          src="Assets/image/Avatar.png"
-                          alt=""
-                          style={{
-                            width: "36px",
-                            height: "36px",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </div>
-                      <div className="me-3">
-                        <p className="mb-0 name">
-                          {auth.user && auth.user.firstName
-                            ? auth.user.firstName
-                            : ""}
-                        </p>
-                      </div>
-                      <span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                        >
-                          <path
-                            d="M6 9L12 15L18 9"
-                            stroke="#828282"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          ></path>
-                        </svg>
-                      </span>
-                    </button>
-                    <ul className={`profile dropdown-menu`}>
-                      <li>
-                        <Link to="/profilim/profilimi-duzenle/kisisel-bilgilerim" className="dropdown-item profil-dropdown">
-                          Profil Bilgileri
-                        </Link>
-                      </li>
-                      <li>
-                        <hr
-                          className="dropdown-divider"
-                          style={{
-                            backgroundColor: "rgb(204, 204, 204)",
-                            height: "1px",
-                          }}
-                        />
-                      </li>
-                      <li>
-                        <hr
-                          className="dropdown-divider"
-                        />
-                      </li>
-                      <li>
-                        <button
-                          className="dropdown-item profil-dropdown"
-                          onClick={handleLogout}
-                        >
-                          Oturumu Kapat
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>) : (
+  <div className="d-none d-xxl-block">
+  <div className="d-flex justify-space-between align-items-center">
+    <Link
+     to="/"
+      className="mx-3 align-items-center d-flex align-items-center"
+      style={{ gap: "1em" }}
+    >
+      <span className="tbt-gradient"></span>
+    </Link>
+    <div className="btn-group header-avatar">
+      <button
+        type="button"
+        className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <div className="me-2">
+          <img
+            className="cv-pp-img rounded-circle"
+            src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
+            
+            alt=""
+            style={{
+              width: "36px",
+              height: "36px",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+        <div className="me-3">
+          <p className="mb-0 name">
+            {auth.user && auth.user.firstName
+              ? auth.user.firstName
+              : ""}
+          </p>
+        </div>
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="M6 9L12 15L18 9"
+              stroke="#828282"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></path>
+          </svg>
+        </span>
+      </button>
+      <ul className={`profile dropdown-menu`}>
+        <li>
+          <Link to ="/profilim/profilimi-duzenle/kisisel-bilgilerim" className="dropdown-item profil-dropdown">
+            Profil Bilgileri
+          </Link>
+        </li>
+        <li>
+          <hr
+            className="dropdown-divider"
+            style={{
+              backgroundColor: "rgb(204, 204, 204)",
+              height: "1px",
+            }}
+          />
+        </li>
+        <li>
+          <hr
+            className="dropdown-divider"
+          />
+        </li>
+        <li>
+          <button
+            className="dropdown-item profil-dropdown"
+            onClick={handleLogout}
+          >
+            Oturumu Kapat
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>) : (
 
               <div className="d-none d-xl-block">
                 <a className="btn border-light text-light mx-4" href="/login">
@@ -405,9 +406,9 @@ const Navbar = () => {
                   </div>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/katalog">
+                  <Link className="nav-link" to="/platform-katalog">
                     Katalog
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/codecademy">
@@ -503,4 +504,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navi2;

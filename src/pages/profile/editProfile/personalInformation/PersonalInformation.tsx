@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PersonalInformationService from '../../../../services/pages/profile/editProfile/personalInformation/personalInfoService';
 import Navi from '../../../../components/navbar/Navi';
-import Footer from '../../../../components/footer/footer';
+import Footer from '../../../../components/footer/Footer';
 import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
 import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
 import axios from 'axios';
@@ -20,10 +20,10 @@ const PersonalInformation = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const selectedFile = event.target.files[0];
-  
+
       // Update the imagePath in the formik state to trigger re-render
       formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
-  
+
       setFile(selectedFile);
     }
   };
@@ -59,18 +59,30 @@ const PersonalInformation = () => {
     }
   };
 
-  const handleNationalIdentityChange = (e: any) => {
-    const inputValue = e.target.value;
+  const handleNationalIdentityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let inputValue = e.target.value;
 
-    // Sadece sayılardan oluşan bir string olup olmadığını kontrol et
-    const isValidInput = /^\d+$/.test(inputValue);
-
-    if (inputValue.length <= 11 && isValidInput) {
-      // Eğer gelen input 11 haneli ve sadece sayılardan oluşuyorsa değeri güncelle
-      formik.setFieldValue('nationalIdentity', inputValue);
+    // Eğer gelen input sadece sayılardan oluşuyorsa veya boşsa değeri güncelle
+    if (/^\d*$/.test(inputValue) || inputValue === "") {
+      // Eğer gelen input 11 karakterden fazlaysa veya eşitse, kullanıcıyı uyar
+      if (inputValue.length > 11) {
+        alert('National Identity en fazla 11 haneli olmalıdır.');
+      } else {
+        // Eğer 11 haneli veya daha az ise değeri güncelle
+        formik.setFieldValue('nationalIdentity', inputValue);
+      }
     } else {
-      // Sadece sayılardan oluşmuyorsa kullanıcıyı uyar
-      alert('National Identity yalnızca sayılardan oluşmalıdır ve en fazla 11 haneli olmalıdır.');
+      // Eğer sayılar dışında bir karakter varsa kullanıcıyı uyar
+      alert('National Identity yalnızca sayılardan oluşmalıdır.');
+    }
+  };
+
+  const handleNationalIdentityBlur = () => {
+    const inputValue = formik.values.nationalIdentity;
+
+    // Eğer input değeri 11 karakterden azsa, kullanıcıyı uyar
+    if (inputValue.length < 11) {
+      alert('National Identity en az 11 haneli olmalıdır.');
     }
   };
 
@@ -198,41 +210,103 @@ const PersonalInformation = () => {
                 <div className="row mb-2">
                   <div className="col-12 mb-6 text-center">
                     <label className="input-label-text">Profil Fotoğrafı</label>
-                    <div style={{ position: "relative" }}>
+                    <div style={{ position: "relative", textAlign: "center" }}>
                       {formik.values.imagePath && (
                         <>
-                          <img
-                            src={formik.values.imagePath}
-                            alt="Profil"
-                            className="rounded-circle"
-                            style={{ width: "150px", height: "150px" }}
-                          />
+                          <div style={{ width: "150px", height: "150px", overflow: "hidden", borderRadius: "50%", display: "inline-block" }}>
+                            <img
+                              src={formik.values.imagePath}
+                              alt="Profil"
+                              className="rounded-circle"
+                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                          </div>
                           <div style={{ position: "absolute", bottom: "0", right: "0", transform: "translate(50%, 50%)", cursor: "pointer" }}>
                             <span role="img" aria-label="Fotoğrafı Değiştir" onClick={() => setShowFileUploadCard(true)}>🔄</span>
                           </div>
                         </>
                       )}
                       {!formik.values.imagePath && (
-                        <>
-                          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", cursor: "pointer" }}>
-                            <span role="img" aria-label="Dosya Seç" onClick={() => setShowFileUploadCard(true)}>📁</span>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <div style={{ marginRight: "10px", cursor: "pointer" }}>
+                            <span
+                              role="img"
+                              aria-label="Dosya Seç"
+                              onClick={() => setShowFileUploadCard(true)}
+                              style={{ fontSize: "24px" }}
+                            >
+                              📁
+                            </span>
                           </div>
-                        </>
+                          <button
+                            onClick={() => setShowFileUploadCard(true)}
+                            style={{
+                              backgroundColor: "#4CAF50",
+                              color: "white",
+                              border: "none",
+                              padding: "10px 15px",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              display: "inline-block",
+                              fontSize: "16px",
+                              margin: "4px 2px",
+                              cursor: "pointer",
+                              borderRadius: "4px",
+                            }}
+                          >
+                            Fotoğrafı Yükle
+                          </button>
+                        </div>
+                      )}
+
+                      {/* File Upload Card */}
+                      {showFileUploadCard && (
+                        <div className="file-upload-card">
+                          <input type="file" onChange={handleFileChange} style={{ marginBottom: "10px" }} />
+                          <button
+                            onClick={() => {
+                              handleUpload();
+                              setShowFileUploadCard(false);
+                            }}
+                            style={{
+                              backgroundColor: "#4CAF50",
+                              color: "white",
+                              border: "none",
+                              padding: "10px 15px",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              display: "inline-block",
+                              fontSize: "16px",
+                              margin: "4px 2px",
+                              cursor: "pointer",
+                              borderRadius: "4px",
+                              marginRight: "5px",
+                            }}
+                          >
+                            Fotoğrafı Yükle
+                          </button>
+                          <button
+                            onClick={() => setShowFileUploadCard(false)}
+                            style={{
+                              backgroundColor: "#f44336",
+                              color: "white",
+                              border: "none",
+                              padding: "10px 15px",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              display: "inline-block",
+                              fontSize: "16px",
+                              margin: "4px 2px",
+                              cursor: "pointer",
+                              borderRadius: "4px",
+                            }}
+                          >
+                            İptal
+                          </button>
+                        </div>
                       )}
                     </div>
-                    {!formik.values.imagePath && (
-                      <button onClick={() => setShowFileUploadCard(true)}>Fotoğrafı Yükle</button>
-                    )}
                   </div>
-
-                  {/* File Upload Card */}
-                  {showFileUploadCard && (
-                    <div className="file-upload-card">
-                      <input type="file" onChange={handleFileChange} />
-                      <button onClick={() => { handleUpload(); setShowFileUploadCard(false); }}>Fotoğrafı Yükle</button>
-                      <button onClick={() => setShowFileUploadCard(false)}>İptal</button>
-                    </div>
-                  )}
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">Adınız*</label>
                     <input
@@ -254,18 +328,23 @@ const PersonalInformation = () => {
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
-                    <label className="input-label-text">Telefon Numaranız*</label>
                     <PhoneNumberValidation
                       phoneNumber={formik.values.phoneNumber}
-                      onChange={(value) => formik.setFieldValue('phoneNumber', value)}
+                      onChange={(value) => formik.setFieldValue('Telelon Numaranız', value)}
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">Doğum Tarihiniz*</label>
                     <DatePicker
+                      className="form-control tobeto-input"
                       selected={formik.values.birthDate}
                       onChange={(date) => formik.setFieldValue('birthDate', date)}
+                      dateFormat="dd.MM.yyyy"
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
                     />
+
                   </div>
                   <div className="col-12 col-md-6 mb-6">
                     <label className="input-label-text">TC Kimlik No*</label>
@@ -275,6 +354,7 @@ const PersonalInformation = () => {
                       type="text"
                       value={formik.values.nationalIdentity}
                       onChange={handleNationalIdentityChange}
+                      onBlur={handleNationalIdentityBlur}
                     />
 
                     <span className="text-danger" style={{ fontStyle: 'italic', fontSize: '14px' }}>
