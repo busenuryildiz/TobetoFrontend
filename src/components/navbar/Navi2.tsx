@@ -139,30 +139,30 @@ const Navi2 = () => {
             <ul className="d-none d-xl-flex flex-row justify-content-center navbar-nav">
               {/* Menü öğeleri */}
               <li className="nav-item">
-                <a className="nav-link" href="/hakkimizda">
+                <Link className="nav-link" to="/hakkimizda">
                   Biz Kimiz?
-                </a>
+                </Link>
               </li>
               <li className="nav-item dropdown tbt-dropdown">
-                <a
+                <Link
                   className="nav-link tnav-link"
-                  href="#"
+                  to="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Neler Sunuyoruz?
-                </a>
+                </Link>
                 <ul className="dropdown-menu dd-bg w-100">
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/bireyler-icin">
+                    <Link className="m-0 nav-link" to="/bireyler-icin">
                       Bireyler için
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/kurumlar-icin">
+                    <Link className="m-0 nav-link" to="/kurumlar-icin">
                       Kurumlar için
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
@@ -188,24 +188,24 @@ const Navi2 = () => {
                 </a>
                 <ul className="dropdown-menu dd-bg w-100">
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/blog">
+                    <Link className="m-0 nav-link" to="/blog">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/basinda-biz">
+                    <Link className="m-0 nav-link" to="/mediapost">
                       Basında Biz
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/takvim">
+                    <Link className="m-0 nav-link" to="/takvim">
                       Takvim
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/istanbul-kodluyor">
+                    <Link className="m-0 nav-link" to="/istanbul-kodluyor">
                       İstanbul Kodluyor
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
@@ -231,7 +231,8 @@ const Navi2 = () => {
         <div className="me-2">
           <img
             className="cv-pp-img rounded-circle"
-            src="Assets/image/Avatar.png"
+            src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
+            
             alt=""
             style={{
               width: "36px",

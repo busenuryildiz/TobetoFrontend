@@ -4,73 +4,73 @@ import Footer2 from "../../components/footer/Footer2";
 import SocialMediaShareButtons from "../../components/socialMediaShareButtons/SocialMediaShareButtons";
 import { useParams } from "react-router";
 
-const Blog = () => {
+const MediaPost = () => {
   const { id } = useParams<{ id: string }>();
-  const [blog, setBlog] = useState<any>(null);
+  const [mediapost, setMediaPost] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [prevBlogId, setPrevBlogId] = useState<string | null>(null);
-  const [nextBlogId, setNextBlogId] = useState<string | null>(null);
+  const [prevMediaPostId, setPrevMediaPostId] = useState<string | null>(null);
+  const [nextMediaPostId, setNextMediaPostId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Belirtilen blogun verisini çekmek için API isteği yapın
-    fetch(`http://localhost:6280/api/Blogs/GetById?id=${id}`)
+    // Belirtilen mediapostun verisini çekmek için API isteği yapın
+    fetch(`http://localhost:6280/api/MediaPosts/GetById?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
-        // API'den gelen veriyi blog state'ine kaydedin
-        setBlog(data);
+        // API'den gelen veriyi mediapost state'ine kaydedin
+        setMediaPost(data);
         setLoading(false); // Verilerin yüklendiğini işaretleyin
         console.log(data);
       })
-      .catch((error) => console.error("Error fetching blog:", error));
+      .catch((error) => console.error("Error fetching mediapost:", error));
 
-      const isBlogExists = (blogId: string): Promise<boolean> => {
-        return fetch(`http://localhost:6280/api/Blogs/GetById?id=${blogId}`)
+      const isMediaPostExists = (mediapostId: string): Promise<boolean> => {
+        return fetch(`http://localhost:6280/api/MediaPosts/GetById?id=${mediapostId}`)
           .then((response) => response.ok)
           .catch((error) => {
-            console.error("Error checking blog existence:", error);
+            console.error("Error checking mediapost existence:", error);
             return false;
           });
       };
 
-   // Check if the previous blog exists
+   // Check if the previous mediapost exists
     const prevId = parseInt(id as string) - 1;
-    isBlogExists(prevId.toString()).then((exists) => {
+    isMediaPostExists(prevId.toString()).then((exists) => {
       if (exists) {
-        setPrevBlogId(prevId.toString());
+        setPrevMediaPostId(prevId.toString());
       }
       else{
-        setPrevBlogId(null);
+        setPrevMediaPostId(null);
       }
     });
 
-    // Check if the next blog exists
+    // Check if the next mediapost exists
     const nextId = parseInt(id as string) + 1;
-    isBlogExists(nextId.toString()).then((exists) => {
+    isMediaPostExists(nextId.toString()).then((exists) => {
       if (exists) {
-        setNextBlogId(nextId.toString());
+        setNextMediaPostId(nextId.toString());
       } else {
-        setNextBlogId(null);
+        setNextMediaPostId(null);
       }
     });
 
   }, [id]);
 
   const handleButtonClick = (direction: "prev" | "next") => {
-    const targetId = direction === "prev" ? prevBlogId : nextBlogId;
+    const targetId = direction === "prev" ? prevMediaPostId : nextMediaPostId;
     if (targetId) {
-      window.location.href = `/blog/${targetId}`;
+      window.location.href = `/mediapost/${targetId}`;
     }
   };
   
 
   const renderContent = () => {
-    // Blog yüklenene kadar "Loading..." göster
-    if (loading || !blog) {
+    // MediaPost yüklenene kadar "Loading..." göster
+    if (loading || !mediapost) {
       return <div>Loading...</div>;
     }
 
-    // Blog içeriğini al
-    const content = blog.content;
+    // MediaPost içeriğini al
+    const content = mediapost.content;
 
     // İçerik boşsa uyarı göster
     if (!content) {
@@ -144,7 +144,7 @@ const Blog = () => {
                 <section className="py-32 poistion-relative overflow-hidden">
                   <div className="container">
                     <div className="mw-2x1 mx-auto">
-                      {/* Blog içeriği */}
+                      {/* MediaPost içeriği */}
                       {renderContent()}
                     </div>
                   </div>
@@ -161,14 +161,14 @@ const Blog = () => {
             }}
           >
             <button
-              disabled={prevBlogId ? false : true }
+              disabled={prevMediaPostId ? false : true }
               onClick={() => handleButtonClick("prev")}
               className="btn btn-primary"
             >
               ← Önceki
             </button>
             <button
-              disabled={nextBlogId ? false : true}
+              disabled={nextMediaPostId ? false : true}
               onClick={() => handleButtonClick("next")}
               className="btn btn-primary"
             >
@@ -182,4 +182,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default MediaPost;

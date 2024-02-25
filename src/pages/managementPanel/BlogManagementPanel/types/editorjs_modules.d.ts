@@ -5,3 +5,4 @@ declare module '@editorjs/quote';
 declare module '@editorjs/embed';
 declare module '@editorjs/code';
 declare module '@editorjs/simple-image';
+declare module '@editorjs/subheader';

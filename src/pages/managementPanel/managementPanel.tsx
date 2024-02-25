@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Tab, Tabs, Form, Button } from "react-bootstrap";
 import axiosHelper from "../../helpers/axiosHelper";
 import { useSelector } from "react-redux";
-import BlogManagementPanel from "./BlogManagementPanel";
+import BlogManagementPanel from "./BlogManagementPanel/BlogAndMediaPostManagementPanel";
+import BlogAndMediaPostManagementPanel from "./BlogManagementPanel/BlogAndMediaPostManagementPanel";
 
 interface Question {
   surveyID: number;
@@ -229,11 +230,10 @@ export default function ManagementPanel(): JSX.Element {
             ) : null}
           </div>
         </Tab>
-        <Tab eventKey="blog" title="Blog">
+        <Tab eventKey="Blog ve Haber" title="Blog ve Haber">
           <div className="mt-4">
-            <h2>Blog İçeriği</h2>
-            <p>Burada blog içeriği yer alacak.</p>
-            <BlogManagementPanel />
+            <h2>İçerik Ekle</h2>
+            <BlogAndMediaPostManagementPanel />
           </div>
         </Tab>
       </Tabs>
