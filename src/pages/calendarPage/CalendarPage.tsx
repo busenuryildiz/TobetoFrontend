@@ -11,7 +11,7 @@ import TeacherSearchBar from '../../components/calendar/teacherSearchBar/Teacher
 import Navi from '../../components/navbar/Navi';
 import Footer from '../../components/footer/Footer';
 
-const CalendarPage: React.FC = () => {
+const CalendarPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const lessonCoursesState: GetAllLessonCourseResponse[] | null = useSelector((state: RootState) => state.lessonCourse.lessonCourses);
   const [filteredLessonCourses, setFilteredLessonCourses] = useState<GetAllLessonCourseResponse[]>([]);
