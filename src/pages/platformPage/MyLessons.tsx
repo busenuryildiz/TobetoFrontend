@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Course from "./Course";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const MyLessons = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const user = useSelector((state: any) => state.auth.user);
+  const { studentCourseId } = useParams<{ studentCourseId: string }>();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -48,11 +49,11 @@ const MyLessons = () => {
                     {new Date(course.courseDate).toLocaleDateString("tr-TR")}
                     </span> 
                   </div>
-                  <a className="apply-btn" href="#">
+                  <Link className="apply-btn" to={`/egitimlerim/${course.studentCourseId}`}>
                     Eğitime Git
-                  </a>
+                  </Link>
                 </div>
-                
+
               </div>
             </div>
           ))}

@@ -7,6 +7,7 @@ import axios from "axios";
 import Course from "../platformPage/Course";
 import EducationTab from "./EducationTabs";
 import EducationTabs from "./EducationTabs";
+import { Link } from "react-router-dom";
 
 const tabs = [
   { id: "all-lessons-tab-pane", label: "Tüm Eğitimlerim" },
@@ -103,9 +104,9 @@ const Egitimlerim = () => {
                                 ).toLocaleDateString()}
                               </span>
                             </div>
-                            <a href="#" className="apply-btn">
+                            <Link  to={`/egitimlerim/${course.studentCourseId}`} className="apply-btn">
                               Eğitime Git
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       </div>

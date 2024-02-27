@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import './TeacherSearchBar.css';
 
 type TeacherSearchBarProps = {
-  teachers: string[]; // Öğretmenlerin listesi
-  onTeacherSelect: (teacher: string) => void; // Öğretmen seçildiğinde tetiklenecek fonksiyon
-  onSearch: (searchTerm: string) => void; // Arama işlemi başlatıldığında tetiklenecek fonksiyon
+  teachers: string[]; 
+  onTeacherSelect: (teacher: string) => void; 
+  onSearch: (searchTerm: string) => void; 
 };
 
 const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacherSelect, onSearch }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [isOpen, setIsOpen] = useState<boolean>(false); // Dropdown menüsünün açık/kapalı durumunu takip etmek için state
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 

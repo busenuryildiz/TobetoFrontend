@@ -44,8 +44,8 @@ import MediaPostPage from "./pages/mediaPost/MediaPostPage";
 import MediaPost from "./pages/mediaPost/MediaPost";
 import ExamPage from "./pages/exam/examPage";
 import Announcement from "./components/announcement/Announcement";
-import Egitimlerim from "./pages/egitimlerim/Egitimlerim";
 import CoursePage from "./pages/coursePage/CoursePage";
+import Egitimlerim from "./pages/egitimlerim/Egitimlerim";
 
 
 
@@ -107,6 +107,8 @@ function App() {
           <Route path="degerlendirmeler" element={<Review />} />
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli" element={<TobetoSuccessModel />} />
           <Route path="/egitimlerim" element={<Egitimlerim />}></Route>
+          <Route path="/egitimlerim/:studentCourseId" element={<CoursePage />}></Route>
+
           <Route path="/course/:id" element={<CourseDetail />} />{" "}
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
           <Route path="/exam" element={<ExamPage />} />
