@@ -25,7 +25,7 @@ function PlatformPage() {
     <div className="plaform-page">
       <Navi />
       {/* SECTİON 1 */}
-      <PlatformHeader/>
+      <PlatformHeader />
       <main>
         <div className="platform-page" style={{ minHeight: "120vh" }}>
           {/* İnner section 1 */}
@@ -137,8 +137,6 @@ function PlatformPage() {
               </div>
             </div>
           </section>
-          
-          {/* İnner section 2 */}
 
           <section className="my-2">
             <div className="container">
@@ -147,71 +145,71 @@ function PlatformPage() {
                   <div className="p-4">
                     <span
                       style={{
-                        boxSizing: "border-box",
-                        display: "inline-block",
-                        overflow: "hidden",
-                        width: "initial",
-                        height: "initial",
-                        background: "none",
-                        opacity: 1,
-                        border: "0px",
-                        margin: "0px",
-                        padding: "0px",
-                        position: "relative",
-                        maxWidth: "100%",
+                        background: 'none',
+                        border: '0px',
+                        boxSizing: 'border-box',
+                        display: 'inline-block',
+                        height: 'initial',
+                        margin: '0px',
+                        maxWidth: '100%',
+                        opacity: '1',
+                        overflow: 'hidden',
+                        padding: '0px',
+                        position: 'relative',
+                        width: 'initial'
                       }}
                     >
                       <span
                         style={{
-                          boxSizing: "border-box",
-                          display: "block",
-                          width: "initial",
-                          height: "initial",
-                          background: "none",
-                          opacity: 1,
-                          border: "0px",
-                          margin: "0px",
-                          padding: "0px",
-                          maxWidth: "100%",
+                          background: 'none',
+                          border: '0px',
+                          boxSizing: 'border-box',
+                          display: 'block',
+                          height: 'initial',
+                          margin: '0px',
+                          maxWidth: '100%',
+                          opacity: '1',
+                          padding: '0px',
+                          width: 'initial'
                         }}
                       >
                         <img
                           alt=""
                           aria-hidden="true"
-                          src=""
+                          src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%271137%27%20height=%27443%27/%3e"
                           style={{
-                            display: "block",
-                            maxWidth: "100%",
-                            width: "initial",
-                            height: "initial",
-                            background: "none",
-                            opacity: 1,
-                            border: "0px",
-                            margin: "0px",
-                            padding: "0px",
+                            background: 'none',
+                            border: '0px',
+                            display: 'block',
+                            height: 'initial',
+                            margin: '0px',
+                            maxWidth: '100%',
+                            opacity: '1',
+                            padding: '0px',
+                            width: 'initial'
                           }}
                         />
                       </span>
                       <img
-                        srcSet="https://tobeto.com/_next/static/media/ik-logo-dark.7938c0de.svg"
-                        src="https://tobeto.com/_next/static/media/ik-logo-dark.7938c0de.svg"
-                        decoding="async"
+                        alt="ik-logo-dark"
                         data-nimg="intrinsic"
-                        alt="İK Logo"
+                        decoding="async"
+                        src="/Assets/image/ik-logo-dark.7938c0de.svg"
+                        srcSet="/Assets/image/ik-logo-dark.7938c0de.svg 1x, /Assets/image/ik-logo-dark.7938c0de.svg 2x"
                         style={{
-                          position: "absolute",
-                          inset: "0px",
-                          boxSizing: "border-box",
-                          padding: "0px",
-                          border: "none",
-                          margin: "auto",
-                          display: "block",
-                          width: "0px",
-                          height: "0px",
-                          minWidth: "100%",
-                          maxWidth: "100%",
-                          minHeight: "100%",
-                          maxHeight: "100%",
+                          border: 'none',
+                          boxSizing: 'border-box',
+                          display: 'block',
+                          height: '0px',
+                          inset: '0px',
+                          margin: 'auto',
+                          maxHeight: '100%',
+                          maxWidth: '100%',
+                          minHeight: '100%',
+                          minWidth: '100%',
+                          padding: '0px',
+                          position: 'absolute',
+                          width: '0px'
                         }}
                       />
                     </span>
@@ -235,9 +233,8 @@ function PlatformPage() {
                   >
                     <li className="nav-item" role="presentation">
                       <button
-                        className={`nav-link ${
-                          activeTab === "apply-tab-pane" ? "active" : ""
-                        }`}
+                        className={`nav-link ${activeTab === "apply-tab-pane" ? "active" : ""
+                          }`}
                         id="apply-tab"
                         onClick={() => handleTabClick("apply-tab-pane")}
                         type="button"
@@ -251,9 +248,8 @@ function PlatformPage() {
                     </li>
                     <li className="nav-item" role="presentation">
                       <button
-                        className={`nav-link ${
-                          activeTab === "lessons-tab-pane" ? "active" : ""
-                        }`}
+                        className={`nav-link ${activeTab === "lessons-tab-pane" ? "active" : ""
+                          }`}
                         id="lessons-tab"
                         onClick={() => handleTabClick("lessons-tab-pane")}
                         type="button"
@@ -267,9 +263,8 @@ function PlatformPage() {
                     </li>
                     <li className="nav-item" role="presentation">
                       <button
-                        className={`nav-link ${
-                          activeTab === "notification-tab-pane" ? "active" : ""
-                        }`}
+                        className={`nav-link ${activeTab === "notification-tab-pane" ? "active" : ""
+                          }`}
                         id="notification-tab"
                         onClick={() => handleTabClick("notification-tab-pane")}
                         type="button"
@@ -283,9 +278,8 @@ function PlatformPage() {
                     </li>
                     <li className="nav-item" role="presentation">
                       <button
-                        className={`nav-link ${
-                          activeTab === "mySurvey-tab-pane" ? "active" : ""
-                        }`}
+                        className={`nav-link ${activeTab === "mySurvey-tab-pane" ? "active" : ""
+                          }`}
                         id="mySurvey-tab"
                         onClick={() => handleTabClick("mySurvey-tab-pane")}
                         type="button"
@@ -327,11 +321,11 @@ function PlatformPage() {
             </div>
           </section>
 
-         <MyExams/>
-          <ProfileContainers/>
+          <MyExams />
+          <ProfileContainers />
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
