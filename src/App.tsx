@@ -34,7 +34,6 @@ import ManagementPanel from "./pages/managementPanel/managementPanel";
 import TobetoSuccessModel from "./pages/tobetoSuccessModel/TobetoSuccessModel";
 import SuccessModel1 from "./pages/tobetoSuccessModel/SuccessModel1";
 import CourseDetail from "./pages/course-detail/course-detail";
-import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 import MyProfile from "./pages/profile/myProfile/MyProfile";
 import NotFoundPage from "./components/notFound/notFound";
 import PlatformCatalog from "./pages/catalog/PlatformCatalog";
@@ -44,6 +43,9 @@ import Blog from "./pages/blog/Blog";
 import MediaPostPage from "./pages/mediaPost/MediaPostPage";
 import MediaPost from "./pages/mediaPost/MediaPost";
 import ExamPage from "./pages/exam/examPage";
+import Announcement from "./components/announcement/Announcement";
+import CoursePage from "./pages/coursePage/CoursePage";
+import Egitimlerim from "./pages/egitimlerim/Egitimlerim";
 
 
 
@@ -105,10 +107,15 @@ function App() {
           <Route path="degerlendirmeler" element={<Review />} />
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli" element={<TobetoSuccessModel />} />
           <Route path="/egitimlerim" element={<Egitimlerim />}></Route>
+          <Route path="/egitimlerim/:studentCourseId" element={<CoursePage />}></Route>
+
           <Route path="/course/:id" element={<CourseDetail />} />{" "}
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
           <Route path="/exam" element={<ExamPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/duyurular" element={<Announcement />} />
+          <Route path="/coursepage" element={<CoursePage/>}/>
+
         </Routes>
       </Router>
   );

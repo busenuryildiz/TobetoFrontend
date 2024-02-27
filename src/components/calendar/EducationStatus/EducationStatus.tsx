@@ -6,13 +6,13 @@ interface EducationStatusProps {
 }
 
 const EducationStatus: React.FC<EducationStatusProps> = ({ onFilter }) => {
-  const [selectedStatus, setSelectedStatus] = useState<string>(''); // Initial state, none selected
+  const [selectedStatus, setSelectedStatus] = useState<string>(''); 
 
   const handleCheckboxChange = (status: string) => {
-    setSelectedStatus(status);
-    onFilter(status);
+    setSelectedStatus(prevStatus => (prevStatus === status ? '' : status));
+    onFilter(status === selectedStatus ? '' : status);
   };
-
+  
   return (
     <div className="d-flex flex-column">
       <div className="filter-header mb-2">

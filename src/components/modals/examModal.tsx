@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import axios from '../../helpers/axiosHelper';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-
+// import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS
 
 interface ExamModalProps {
   isOpen: boolean;
