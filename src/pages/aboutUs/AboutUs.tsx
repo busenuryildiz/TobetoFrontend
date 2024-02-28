@@ -853,7 +853,7 @@ const AboutUs = () => {
             >
               Bizi Takip Edin
             </span>
-            <div className="col-12 col-lg-auto text-center">
+            <div className="col-12 col-lg-auto text-center" >
               <a
                 className="text-decoration-none me-4"
                 href="https://www.facebook.com/tobetoplatform"
@@ -861,7 +861,7 @@ const AboutUs = () => {
               >
                 <svg
                   fill="none"
-                  height="24"
+                  height="24" 
                   viewBox="0 0 24 24"
                   width="24"
                   xmlns="http://www.w3.org/2000/svg"
