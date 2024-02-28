@@ -3,7 +3,7 @@ import Courses, { Course } from '../../components/catalog/courses';
 import SearchSection from '../../components/catalog/searchSection';
 import Navi from '../../components/navbar/Navi';
 import FilterCourse from '../../components/catalog/filterCourse';
-import Footer from '../../components/footer/footer';
+import Footer from '../../components/footer/Footer';
 
 export default function PlatformCatalog() {
   const [filteredData, setFilteredData] = useState<Course[]>([]);

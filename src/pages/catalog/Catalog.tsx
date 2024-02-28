@@ -43,7 +43,7 @@ export default function Catalog() {
   return (
     <div className="bg-front-dark">
       <Navbar />
-      <div className="margin-top: 70px; padding-top: 70px">
+      <div style={{ marginTop: '20px', paddingTop: '80px' }}>
       <SearchSection onSearch={handleSearch} />
       <div className="container mt-5 pb-20">
         <div className="row">

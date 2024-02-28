@@ -5,9 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { EducationLifeService } from '../../../../services/pages/profile/editProfile/educationInformation/educationLifeService';
 import Navi from '../../../../components/navbar/Navi';
-import Footer from '../../../../components/footer/footer';
 import { AddEducationLifeRequest } from '../../../../models/requests/EducationLife/addEducationLifeRequest';
-import { AddEducationLifeResponse } from '../../../../models/responses/EducationLife/addEducationLifeResponse';
 import { UserEducationInformationResponse } from '../../../../models/responses/Users/userEducationInformationResponse';
 import { ToastContainer, toast } from 'react-toastify';
 

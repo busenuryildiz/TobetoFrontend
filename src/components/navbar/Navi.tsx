@@ -15,8 +15,8 @@ function Navi() {
   };
   return (
     <Navbar className="position-relative " expand="xxl py-5"  bg="white">
-      <Container fluid className="mt-1 mb-1">
-        <Navbar.Brand href="platform">
+      <Container fluid >
+        <Link to="/platform">
           <img
             src="/Assets/image/tobeto-logo.png"
             alt="Tobeto Logo"
@@ -27,13 +27,13 @@ function Navi() {
               background: "transparent",
             }}
           />
-        </Navbar.Brand>
+        </Link>
 
         <button
           className="btn p-0 d-xxl-none navbar-burger"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasExample"
-          aria-controls="offcanvasExample"
+          title="Toggle Offcanvas"
         >
           <svg
             width="24"
@@ -123,7 +123,7 @@ function Navi() {
                 <div className="me-2">
                   <img
                     className="cv-pp-img rounded-circle"
-                    src={`${auth.user.imagePath}`}
+                    src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
                     alt=""
                     style={{
                       width: "36px",

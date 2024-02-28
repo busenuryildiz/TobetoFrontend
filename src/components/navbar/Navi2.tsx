@@ -14,10 +14,7 @@ const Navi2 = () => {
     navigate("/");
   };
   return (
-    <div
-      className="bg-front-dark bg-front-width"
-      style={{ height: "0.5rem", overflow: "visible", width: "auto" }}
-    >
+    <div className="bg-front-dark bg-front-width" >
       <section className="web-header">
         <div className="ik-banner-top">
           <div className="">
@@ -35,12 +32,9 @@ const Navi2 = () => {
             <a href="istanbul-kodluyor"><button className="btn  d-md-inline-block btn-primary mt-3">Başvur</button></a>
           </div>
         </div>
-
         <nav className="navbar bg-web navbar-expand-xxl w-100 m-0 z-index-999 position-fixed border-0 px-2 py-4">
           <div className="container-fluid">
-            {/* Birinci banner */}
             <a href="/">
-              {/* Banner içeriği */}
               <span
                 style={{
                   boxSizing: "border-box",
@@ -90,36 +84,15 @@ const Navi2 = () => {
                     }}
                   />
                 </span>
-                <img
-                  alt=""
-                  srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTebeto-logo-yatay-beyaz.8c2d6927.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTebeto-logo-yatay-beyaz.8c2d6927.png&amp;w=384&amp;q=75 2x"
-                  src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTebeto-logo-yatay-beyaz.8c2d6927.png&amp;w=384&amp;q=75"
-                  decoding="async"
-                  data-nimg="intrinsic"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    boxSizing: "border-box",
-                    padding: 0,
-                    border: "none",
-                    margin: "auto",
-                    display: "block",
-                    width: 0,
-                    height: 0,
-                    minWidth: "100%",
-                    maxWidth: "100%",
-                    minHeight: "100%",
-                    maxHeight: "100%",
-                  }}
-                />
               </span>
             </a>
             <button
-              className="btn p-0 d-xl-none"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasExample"
               aria-controls="offcanvasExample"
+              className="btn p-0 d-xl-none "
+              data-bs-target="#offcanvasExample"
+              data-bs-toggle="offcanvas"
+              type="button"
+              title="offcanvasExample"
             >
               <svg
                 width="32"
@@ -137,37 +110,36 @@ const Navi2 = () => {
               </svg>
             </button>
             <ul className="d-none d-xl-flex flex-row justify-content-center navbar-nav">
-              {/* Menü öğeleri */}
               <li className="nav-item">
-                <a className="nav-link" href="/hakkimizda">
+                <Link className="nav-link" to="/hakkimizda">
                   Biz Kimiz?
-                </a>
+                </Link>
               </li>
               <li className="nav-item dropdown tbt-dropdown">
-                <a
+                <Link
                   className="nav-link tnav-link"
-                  href="#"
+                  to="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Neler Sunuyoruz?
-                </a>
+                </Link>
                 <ul className="dropdown-menu dd-bg w-100">
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/bireyler-icin">
+                    <Link className="m-0 nav-link" to="/bireyler-icin">
                       Bireyler için
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/kurumlar-icin">
+                    <Link className="m-0 nav-link" to="/kurumlar-icin">
                       Kurumlar için
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/platform-katalog">
+                <Link className="nav-link" to="/katalog">
                   Katalog
                 </Link>
               </li>
@@ -188,29 +160,29 @@ const Navi2 = () => {
                 </a>
                 <ul className="dropdown-menu dd-bg w-100">
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/blog">
+                    <Link className="m-0 nav-link" to="/blog">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/basinda-biz">
+                    <Link className="m-0 nav-link" to="/mediapost">
                       Basında Biz
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/takvim">
+                    <Link className="m-0 nav-link" to="/takvim">
                       Takvim
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="m-0 nav-link" href="/istanbul-kodluyor">
+                    <Link className="m-0 nav-link" to="/istanbul-kodluyor">
                       İstanbul Kodluyor
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
             </ul>
-            
+
             {auth.isAuthenticated ? (
   <div className="d-none d-xxl-block">
   <div className="d-flex justify-space-between align-items-center">
@@ -231,7 +203,8 @@ const Navi2 = () => {
         <div className="me-2">
           <img
             className="cv-pp-img rounded-circle"
-            src="Assets/image/Avatar.png"
+            src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
+            
             alt=""
             style={{
               width: "36px",
@@ -298,14 +271,14 @@ const Navi2 = () => {
   </div>
 </div>) : (
 
-            <div className="d-none d-xl-block">
-              <a className="btn border-light text-light mx-4" href="/login">
-                Giriş Yap
-              </a>
-              <a className="btn mx-4 btn-rainbow" href="/register">
-                Ücretsiz Üye Ol
-              </a>
-            </div>)}
+              <div className="d-none d-xl-block">
+                <a className="btn border-light text-light mx-4" href="/login">
+                  Giriş Yap
+                </a>
+                <a className="btn mx-4 btn-rainbow" href="/register">
+                  Ücretsiz Üye Ol
+                </a>
+              </div>)}
           </div>
         </nav>
         {/* İkinci banner (offcanvas) */}
@@ -520,7 +493,7 @@ const Navi2 = () => {
                   Burada!
                 </span>
               </div>
-              <div className="" onClick={() => window.location.href='/istanbul-kodluyor'}>
+              <div className="" onClick={() => window.location.href = '/istanbul-kodluyor'}>
                 <button className="ik-btn">Başvur</button>
               </div>
             </div>

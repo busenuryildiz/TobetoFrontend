@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PersonalInformationService from '../../../../services/pages/profile/editProfile/personalInformation/personalInfoService';
 import Navi from '../../../../components/navbar/Navi';
-import Footer from '../../../../components/footer/footer';
+import Footer from '../../../../components/footer/Footer';
 import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
 import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 const PersonalInformation = () => {
@@ -17,63 +16,36 @@ const PersonalInformation = () => {
   const [file, setFile] = useState<File | null>(null); // Use File type for the file state
   const [showFileUploadCard, setShowFileUploadCard] = useState(false);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFile = event.target.files[0];
-  
-      try {
-        // Kontrol etmek için bir blob nesnesi oluştur
-        const blob = new Blob([selectedFile]);
-  
-        // Blob nesnesini URL'e dönüştür
-        const blobUrl = URL.createObjectURL(blob);
-  
-        // Update the imagePath in the formik state to trigger re-render
-        formik.setFieldValue('imagePath', blobUrl);
-  
-        setFile(selectedFile);
-      } catch (error) {
-        console.error('Blob hatası:', error);
-      }
-    }
-  };
-  
-  
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files) {
+  //     const selectedFile = event.target.files[0];
 
+  //     // Update the imagePath in the formik state to trigger re-render
+  //     //formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
+
+  //     setFile(selectedFile);
+  //   }
+  // };
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const handleUpload = async () => {
     try {
-      if (!file) {
-        console.error('Yüklemek için dosya seçilmedi.');
+      if (!fileInputRef.current || !fileInputRef.current.files) {
+        console.error('No file selected for upload.');
         return;
       }
   
       const formData = new FormData();
-      formData.append('formFile', file);
-  
-      // Kullanıcı kimliği biliniyorsa veya durumda saklanıyorsa
+      formData.append('formFile', fileInputRef.current.files[0]);
       const userId = user.id;
-  
-      const response = await axios.post(
-        `http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-  
-      // Cloudinary tarafından sağlanan URL'yi kullanın
-      const cloudinaryURL = response.data.url;
-  
-      // Bu URL'yi formik değerleriyle güncelleyebilirsiniz
-      formik.setFieldValue('imagePath', cloudinaryURL);
-  
-      // Yanıtı işleyin, örneğin yeni resim URL'si ile UI'yı güncelleyin
-      console.log('Resim başarıyla yüklendi:', response.data);
+      const response = await fetch(`http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      console.log('Success:', result);
     } catch (error) {
-      // Hataları işleyin, örneğin kullanıcıya bir hata mesajı gösterin
-      console.error('Resim yüklenirken hata oluştu:', error);
+      console.error('Error:', error);
     }
   };
   
@@ -81,33 +53,24 @@ const PersonalInformation = () => {
   const handleNationalIdentityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
 
-    // Eğer gelen input sadece sayılardan oluşuyorsa veya boşsa değeri güncelle
     if (/^\d*$/.test(inputValue) || inputValue === "") {
-      // Eğer gelen input 11 karakterden fazlaysa veya eşitse, kullanıcıyı uyar
       if (inputValue.length > 11) {
         alert('National Identity en fazla 11 haneli olmalıdır.');
       } else {
-        // Eğer 11 haneli veya daha az ise değeri güncelle
         formik.setFieldValue('nationalIdentity', inputValue);
       }
     } else {
-      // Eğer sayılar dışında bir karakter varsa kullanıcıyı uyar
       alert('National Identity yalnızca sayılardan oluşmalıdır.');
     }
   };
 
   const handleNationalIdentityBlur = () => {
     const inputValue = formik.values.nationalIdentity;
-
-    // Eğer input değeri 11 karakterden azsa, kullanıcıyı uyar
     if (inputValue.length < 11) {
       alert('National Identity en az 11 haneli olmalıdır.');
     }
   };
-
-
   useEffect(() => {
-    // Kullanıcı varsa bilgileri çek
     if (user) {
       const userId = user.id;
       PersonalInformationService.getUserInformation(userId);
@@ -280,17 +243,14 @@ const PersonalInformation = () => {
                               margin: "4px 2px",
                               cursor: "pointer",
                               borderRadius: "4px",
-                            }}
-                          >
+                            }}  >
                             Fotoğrafı Yükle
                           </button>
                         </div>
                       )}
-
-                      {/* File Upload Card */}
                       {showFileUploadCard && (
                         <div className="file-upload-card">
-                          <input type="file" onChange={handleFileChange} style={{ marginBottom: "10px" }} />
+                          <input type="file" onChange={handleUpload} ref={fileInputRef} style={{ marginBottom: "10px" }} />
                           <button
                             onClick={() => {
                               handleUpload();
