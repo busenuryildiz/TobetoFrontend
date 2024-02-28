@@ -43,16 +43,17 @@ const MyExperiences = () => {
     const [formValues, setFormValues] = useState<AddUserExperiencesRequest>(initialFormValues);
 
     useEffect(() => {
-        const storedExperiences = localStorage.getItem('userExperiences');
+        const storedExperiences = localStorage.getItem(`userExperiences_${user?.id}`);
         if (storedExperiences) {
             setUserExperiences(JSON.parse(storedExperiences));
         }
-    }, []);
+    }, [user]);
 
     useEffect(() => {
-        localStorage.setItem('userExperiences', JSON.stringify(userExperiences));
-    }, [userExperiences]);
-
+        if (user) {
+            localStorage.setItem(`userExperiences_${user.id}`, JSON.stringify(userExperiences));
+        }
+    }, [user, userExperiences]);
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
     ) => {

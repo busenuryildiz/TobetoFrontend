@@ -18,7 +18,7 @@ const MySkill = () => {
   const [dropdownOptions, setDropdownOptions] = useState<SkillItem[]>([]);
 
   useEffect(() => {
-    const storedSkills = localStorage.getItem('localSkills');
+    const storedSkills = localStorage.getItem(`localSkills_${user.id}`);
     if (storedSkills) {
       setSkills(JSON.parse(storedSkills));
     }
@@ -31,9 +31,7 @@ const MySkill = () => {
       }
     };
     fetchSkills();
-  }, []);
-
-
+  }, [user]);
 
   const handleChange = (selectedOption: any) => {
     setSelectedOption(selectedOption);
@@ -64,8 +62,7 @@ const MySkill = () => {
         // State'i güncelleyin
         setSkills(updatedSkills);
 
-        localStorage.setItem('localSkills', JSON.stringify(updatedSkills));
-
+        localStorage.setItem(`localSkills_${user.id}`, JSON.stringify(updatedSkills));
       }
     } catch (error: any) {
       console.error('Yetenek eklenirken hata oluştu:', error.message);
@@ -76,7 +73,7 @@ const MySkill = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-    });
+      });
     }
   };
 
@@ -96,7 +93,7 @@ const MySkill = () => {
       // State'i güncelleyin
       setSkills(updatedSkills)
 
-      localStorage.setItem('localSkills', JSON.stringify(updatedSkills));
+      localStorage.setItem(`localSkills_${user.id}`, JSON.stringify(updatedSkills));
 
     } catch (error: any) {
       console.error('Yetenek silinirken hata oluştu:', error.message);
