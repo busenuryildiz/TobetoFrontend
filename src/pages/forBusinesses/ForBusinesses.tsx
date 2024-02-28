@@ -1568,21 +1568,6 @@ const ForBusinesses = () => {
                             maxWidth: "100%",
                           }}
                         >
-                          <img
-                            aria-hidden="true"
-                            src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27200%27%20height=%27200%27/%3e"
-                            style={{
-                              display: "block",
-                              maxWidth: "100%",
-                              width: "initial",
-                              height: "initial",
-                              background: "none",
-                              opacity: 1,
-                              border: 0,
-                              margin: 0,
-                              padding: 0,
-                            }}
-                          />
                         </span>
                         <img
                           alt="İstanbul Kodluyor Logo "

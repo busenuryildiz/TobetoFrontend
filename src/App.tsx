@@ -43,11 +43,11 @@ import Blog from "./pages/blog/Blog";
 import MediaPostPage from "./pages/mediaPost/MediaPostPage";
 import MediaPost from "./pages/mediaPost/MediaPost";
 import ExamPage from "./pages/exam/examPage";
-import Announcement from "./components/announcement/Announcement";
 import CoursePage from "./pages/coursePage/CoursePage";
 import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 import BilgiAl from "./pages/bilgiAl/BilgiAl";
-
+import Announcement from "./pages/announcement/AnnouncementPage";
+import AnnouncementPage from "./pages/announcement/AnnouncementPage";
 
 
 
@@ -104,7 +104,7 @@ function App() {
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
           <Route path="/exam" element={<ExamPage />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/duyurular" element={<Announcement />} />
+          <Route path="/duyurular" element={<AnnouncementPage />} />
           <Route path="/coursepage" element={<CoursePage/>}/>
           <Route path="/bilgi-al" element={<BilgiAl/>}/>
 

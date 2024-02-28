@@ -1,10 +1,7 @@
 import React from "react";
 import Navi from "../../components/navbar/Navi";
 import Footer from "../../components/footer/Footer";
-import ApplicationStatus from "../../components/mainPage/applyTabPanel/appyTab";
-import NotificationTab from "../../components/mainPage/notificationTabPanel/notificationTab";
 import { useState } from "react";
-import MySurveyTab from "../../components/mainPage/mySurveyTabPanel/mySurveyTab";
 import { useSelector } from "react-redux";
 import ProfileContainers from "./ProfileContainers";
 import MyExams from "./MyExams";

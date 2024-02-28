@@ -28,7 +28,7 @@ const IdentityCard = ({ userData }: { userData: UserProfileResponse }) => {
                 </ul>
               </div>
               <img
-                src={userData.imagePath ? userData.imagePath : ""}
+                src={userData.imagePath ? userData.imagePath : 'https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimages.19a45d39.png&w=384&q=75'}
                 className="cv-pp-img rounded-circle"
                 style={{ width: 128, height: 128, objectFit: "cover" }}
                 alt="user-profile-pctr"

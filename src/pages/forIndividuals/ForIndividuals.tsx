@@ -67,28 +67,7 @@ const ForIndividuals = () => {
                       }}
                     />
                   </span>
-                  <img
-                    alt="İstanbul Kodluyor Logo "
-                    srcSet="tobeto.com/_next/static/media/ik-logo-light.ace655db.svg 1x, tobeto.com/_next/static/media/ik-logo-light.ace655db.svg 2x"
-                    src="tobeto.com/_next/static/media/ik-logo-light.ace655db.svg"
-                    decoding="async"
-                    data-nimg="intrinsic"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      boxSizing: "border-box",
-                      padding: 0,
-                      border: "none",
-                      margin: "auto",
-                      display: "block",
-                      width: 0,
-                      height: 0,
-                      minWidth: "100%",
-                      maxWidth: "100%",
-                      minHeight: "100%",
-                      maxHeight: "100%",
-                    }}
-                  />
+        
                 </span>
               </div>
             </div>
