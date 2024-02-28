@@ -37,7 +37,6 @@ const MyAnnouncements = () => {
     }
   };
 
-  // Devamını Oku bağlantısına tıklandığında çalışacak fonksiyon
   const handleReadMoreClick = (id:number) => {
     fetchAnnouncementDetail(id);
   };
