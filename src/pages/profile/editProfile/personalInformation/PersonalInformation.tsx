@@ -9,7 +9,7 @@ import Footer from '../../../../components/footer/footer';
 import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
 import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
 import axios from 'axios';
-//import CloudinaryUpload from '../../../../components/cloudinary/cloudinary';
+import { ToastContainer, toast } from 'react-toastify';
 
 const PersonalInformation = () => {
 
@@ -20,27 +20,39 @@ const PersonalInformation = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const selectedFile = event.target.files[0];
-
-      // Update the imagePath in the formik state to trigger re-render
-      formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
-
-      setFile(selectedFile);
+  
+      try {
+        // Kontrol etmek için bir blob nesnesi oluştur
+        const blob = new Blob([selectedFile]);
+  
+        // Blob nesnesini URL'e dönüştür
+        const blobUrl = URL.createObjectURL(blob);
+  
+        // Update the imagePath in the formik state to trigger re-render
+        formik.setFieldValue('imagePath', blobUrl);
+  
+        setFile(selectedFile);
+      } catch (error) {
+        console.error('Blob hatası:', error);
+      }
     }
   };
+  
+  
 
   const handleUpload = async () => {
     try {
       if (!file) {
-        console.error('No file selected for upload.');
+        console.error('Yüklemek için dosya seçilmedi.');
         return;
       }
-
+  
       const formData = new FormData();
       formData.append('formFile', file);
-
-      // Assuming userId is known or stored in state
+  
+      // Kullanıcı kimliği biliniyorsa veya durumda saklanıyorsa
       const userId = user.id;
-
+  
       const response = await axios.post(
         `http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`,
         formData,
@@ -50,14 +62,21 @@ const PersonalInformation = () => {
           },
         }
       );
-
-      // Handle the response, e.g., update the UI with the new image URL
-      console.log('Image uploaded successfully:', response.data);
+  
+      // Cloudinary tarafından sağlanan URL'yi kullanın
+      const cloudinaryURL = response.data.url;
+  
+      // Bu URL'yi formik değerleriyle güncelleyebilirsiniz
+      formik.setFieldValue('imagePath', cloudinaryURL);
+  
+      // Yanıtı işleyin, örneğin yeni resim URL'si ile UI'yı güncelleyin
+      console.log('Resim başarıyla yüklendi:', response.data);
     } catch (error) {
-      // Handle errors, e.g., display an error message to the user
-      console.error('Error uploading image:', error);
+      // Hataları işleyin, örneğin kullanıcıya bir hata mesajı gösterin
+      console.error('Resim yüklenirken hata oluştu:', error);
     }
   };
+  
 
   const handleNationalIdentityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -124,6 +143,15 @@ const PersonalInformation = () => {
 
         // Başarılı güncellemeyi işleyin (gerekirse Redux'a gönderin)
         console.log('Kullanıcı bilgileri başarıyla güncellendi:', response);
+        toast.success('Bilgileriniz başarıyla güncellendi', {
+          position: 'top-right',
+          autoClose: 3000, // milliseconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
 
         // Formu sıfırlayın (isteğe bağlı)
       } catch (error) {
@@ -330,7 +358,8 @@ const PersonalInformation = () => {
                   <div className="col-12 col-md-6 mb-6">
                     <PhoneNumberValidation
                       phoneNumber={formik.values.phoneNumber}
-                      onChange={(value) => formik.setFieldValue('Telelon Numaranız', value)}
+                      onChange={(value) => formik.setFieldValue('phoneNumber', value)}
+                      formik={formik} // formik prop'unu ekleyin
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
@@ -426,6 +455,7 @@ const PersonalInformation = () => {
                   </button>
                 </div>
               </form>
+              <ToastContainer />
             </div>
           </div>
         </div>

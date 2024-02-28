@@ -9,6 +9,7 @@ import Footer from '../../../../components/footer/footer';
 import { AddEducationLifeRequest } from '../../../../models/requests/EducationLife/addEducationLifeRequest';
 import { AddEducationLifeResponse } from '../../../../models/responses/EducationLife/addEducationLifeResponse';
 import { UserEducationInformationResponse } from '../../../../models/responses/Users/userEducationInformationResponse';
+import { ToastContainer, toast } from 'react-toastify';
 
 const EducationLife = () => {
     const user = useSelector((state: any) => state.auth.user);
@@ -41,6 +42,14 @@ const EducationLife = () => {
                 const response = await EducationLifeService.addEducationLife(newEducation);
 
                 console.log('Eğitim bilgisi başarıyla eklendi:', response);
+                toast.success('Eğitim bilgisi başarıyla eklendi!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
 
                 // Formu sıfırlayın (isteğe bağlı)
                 formik.resetForm();
@@ -52,6 +61,14 @@ const EducationLife = () => {
                 formik.resetForm();
             } catch (error) {
                 console.error('Eğitim bilgisi eklenirken hata:', error);
+                toast.error('Eğitim bilgisi eklenirken bir hata oluştu!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
             }
         }
 
@@ -97,14 +114,31 @@ const EducationLife = () => {
             setEducationLifeList((prevEducation) =>
                 prevEducation.filter((edc) => edc.id !== educationId)
             );
+            toast.success('Eğitim bilgisi başarıyla silindi!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         } catch (error) {
             console.error('Deneyim silme sırasında hata:', error);
+            toast.error('Eğitim bilgisi silinirken bir hata oluştu!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
 
     return (
         <div>
             <Navi />
+            
             <section className='py-6 bg-white' >
                 <div className='container'>
                     <div className='row'>
@@ -252,6 +286,7 @@ const EducationLife = () => {
                     </div>
                 </div>
             </section>
+            <ToastContainer />
         </div>
     );
 }

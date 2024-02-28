@@ -48,16 +48,7 @@ function App() {
   // const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: any) => state.auth.user);
 
-  const certificatesData: any = [
-    // your certificate data here
-  ];
-  const handleMediaAccountSave = (
-    socialMedia: string,
-    socialMediaUrl: string
-  ) => {
-    // Kaydetme mantığını burada gerçekleştirin
-    console.log(`Sosyal Medya: ${socialMedia}, URL: ${socialMediaUrl}`);
-  };
+
   return (
       <Router>
         <Routes>
@@ -67,10 +58,9 @@ function App() {
           <Route path="/profilim/profilimi-duzenle/deneyimlerim" element={<MyExperiences />} />
           <Route path="/profilim/profilimi-duzenle/egitim-hayatim" element={<EducationLife />} />
           <Route path="/profilim/profilimi-duzenle/yetkinliklerim" element={<MySkill />} />
-          <Route path="/profilim/profilimi-duzenle/sertifikalarim" element={<MyCertificates certificates={certificatesData} />} />
-          <Route path="/profilim/profilimi-duzenle/medya-hesaplarim" element={<MediaAccounts onSave={handleMediaAccountSave} />} />
-          <Route path="/profilim/profilimi-duzenle/yabanci-dil" element={
-            <ForeignLanguages onSave={(languageName, proficiency) => { }} />} />
+          <Route path="/profilim/profilimi-duzenle/sertifikalarim" element={<MyCertificates />} />
+          <Route path="/profilim/profilimi-duzenle/medya-hesaplarim" element={<MediaAccounts/>} />
+          <Route path="/profilim/profilimi-duzenle/yabanci-dil" element={<ForeignLanguages />} />
           <Route path="/profilim/profilimi-duzenle/ayarlar" element={<MySettings />} />
           <Route path="/takvim" element={<CalendarPage />} />
           <Route path="/platform-katalog" element={<PlatformCatalog />} />

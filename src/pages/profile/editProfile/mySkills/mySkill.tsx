@@ -8,6 +8,8 @@ import { AddStudentSkillsbyUserIdRequest } from '../../../../models/requests/Stu
 import { useSelector } from 'react-redux';
 import { GetAllSkillsResponse, SkillItem } from '../../../../models/responses/Skills/getAllSkillsResponse';
 import { GetStudentSkillsByUserIdResponse } from '../../../../models/responses/StudentSkill/getStudentSkillsByUserIdResponse';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const MySkill = () => {
   const [selectedOption, setSelectedOption] = useState<any>(null);
@@ -48,7 +50,14 @@ const MySkill = () => {
         // Yeni beceriyi ekleyin
         const response = await mySkillService.addSkill(newSkill);
         console.log(`Skill '${selectedOption.label}' (ID: ${response.id}) başarıyla eklendi.`);
-
+        toast.success('Yetenek başarıyla eklendi!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
         // Güncellenmiş beceri listesini almak için
         const updatedSkills = await mySkillService.getAllStudentSkills(user.id);
 
@@ -60,6 +69,14 @@ const MySkill = () => {
       }
     } catch (error: any) {
       console.error('Yetenek eklenirken hata oluştu:', error.message);
+      toast.error('Yetenek eklenirken hata oluştu', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+    });
     }
   };
 
@@ -68,7 +85,14 @@ const MySkill = () => {
       await mySkillService.deleteSkill(studentSkillId);
 
       const updatedSkills = await mySkillService.getAllStudentSkills(user.id);
-
+      toast.error('Yetenek başarıyla silindi!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+    });
       // State'i güncelleyin
       setSkills(updatedSkills)
 
@@ -76,6 +100,14 @@ const MySkill = () => {
 
     } catch (error: any) {
       console.error('Yetenek silinirken hata oluştu:', error.message);
+      toast.error('Yetenek silinirken hata oluştu', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+    });
     }
   };
 
@@ -155,6 +187,7 @@ const MySkill = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 };
