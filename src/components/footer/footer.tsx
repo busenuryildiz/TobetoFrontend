@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+function Footer() {
   return (
     <section className="bg-secondary py-5">
     <Container>
@@ -35,3 +35,5 @@ export default function Footer() {
   
   )
 }
+
+export default Footer;

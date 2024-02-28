@@ -203,7 +203,7 @@ const Navi2 = () => {
         <div className="me-2">
           <img
             className="cv-pp-img rounded-circle"
-            src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
+            src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : "https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimages.19a45d39.png&w=48&q=75"}
             
             alt=""
             style={{
@@ -216,7 +216,7 @@ const Navi2 = () => {
         <div className="me-3">
           <p className="mb-0 name">
             {auth.user && auth.user.firstName
-              ? auth.user.firstName
+              ? `${auth.user.firstName} ${auth.user.lastName}`
               : ""}
           </p>
         </div>
@@ -340,8 +340,8 @@ const Navi2 = () => {
                 </span>
                 <img
                   alt=""
-                  srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&amp;w=384&amp;q=75 2x"
-                  src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&amp;w=384&amp;q=75"
+                  srcSet="tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&amp;w=256&amp;q=75 1x, tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&amp;w=384&amp;q=75 2x"
+                  src="tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&amp;w=384&amp;q=75"
                   decoding="async"
                   data-nimg="intrinsic"
                   style={{
