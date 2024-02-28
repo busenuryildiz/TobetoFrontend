@@ -59,7 +59,7 @@ const TeacherSearchBar: React.FC<TeacherSearchBarProps> = ({ teachers, onTeacher
           <div className=" css-hlgwow">
             <div className=" css-1jqq78o-placeholder" id="react-select-3-placeholder">Eğitmen Seçiniz</div>
             <div className=' css-19bb58m'>
-              <input
+            <input
                 id='react-select-3-input'
                 type="text"
                 value={searchTerm}

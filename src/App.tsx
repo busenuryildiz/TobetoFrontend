@@ -45,7 +45,7 @@ import MediaPost from "./pages/mediaPost/MediaPost";
 import ExamPage from "./pages/exam/examPage";
 import Announcement from "./components/announcement/Announcement";
 import CoursePage from "./pages/coursePage/CoursePage";
-import Egitimlerim from "./pages/egitimlerim/Egitimlerim";
+import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 
 
 
