@@ -1,7 +1,5 @@
 import React from "react";
-import Footer from "../../components/footer/Footer";
-import { Navigate, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Navi2 from "../../components/navbar/Navi2";
 import Footer2 from "../../components/footer/Footer2";
 
@@ -268,6 +266,7 @@ const Codecademy = () => {
                           />
                         </span>
                         <img
+                          alt="Codecademy"
                           srcSet="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcacode.e3ffebc4.gif&w=1920&q=75 1x, https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcacode.e3ffebc4.gif&w=3840&q=75 2x"
                           src="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcacode.e3ffebc4.gif&w=3840&q=75"
                           decoding="async"
@@ -313,7 +312,7 @@ const Codecademy = () => {
           </div>
         </section>
       </main>
-      <Footer2/>
+      <Footer2 />
     </div>
   );
 };

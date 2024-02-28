@@ -16,7 +16,7 @@ function Navi() {
   return (
     <Navbar className="position-relative " expand="xxl py-5"  bg="white">
       <Container fluid >
-        <Navbar.Brand href="platform">
+        <Link to="/platform">
           <img
             src="/Assets/image/tobeto-logo.png"
             alt="Tobeto Logo"
@@ -27,7 +27,7 @@ function Navi() {
               background: "transparent",
             }}
           />
-        </Navbar.Brand>
+        </Link>
 
         <button
           className="btn p-0 d-xxl-none navbar-burger"

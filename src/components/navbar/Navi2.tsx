@@ -139,7 +139,7 @@ const Navi2 = () => {
                 </ul>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/platform-katalog">
+                <Link className="nav-link" to="/katalog">
                   Katalog
                 </Link>
               </li>

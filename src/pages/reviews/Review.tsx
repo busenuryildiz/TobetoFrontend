@@ -1,23 +1,75 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import Navi from "../../components/navbar/Navi";
 import Footer from "../../components/footer/Footer";
 import { Container } from "react-bootstrap";
+import { useSelector } from 'react-redux';
+import { RootState } from "../../store";
+
 
 export interface Exam {
   id: number;
-  name: string;
+  courseId: number;
+  title: string;
+  description: string;
+  point: number;
+  examDuration: string;
+  examTitle: string;
+  hasTakenExam: boolean;
+  questionAmount: number;
+  examResult?: string;
+}
+export interface UserExam {
+  id: number;
+  examId: number;
+  examResult: string;
+  userId: string;
 }
 
 function Review() {
-  const [examData, setExamData] = useState<any>(null);
+  const authState = useSelector((state: RootState) => state.auth);
+  const userId = authState.user?.id;
+  const [exam, setExam] = useState<Exam[]>([]);
   const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:6280/api/Exam/GetList?PageSize=30")
-      .then((response) => response.json())
-      .then((data) => setExamData(data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
+    axios.get(`http://localhost:6280/api/Exam/GetList?PageSize=5`)
+      .then((examListRes) => {
+        const examList = examListRes.data.items;
+
+        if (userId) {
+          axios.get(`http://localhost:6280/api/ExamOfUsers/GetUsersExamResultInfo?userId=${userId}`)
+            .then((userExamRes) => {
+              const userExams = userExamRes.data;
+              console.log('User Exams:', userExams);
+              if (userExams) {
+                const updatedExams = examList.map((exam: Exam) => {
+                  const userExam = userExams.find((userExam: UserExam) => userExam.examId === exam.id);
+                  return {
+                    ...exam,
+                    hasTakenExam: !!userExam,
+                    examResult: userExam ? userExam.examResult : undefined,
+                  };
+                });
+                setExam(updatedExams);
+              } else {
+                setExam(examList);
+              }
+            }).catch(error => {
+              console.error('There was an error!', error);
+            });
+        } else {
+          setExam(examList);
+        }
+      }).catch(error => {
+        console.error('There was an error!', error);
+      });
+  }, [userId]);
+  const handleButtonClick = (exam: Exam) => {
+    setSelectedExam(exam);
+    setPopupIsOpen(true);
+  }
   return (
     <div>
       <Navi />
@@ -167,105 +219,70 @@ function Review() {
             </div>
           </div>
           <div className="col-12 col-md-6 mb-8">
-            <div
-              className="d-flex flex-column equal-box"
-              style={{ gap: "14px" }}
-            >
-              <div className="dashboard-card-slim">
-                <div
-                  className="d-flex align-items-center"
-                  style={{ gap: "14px" }}
-                >
-                  {/* {examData.hasTakenExam ? ( */}
-                  <>
-                    <div className="single-chart">
-                      <svg
-                        viewBox="0 0 36 36"
-                        className="circular-chart orange"
-                      >
-                        <path
-                          className="circle-bg"
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        ></path>
-                        <path
-                          className="circle"
-                          strokeDasharray="80,100"
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        ></path>
-                        <text x="18" y="20.35" className="percentage">
-                          80
-                        </text>
-                      </svg>
-                    </div>
-                    {/* <span>{examData.title}</span> */}
-                  </>
-                  {/* ) : ( */}
-                  <>
-                    <div className="platformIcon" />
-                    {/* <span>{examData.title}</span> */}
-                  </>
-                  {/* )} */}
-                </div>
-                <button
-                  className="btn btn-light"
-                  onClick={() => setPopupIsOpen(true)}
-                >
-                  {/* {examData.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'} */}
-                </button>
-
-                {popupIsOpen && (
-                  <div
-                    aria-labelledby="contained-modal-title-vcenter"
-                    aria-modal="true"
-                    className="fade modal show"
-                    role="dialog"
-                    style={{ display: "block" }}
-                    tabIndex={-1}
-                  >
-                    <div className="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-sm-down">
-                      <div className="modal-content">
-                        <div className="modal-body">
-                          <div className="quiz-screen">
-                            <div className="d-flex justify-content-between mb-8">
-                              <span className="quiz-details-header">
-                                Front End
-                              </span>
-                              <button
-                                aria-label="Close"
-                                className="btn-close"
-                                type="button"
-                                onClick={() => setPopupIsOpen(false)}
-                              />
-                            </div>
-                            <div className="join-screen">
-                              <p />
-                              <p>{examData.description}</p>
-                              <p />
-                              <div>
-                                <span>{examData.ExamDuration}</span>
-                                <span>Soru Sayısı : 25</span>
-                                <span>{examData.type}</span>
-                              </div>
-                              <div className="row ">
-                                <button
-                                  className="btn btn-primary mt-8 ms-auto me-auto"
-                                  style={{ width: "max-content" }}
-                                >
-                                  Raporu Görüntüle
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+            <div className="d-flex flex-column equal-box" style={{ gap: "14px" }}>
+              {exam.map((item: Exam, index: number) => (
+                <div className="dashboard-card-slim" key={index}>
+                  <div className="d-flex align-items-center" style={{ gap: "14px" }}>
+                    {item.hasTakenExam ? (
+                      <>
+                        <div className="single-chart">
+                          <svg viewBox="0 0 36 36" className="circular-chart orange">
+                            <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                            <path className="circle" strokeDasharray="80,100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                            <text x="18" y="20.35" className="percentage">{item.examResult}</text>
+                          </svg>
                         </div>
-                      </div>
-                    </div>
+                        <span>{item.title}</span>
+                      </>
+                    ) : (
+                      <>
+                        <div className="platformIcon" />
+                        <span>{item.title}</span>
+                      </>
+                    )}
                   </div>
-                )}
-              </div>
+                  <button className="btn btn-light" onClick={() => handleButtonClick(item)}>
+                    {item.hasTakenExam ? 'Raporu Görüntüle' : 'Başla'}
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </Container>
+      {popupIsOpen && selectedExam && (
+        <>
+          <div className="fade modal-backdrop show"></div>
+          <div aria-labelledby="contained-modal-title-vcenter" aria-modal="true" className="fade modal show" role="dialog" style={{ display: "block" }} tabIndex={-1}>
+            <div className="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-sm-down">
+              <div className="modal-content">
+                <div className="modal-body">
+                  <div className="quiz-screen">
+                    <div className="d-flex justify-content-between mb-8">
+                      <span className="quiz-details-header">{selectedExam.title}</span>
+                      <button aria-label="Close" className="btn-close" type="button" onClick={() => setPopupIsOpen(false)} />
+                    </div>
+                    <div className="join-screen">
+                      <p />
+                      <p>Bu sınav {selectedExam.questionAmount} sorudan oluşmakta olup sınav süresi {selectedExam.examDuration.split(':').slice(1, 2).join(':')} dakikadır. Sınav çoktan seçmeli test şeklinde olup sınavı yarıda bıraktığınız taktırde çözdüğünüz kısım kadarıyla değerlendirileceksiniz.</p>
+                      <p />
+                      <div>
+                        <span>Sınav Süresi : {selectedExam.examDuration.split(':').slice(1, 2).join(':')} Dakika</span>
+                        <span>Soru Sayısı : {selectedExam.questionAmount}</span>
+                        <span>Soru Tipi : {selectedExam.description}</span>
+                      </div>
+                      <div className="row ">
+                        <button className="btn btn-primary mt-8 ms-auto me-auto" style={{ width: "max-content" }} onClick={() => setPopupIsOpen(false)}>
+                          {selectedExam.hasTakenExam ? 'Raporu Görüntüle' : 'Sınava Başla'}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       <section className="py-5">
         <div className="position-relative ">
           <div className="gradient-line3 mt-5"></div>

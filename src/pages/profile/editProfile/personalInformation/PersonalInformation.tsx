@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import DatePicker from 'react-datepicker';
@@ -8,8 +8,6 @@ import Navi from '../../../../components/navbar/Navi';
 import Footer from '../../../../components/footer/Footer';
 import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
 import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
-import axios from 'axios';
-//import CloudinaryUpload from '../../../../components/cloudinary/cloudinary';
 
 const PersonalInformation = () => {
 
@@ -17,78 +15,60 @@ const PersonalInformation = () => {
   const [file, setFile] = useState<File | null>(null); // Use File type for the file state
   const [showFileUploadCard, setShowFileUploadCard] = useState(false);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFile = event.target.files[0];
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files) {
+  //     const selectedFile = event.target.files[0];
 
-      // Update the imagePath in the formik state to trigger re-render
-      formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
+  //     // Update the imagePath in the formik state to trigger re-render
+  //     //formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
 
-      setFile(selectedFile);
-    }
-  };
-
+  //     setFile(selectedFile);
+  //   }
+  // };
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const handleUpload = async () => {
     try {
-      if (!file) {
+      if (!fileInputRef.current || !fileInputRef.current.files) {
         console.error('No file selected for upload.');
         return;
       }
 
       const formData = new FormData();
-      formData.append('formFile', file);
-
-      // Assuming userId is known or stored in state
+      formData.append('formFile', fileInputRef.current.files[0]);
       const userId = user.id;
+      const response = await fetch(`http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`, {
+        method: 'POST',
+        body: formData
+      });
 
-      const response = await axios.post(
-        `http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
-      // Handle the response, e.g., update the UI with the new image URL
-      console.log('Image uploaded successfully:', response.data);
+      const result = await response.json();
+      console.log('Success:', result);
     } catch (error) {
-      // Handle errors, e.g., display an error message to the user
-      console.error('Error uploading image:', error);
+      console.error('Error:', error);
     }
   };
 
   const handleNationalIdentityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
 
-    // Eğer gelen input sadece sayılardan oluşuyorsa veya boşsa değeri güncelle
     if (/^\d*$/.test(inputValue) || inputValue === "") {
-      // Eğer gelen input 11 karakterden fazlaysa veya eşitse, kullanıcıyı uyar
       if (inputValue.length > 11) {
         alert('National Identity en fazla 11 haneli olmalıdır.');
       } else {
-        // Eğer 11 haneli veya daha az ise değeri güncelle
         formik.setFieldValue('nationalIdentity', inputValue);
       }
     } else {
-      // Eğer sayılar dışında bir karakter varsa kullanıcıyı uyar
       alert('National Identity yalnızca sayılardan oluşmalıdır.');
     }
   };
 
   const handleNationalIdentityBlur = () => {
     const inputValue = formik.values.nationalIdentity;
-
-    // Eğer input değeri 11 karakterden azsa, kullanıcıyı uyar
     if (inputValue.length < 11) {
       alert('National Identity en az 11 haneli olmalıdır.');
     }
   };
-
-
   useEffect(() => {
-    // Kullanıcı varsa bilgileri çek
     if (user) {
       const userId = user.id;
       PersonalInformationService.getUserInformation(userId);
@@ -252,17 +232,14 @@ const PersonalInformation = () => {
                               margin: "4px 2px",
                               cursor: "pointer",
                               borderRadius: "4px",
-                            }}
-                          >
+                            }}  >
                             Fotoğrafı Yükle
                           </button>
                         </div>
                       )}
-
-                      {/* File Upload Card */}
                       {showFileUploadCard && (
                         <div className="file-upload-card">
-                          <input type="file" onChange={handleFileChange} style={{ marginBottom: "10px" }} />
+                          <input type="file" onChange={handleUpload} ref={fileInputRef} style={{ marginBottom: "10px" }} />
                           <button
                             onClick={() => {
                               handleUpload();
