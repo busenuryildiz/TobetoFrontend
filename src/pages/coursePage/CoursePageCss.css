@@ -1,0 +1,16 @@
+    /* CoursePageCss.css */
+    .defaultButton {
+        font-size: 18px;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: #FFFFFF;
+        color: #9933FF;
+        width: 150px;
+        border: 1px solid #9933FF;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .hoverButton {
+        background-color: #9933FF;
+        color: #FFFFFF;
+    }

@@ -1,5 +1,5 @@
-export interface GetAllSkillsResponse {
-    items: SkillItem[]; 
+export interface GetAllLanguageLevelResponse {
+    items: LanguageLevelItem[]; 
     count: number;
     from: number;
     hasNext: boolean;
@@ -8,9 +8,10 @@ export interface GetAllSkillsResponse {
     pages: number;
     size: number;
   }
-  
-  export interface SkillItem {
+
+
+
+  export interface LanguageLevelItem {
     id: number;
     name: string;
   }
-  

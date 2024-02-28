@@ -8,6 +8,7 @@ import Navi from '../../../../components/navbar/Navi';
 import Footer from '../../../../components/footer/Footer';
 import PhoneNumberValidation from '../../../../components/phoneNumberFlag/phoneNumber';
 import { UpdatedUserAllInformationRequest } from '../../../../models/requests/Users/updateUserAllInformationRequest';
+import { ToastContainer, toast } from 'react-toastify';
 
 const PersonalInformation = () => {
 
@@ -32,7 +33,7 @@ const PersonalInformation = () => {
         console.error('No file selected for upload.');
         return;
       }
-
+  
       const formData = new FormData();
       formData.append('formFile', fileInputRef.current.files[0]);
       const userId = user.id;
@@ -47,6 +48,7 @@ const PersonalInformation = () => {
       console.error('Error:', error);
     }
   };
+  
 
   const handleNationalIdentityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -104,6 +106,15 @@ const PersonalInformation = () => {
 
         // Başarılı güncellemeyi işleyin (gerekirse Redux'a gönderin)
         console.log('Kullanıcı bilgileri başarıyla güncellendi:', response);
+        toast.success('Bilgileriniz başarıyla güncellendi', {
+          position: 'top-right',
+          autoClose: 3000, // milliseconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
 
         // Formu sıfırlayın (isteğe bağlı)
       } catch (error) {
@@ -307,7 +318,8 @@ const PersonalInformation = () => {
                   <div className="col-12 col-md-6 mb-6">
                     <PhoneNumberValidation
                       phoneNumber={formik.values.phoneNumber}
-                      onChange={(value) => formik.setFieldValue('Telelon Numaranız', value)}
+                      onChange={(value) => formik.setFieldValue('phoneNumber', value)}
+                      formik={formik} // formik prop'unu ekleyin
                     />
                   </div>
                   <div className="col-12 col-md-6 mb-6">
@@ -403,6 +415,7 @@ const PersonalInformation = () => {
                   </button>
                 </div>
               </form>
+              <ToastContainer />
             </div>
           </div>
         </div>
