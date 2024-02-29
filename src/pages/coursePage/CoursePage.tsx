@@ -26,6 +26,10 @@ function CoursePage() {
   const [startDateString, setStartDateString] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCourseDetails, setSelectedCourseDetails] = useState<any>({});
+  const [likeCount, setLikeCount] = useState<number | null>(null);
+
+  const coursId = courseData?.courseId;
+const isCourseLiked = courseData?.studentCourseIsLiked;
 
   useEffect(() => {
     axios
@@ -66,6 +70,21 @@ function CoursePage() {
       setStartDateString(startDateString);
     }
   }, [courseData]);
+
+  useEffect(() => {
+    const fetchLikeCount = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:6280/api/StudentCourses/GetIsLikedCountByCourseIdAsync?courseId=${coursId}`
+        );
+        setLikeCount(response.data); // Sunucudan dönen veriyi state'e kaydedin
+      } catch (error) {
+        console.error("Error fetching like count:", error);
+      }
+    };
+
+    fetchLikeCount();
+  }, [coursId]);
 
   const handleLessonSelect = async (lessonIndex: number) => {
     setSelectedLessonIndex(lessonIndex);
@@ -167,6 +186,8 @@ function CoursePage() {
               studentCourseProgress={courseData?.studentCourseProgress}
               studentCourseIsSaved={courseData?.studentCourseIsSaved}
               courseImagePath={courseData?.courseImagePath}
+              likeCount={likeCount}
+              isCourseLiked={isCourseLiked}
             />
             <Tabs selectedIndex={selectedTabIndex} onSelect={handleTabSelect}>
               <TabList style={{ display: "flex", listStyleType: "none" }}>
