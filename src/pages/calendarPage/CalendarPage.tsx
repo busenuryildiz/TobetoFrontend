@@ -5,9 +5,9 @@ import EducationStatus from '../../components/calendar/EducationStatus/Education
 import './CalendarPage.css';
 import TeacherSearchBar from '../../components/calendar/teacherSearchBar/TeacherSearchBar';
 import Navi from '../../components/navbar/Navi';
-import Footer from '../../components/footer/Footer';
 import GetAllCourseAndLessonInfo from '../../components/calendar/GetAllCourseAndLessonInfo';
 import axios from 'axios';
+import Footer from '../../components/footer/Footer';
 
 const CalendarPage = () => {
   const [lessonsState, setLessonsState] = useState<GetAllCourseAndLessonInfo[]>([]);

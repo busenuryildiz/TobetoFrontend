@@ -31,8 +31,8 @@ import DataScience from "./pages/dataScience/DataScience";
 import UIUX from "./pages/uiux/UIUX";
 import CyberSecurity from "./pages/cyberSecurity/CyberSecurity";
 import ManagementPanel from "./pages/managementPanel/managementPanel";
-import TobetoSuccessModel from "./pages/tobetoSuccessModel/TobetoSuccessModel";
-import SuccessModel1 from "./pages/tobetoSuccessModel/SuccessModel1";
+import TobetoSuccessModel from "./pages/TobetoSuccessModel/TobetoSuccessModel";
+import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
 import CourseDetail from "./pages/course-detail/course-detail";
 import MyProfile from "./pages/profile/myProfile/MyProfile";
 import NotFoundPage from "./components/notFound/notFound";
@@ -43,9 +43,11 @@ import Blog from "./pages/blog/Blog";
 import MediaPostPage from "./pages/mediaPost/MediaPostPage";
 import MediaPost from "./pages/mediaPost/MediaPost";
 import ExamPage from "./pages/exam/examPage";
-import Announcement from "./components/announcement/Announcement";
 import CoursePage from "./pages/coursePage/CoursePage";
 import Egitimlerim from "./pages/egitimlerim/egitimlerim";
+import BilgiAl from "./pages/bilgiAl/BilgiAl";
+import Announcement from "./pages/announcement/AnnouncementPage";
+import AnnouncementPage from "./pages/announcement/AnnouncementPage";
 import AnalysisReport from "./pages/tobetoSuccessModel/AnalysisReport";
 
 
@@ -55,16 +57,7 @@ function App() {
   // const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: any) => state.auth.user);
 
-  const certificatesData: any = [
-    // your certificate data here
-  ];
-  const handleMediaAccountSave = (
-    socialMedia: string,
-    socialMediaUrl: string
-  ) => {
-    // Kaydetme mantığını burada gerçekleştirin
-    console.log(`Sosyal Medya: ${socialMedia}, URL: ${socialMediaUrl}`);
-  };
+
   return (
       <Router>
         <Routes>
@@ -74,10 +67,9 @@ function App() {
           <Route path="/profilim/profilimi-duzenle/deneyimlerim" element={<MyExperiences />} />
           <Route path="/profilim/profilimi-duzenle/egitim-hayatim" element={<EducationLife />} />
           <Route path="/profilim/profilimi-duzenle/yetkinliklerim" element={<MySkill />} />
-          <Route path="/profilim/profilimi-duzenle/sertifikalarim" element={<MyCertificates certificates={certificatesData} />} />
-          <Route path="/profilim/profilimi-duzenle/medya-hesaplarim" element={<MediaAccounts onSave={handleMediaAccountSave} />} />
-          <Route path="/profilim/profilimi-duzenle/yabanci-dil" element={
-            <ForeignLanguages onSave={(languageName, proficiency) => { }} />} />
+          <Route path="/profilim/profilimi-duzenle/sertifikalarim" element={<MyCertificates />} />
+          <Route path="/profilim/profilimi-duzenle/medya-hesaplarim" element={<MediaAccounts/>} />
+          <Route path="/profilim/profilimi-duzenle/yabanci-dil" element={<ForeignLanguages />} />
           <Route path="/profilim/profilimi-duzenle/ayarlar" element={<MySettings />} />
           <Route path="/takvim" element={<CalendarPage />} />
           <Route path="/platform-katalog" element={<PlatformCatalog />} />
@@ -114,8 +106,9 @@ function App() {
           <Route path="/profilim/degerlendirmeler/rapor/tobeto-iste-basari-modeli/1" element={<AnalysisReport />}></Route>
           <Route path="/exam" element={<ExamPage />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/duyurular" element={<Announcement />} />
+          <Route path="/duyurular" element={<AnnouncementPage />} />
           <Route path="/coursepage" element={<CoursePage/>}/>
+          <Route path="/bilgi-al" element={<BilgiAl/>}/>
 
         </Routes>
       </Router>

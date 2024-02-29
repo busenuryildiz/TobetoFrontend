@@ -1,25 +1,124 @@
 import Navi from '../../../../components/navbar/Navi';
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
+import { socialMediaService } from '../../../../services/pages/profile/editProfile/socialMedia/socialMediaService';
+import { GetAllSocialMediaResponse } from '../../../../models/responses/SocialMedia/getAllSocialMediaResponse';
+import { useSelector } from 'react-redux';
+import { FaInstagram, FaTwitter, FaLinkedin, FaBehance, FaDribbble, FaGithub } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
 
-interface MediaAccountsProps {
-  onSave: (socialMedia: string, socialMediaUrl: string) => void;
-}
+const renderSocialMediaIcon = (socialMedia: string, iconSize: number) => {
+  const iconStyle = {
+    fontSize: iconSize,
+    margin: '0 5px', // İstediğiniz kadar boşluk ekleyebilirsiniz
+  };
 
-const MediaAccounts: React.FC<MediaAccountsProps> = ({ onSave }) => {
+  switch (socialMedia) {
+    case 'Instagram':
+      return <FaInstagram style={iconStyle} />;
+    case 'Twitter':
+      return <FaTwitter style={iconStyle} />;
+    case 'LinkedIn':
+      return <FaLinkedin style={iconStyle} />;
+    case 'Behance':
+      return <FaBehance style={iconStyle} />;
+    case 'Dribbble':
+      return <FaDribbble style={iconStyle} />;
+    case 'Github':
+      return <FaGithub style={iconStyle} />;
+    default:
+      return null;
+  }
+};
+
+
+
+
+function MediaAccounts() {
+  const user = useSelector((state: any) => state.auth.user);
   const [socialMedia, setSocialMedia] = useState('');
   const [socialMediaUrl, setSocialMediaUrl] = useState('');
+  const [socialMediaList, setSocialMediaList] = useState<GetAllSocialMediaResponse[]>([]);
 
-  const handleSave = (e: FormEvent) => {
+  useEffect(() => {
+    // Fetch social media accounts for the user when the component mounts
+    fetchSocialMediaList();
+  }, [user.id]);
+
+  useEffect(() => {
+    // Update local storage whenever socialMediaList changes
+    localStorage.setItem('socialMediaList', JSON.stringify(socialMediaList));
+  }, [socialMediaList]);
+
+  const fetchSocialMediaList = async () => {
+    try {
+      const storedSocialMediaList = localStorage.getItem('socialMediaList');
+      const initialSocialMediaList = storedSocialMediaList ? JSON.parse(storedSocialMediaList) : [];
+      setSocialMediaList(initialSocialMediaList);
+
+      const socialMediaListFromAPI = await socialMediaService.getAllSocialMedia(user.id);
+      setSocialMediaList(socialMediaListFromAPI);
+    } catch (error) {
+      console.error('Error fetching social media list:', error);
+    }
+  };
+
+  const handleSave = async (e: FormEvent) => {
     e.preventDefault();
-    onSave(socialMedia, socialMediaUrl);
+
+    try {
+      // Add the new social media account
+      await socialMediaService.addSocialMedia({
+        userId: user.id,
+        socialMedia: socialMedia,
+        socialMediaUrl: socialMediaUrl,
+      });
+      toast.success('Sosyal Medya bilgisi başarıyla eklendi..!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+    });
+
+      // Fetch the updated social media list after saving
+      await fetchSocialMediaList();
+
+      // Clear the input fields after saving
+      setSocialMedia('');
+      setSocialMediaUrl('');
+    } catch (error) {
+      console.error('Error saving social media:', error);
+     
+    }
   };
 
-  const handleSocialMediaChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSocialMedia(e.target.value);
-  };
+  const handleDelete = async (socialMediaId: number) => {
+    try {
+      // Silme işlemi
+      await socialMediaService.deleteSocialMedia(socialMediaId);
 
-  const handleSocialMediaUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSocialMediaUrl(e.target.value);
+      // Silinen sosyal medya hesabını listeden kaldırma
+      setSocialMediaList((prevList) => prevList.filter((item) => item.id !== socialMediaId));
+      toast.success('Sosyal Medya bilgisi başarıyla silindi..!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+    });
+    } catch (error) {
+      console.error('Error deleting social media:', error);
+      toast.error('sosyal medya silinirken hata oluştu', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+    });
+    }
   };
 
   return (
@@ -74,7 +173,7 @@ const MediaAccounts: React.FC<MediaAccountsProps> = ({ onSave }) => {
                         className="form-select"
                         aria-label=""
                         value={socialMedia}
-                        onChange={handleSocialMediaChange}
+                        onChange={(e) => setSocialMedia(e.target.value)}
                       >
                         <option value="">Seçiniz*</option>
                         <option value="Instagram">Instagram</option>
@@ -93,19 +192,38 @@ const MediaAccounts: React.FC<MediaAccountsProps> = ({ onSave }) => {
                         className="form-control"
                         aria-label="Text input with dropdown button"
                         value={socialMediaUrl}
-                        onChange={handleSocialMediaUrlChange}
+                        onChange={(e) => setSocialMediaUrl(e.target.value)}
                       />
                     </div>
                   </div>
                   <button type="submit" className="btn btn-primary py-2 mt-3 d-inline-block mobil-btn">
                     Kaydet
                   </button>
+                  <div>
+                    {socialMediaList.map((item) => (
+                      <div key={item.id} className="col-12 my-2 mt-5">
+                        <label className="input-label-text">{item.socialMedia}</label>
+                        <div className="section-header tobeto-input">
+                        {renderSocialMediaIcon(item.socialMedia, 25)}
+                          <input readOnly className="form-control" type="text" value={item.socialMediaUrl} />
+                          <button
+                            className="btn social-delete"
+                            onClick={() => handleDelete(item.id)}
+                          ></button>
+                          <button className="btn">
+                            <i className="fa fa-pencil-square" aria-hidden="true" style={{ fontSize: '25px' }}></i>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 };

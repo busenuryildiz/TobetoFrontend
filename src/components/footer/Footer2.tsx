@@ -151,41 +151,41 @@ const Footer2 = () => {
               <p className="mb-6 text-white fw-bold">Blog</p>
               <ul className="list-unstyled">
                 <li className="mb-3">
-                  <a className="small text-white text-decoration-none" href="XXX">
+                  <Link className="small text-white text-decoration-none" to="/blog/4">
                     Web API Nedir? Programlama Yazılımının Arayüzü Nasıl
                     Çalışır?
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-3">
-                  <a className="small text-white text-decoration-none" href="XXXX">
+                  <Link className="small text-white text-decoration-none" to="/blog/5">
                     Yapay Zeka Chatbot: İşte Geleceğin İletişim Aracı!
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-3">
-                  <a className="small text-white text-decoration-none" href="XXXX">
+                  <Link className="small text-white text-decoration-none" to="/blog/6">
                     Yazılım Test Otomasyonu: İş Akışınızı Daha Verimli Hale
                     Getirin!
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-3">
-                  <a className="small text-white text-decoration-none" href="XXXX">
+                  <Link className="small text-white text-decoration-none" to="/blog/7">
                     Node.js Nedir ve Nasıl Kullanılır? İşte Sana Basit ve Etkili
                     Kılavuz
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-3">
-                  <a className="small text-white text-decoration-none" href="XXXX">
+                  <Link className="small text-white text-decoration-none" to="/blog/8">
                     Robotlar ve Yapay Zeka İçin Hangi Yazılım Dili Kullanılır?
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
           <div className="row pt-8 justify-content-between align-items-center">
             <div className="col-12 col-lg-auto text-center mb-8 mb-lg-0">
-              <a
+              <Link
                 className="navbar-brand"
-                href="#"
+                to="/"
               >
                 <span
                   style={{
@@ -257,7 +257,7 @@ const Footer2 = () => {
                     }}
                   />
                 </span>
-              </a>
+              </Link>
             </div>
             <div className="col-12 col-lg-auto mb-5 mb-lg-0">
               <p className="small text-white text-center mb-0">

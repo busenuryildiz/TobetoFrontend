@@ -17,7 +17,7 @@ import UserSocialMediaAccountResponse from "./SocialMediaAccountResponse";
 import TobetoSuccessModelChart from "./TobetoSuccessModelChart";
 import UserExam from "./UserExam";
 import UserBadges from "./UserBadges";
-import CalendarHeatmapComponent from "./CalendarHeatMap";
+import CalendarHeatmapComponent from "./CalendarHeatmapComponent";
 import UserAssignmentsAndDatesResponse from "./UserAssignmentsAndDatesResponse";
 import UserExperienceResponse from "./UserExperienceResponse";
 import UserEducationResponse from "./UserEducationResponse";
@@ -53,7 +53,7 @@ const MyProfile = () => {
   const [userBadges, setUserBadges] = useState<UserBadgesResponse[]>([]);
   const [assignments, setAssignments] = useState<
     UserAssignmentsAndDatesResponse[]
-  >([]);
+  | null>([]);
   const [experienceData, setExperienceData] = useState<
     UserExperienceResponse[]
   >([]);

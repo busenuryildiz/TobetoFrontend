@@ -6,6 +6,7 @@ import { MyExperienceService } from '../../../../services/pages/profile/editProf
 import { useSelector } from 'react-redux';
 import { UserExperiencesResponse } from '../../../../models/responses/Users/userExperienceResponse';
 import { AddUserExperiencesRequest } from '../../../../models/requests/UserExperience/addUserExperiencesRequest';
+import { ToastContainer, toast } from 'react-toastify';
 
 const cities = [
     'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Amasya',
@@ -42,16 +43,17 @@ const MyExperiences = () => {
     const [formValues, setFormValues] = useState<AddUserExperiencesRequest>(initialFormValues);
 
     useEffect(() => {
-        const storedExperiences = localStorage.getItem('userExperiences');
+        const storedExperiences = localStorage.getItem(`userExperiences_${user?.id}`);
         if (storedExperiences) {
             setUserExperiences(JSON.parse(storedExperiences));
         }
-    }, []);
+    }, [user]);
 
     useEffect(() => {
-        localStorage.setItem('userExperiences', JSON.stringify(userExperiences));
-    }, [userExperiences]);
-
+        if (user) {
+            localStorage.setItem(`userExperiences_${user.id}`, JSON.stringify(userExperiences));
+        }
+    }, [user, userExperiences]);
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
     ) => {
@@ -73,7 +75,9 @@ const MyExperiences = () => {
         e.preventDefault();
 
         if (formValues.workBeginDate > formValues.workEndDate) {
-            console.error('Başlangıç tarihi, bitiş tarihinden büyük olamaz.');
+            toast.error('Başlangıç tarihi, bitiş tarihinden büyük olamaz.', {
+                position: 'top-right',
+            });
             return;
         }
 
@@ -81,7 +85,9 @@ const MyExperiences = () => {
             const newExperience = await MyExperienceService.addUserExperience(
                 formValues as AddUserExperiencesRequest
             );
-            console.log("Deneyim Başarı ile Eklendi.");
+            toast.success('Deneyim Başarı ile Eklendi.', {
+                position: 'top-right',
+            });
             setUserExperiences((prevExperiences) => {
                 const updatedExperiences = Array.isArray(prevExperiences)
                     ? [...prevExperiences, newExperience]
@@ -92,7 +98,9 @@ const MyExperiences = () => {
 
             setFormValues(initialFormValues);
         } catch (error) {
-            console.error('Form gönderimi sırasında hata:', error);
+            toast.error('Form gönderimi sırasında hata:', {
+                position: 'top-right',
+            });
         }
     };
 
@@ -100,15 +108,19 @@ const MyExperiences = () => {
     const handleDelete = async (experienceId: number) => {
         try {
             await MyExperienceService.deleteUserExperience(experienceId);
-            console.log("Deneyim Başarı ile Silindi.");
+            toast.success('Deneyim Başarı ile Silindi.', {
+                position: 'top-right',
+            });
             setUserExperiences((prevExperiences) =>
                 prevExperiences.filter((exp) => exp.id !== experienceId)
             );
         } catch (error) {
-            console.error('Deneyim silme sırasında hata:', error);
+            toast.error('Deneyim silme sırasında hata:', {
+                position: 'top-right',
+            });
         }
     };
-
+    
 
     return (
         <div>
@@ -233,16 +245,9 @@ const MyExperiences = () => {
                                                 showYearDropdown
                                                 dropdownMode="select"
                                             />
+
                                         </div>
-                                        <label className="d-flex mt-3 text-start">
-                                            <input
-                                                name="continueCurrentJob"
-                                                className="form-check-input me-4"
-                                                type="checkbox"
-                                                onChange={handleInputChange}
-                                            />
-                                            <small className="text-muted">Çalışmaya Devam Ediyorum</small>
-                                        </label>
+
                                     </div>
                                     <div className="col-12 col-md-12 mb-6">
                                         <label className="input-label-text">İş Açıklaması</label>
@@ -285,6 +290,7 @@ const MyExperiences = () => {
                     </div>
                 </div>
             </section>
+            <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
         </div>
     );
 };

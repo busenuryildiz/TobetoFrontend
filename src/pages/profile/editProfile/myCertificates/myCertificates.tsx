@@ -1,17 +1,133 @@
-import React from 'react'
-import Navi from '../../../../components/navbar/Navi'
+import React, { useEffect, useRef, useState } from 'react';
+import Navi from '../../../../components/navbar/Navi';
+import { CertificateService } from '../../../../services/pages/profile/editProfile/certificate/certificateService';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { AddCertificateRequest } from '../../../../models/requests/Certificate/addCertificateRequest';
+import { GetUserAllCertificateResponse } from '../../../../models/responses/Certificate/getUserAllCertificateResponse';
 
-interface Certificate {
-    fileName: string;
-    fileType: string;
-    date: string;
-}
 
-interface MyCertificatesProps {
-    certificates: Certificate[];
-}
+function MyCertificates() {
+    const user = useSelector((state: any) => state.auth.user);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [certificates, setCertificates] = useState<GetUserAllCertificateResponse[]>([]);
+    const updateLocalStorage = (updatedCertificates: GetUserAllCertificateResponse[]) => {
+        localStorage.setItem('userCertificates', JSON.stringify(updatedCertificates));
+      };
+    
 
-function MyCertificates( props: MyCertificatesProps) {
+    useEffect(() => {
+        // Sayfa yüklendiğinde kullanıcının sertifikalarını getir
+        async function fetchCertificates() {
+            try {
+                // Call CertificateService.getAllUserCertificate to get user certificates
+                const userCertificates = await CertificateService.getAllUserCertificate(user.id);
+    
+                // Assuming the response includes user information
+                const userIdFromResponse = userCertificates?.[0]?.userId;
+    
+                // If user ID is present in the response, use it; otherwise, fallback to user.id
+                const userId = userIdFromResponse || user.id;
+    
+                setCertificates(userCertificates);
+            } catch (error) {
+                console.error('Error fetching certificates:', error);
+            }
+        }
+    
+        fetchCertificates();
+    }, []);
+    
+    
+
+    useEffect(() => {
+        // Sayfa yüklendiğinde local storage'dan sertifikaları al
+        const storedCertificates = localStorage.getItem('userCertificates');
+        if (storedCertificates) {
+            setCertificates(JSON.parse(storedCertificates));
+        }
+    }, []);
+
+
+    const handleFileUpload = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = event.target.files;
+    
+        if (selectedFiles && selectedFiles.length > 0) {
+          const filesArray = Array.from(selectedFiles);
+    
+          try {
+            // Upload certificates to Cloudinary
+            const cloudinaryResponses = await Promise.all(
+                filesArray.map(async (file: File) => {
+                  return await uploadToCloudinary(file);
+                })
+              );
+              
+              const newCertificates: GetUserAllCertificateResponse[] = filesArray.map((file, index) => ({
+                id: cloudinaryResponses[index]?.id, // Bu satırı değiştirerek cloudinaryResponses'dan ID'yi alıyoruz
+                userId: user.id,
+                name: file.name,
+                fileName: file.name,
+                fileType: file.type,
+                date: new Date().toISOString(),
+                imagePath: cloudinaryResponses[index]?.imagePath,
+              }));
+              
+            // Update state with new certificates
+            setCertificates((prevCertificates: GetUserAllCertificateResponse[]) => [...prevCertificates, ...newCertificates]);
+    
+            // Update local storage
+            updateLocalStorage([...certificates, ...newCertificates]);
+          } catch (error) {
+            console.error('Error uploading certificates:', error);
+          }
+        }
+      };
+    
+      const handleDeleteCertificate = async (certificateId: number) => {
+        try {
+          await CertificateService.deleteCertificate(certificateId);
+    
+          // Update state and remove the certificate
+          setCertificates((prevCertificates) => prevCertificates.filter((cert) => cert.id !== certificateId));
+    
+          // Update local storage
+          updateLocalStorage(certificates.filter((cert) => cert.id !== certificateId));
+        } catch (error) {
+          console.error('Error deleting certificate:', error);
+        }
+      };
+    
+    
+    const uploadToCloudinary = async (file: File) => {
+        const formData = new FormData();
+        formData.append('formFile', file);
+    
+        const cloudinaryResponse = await axios.post(`http://localhost:6280/api/FilesUpload/UserCertificate?userId=${user.id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    
+        // CertificateService'i kullanarak backend'e sertifika bilgilerini gönder
+        const newCertificate = {
+            userId: user.id,
+            name: file.name,
+            imagePath: cloudinaryResponse.data,
+        };
+    
+        await CertificateService.addCertificate(newCertificate);
+    
+        return cloudinaryResponse.data;
+    };
+    
+
     return (
         <div>
             <Navi />
@@ -63,7 +179,7 @@ function MyCertificates( props: MyCertificatesProps) {
                                     <div className="row">
                                         <div className="col-12 tobeto-light-bg">
                                             <div className="upload-area">
-                                                <div className="cursor-pointer">
+                                                <div className="cursor-pointer" onClick={handleFileUpload}>
                                                     <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <rect x="2" y="2" width="74" height="74" rx="37" fill="#F1E3FF" stroke="#9933FF" stroke-width="4" stroke-dasharray="2 2"></rect>
                                                         <path d="M47 45L40 37L33 45" stroke="#9933FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -72,43 +188,31 @@ function MyCertificates( props: MyCertificatesProps) {
                                                     </svg>
                                                 </div>
                                                 <span>Dosya Yükle</span>
+
                                                 <div>
                                                     <div className="uppy-Container">
                                                         <div className="uppy-Root" dir="ltr">
                                                             <div className="uppy-Dashboard uppy-Dashboard--animateOpenClose uppy-Dashboard--modal uppy-Dashboard--isInnerWrapVisible" data-uppy-theme="light" data-uppy-num-acquirers="0" data-uppy-drag-drop-supported="true" aria-hidden="true" aria-disabled="false" aria-label="Dosya Yükle (Kapatmak için Esc)">
                                                                 <div aria-hidden="true" className="uppy-Dashboard-overlay"></div>
                                                                 <div className="uppy-Dashboard-inner" aria-modal="true" role="dialog">
-                                                                    <button className="uppy-u-reset uppy-Dashboard-close" type="button" aria-label="Kapat" title="Kapat">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
+
                                                                     <div className="uppy-Dashboard-innerWrap">
-                                                                        <div className="uppy-Dashboard-dropFilesHereHint">Buraya sürükleyip bırakın</div>
+
                                                                         <div className="uppy-Dashboard-AddFiles">
-                                                                            <input className="uppy-Dashboard-input" hidden aria-hidden="true" tabIndex={-1} type="file" name="files[]" accept="image/jpeg,image/png,application/pdf" />
-                                                                            <input className="uppy-Dashboard-input" hidden aria-hidden={true} tabIndex={-1} type="file" name="files[]" accept="image/jpeg,image/png,application/pdf" />
-                                                                            <div className="uppy-Dashboard-AddFiles-title">Sürükleyip bırak, yapıştır veya
-                                                                                <button type="button" className="uppy-u-reset uppy-c-btn uppy-Dashboard-browse" data-uppy-super-focusable="true">gözat</button>
-                                                                            </div>
-                                                                            <div className="uppy-Dashboard-AddFiles-list" role="tablist">
-                                                                                <span role="presentation" style={{ whiteSpace: 'nowrap' }}></span>
-                                                                            </div>
-                                                                            <div className="uppy-Dashboard-AddFiles-info">
-                                                                                <a tabIndex={-1} href="https://uppy.io" rel="noreferrer noopener" target="_blank" className="uppy-Dashboard-poweredBy">Powered by <span>
-                                                                                    <svg aria-hidden="true" focusable="false" className="uppy-c-icon uppy-Dashboard-poweredByIcon" width="11" height="11" viewBox="0 0 11 11">
-                                                                                        <path d="M7.365 10.5l-.01-4.045h2.612L5.5.806l-4.467 5.65h2.604l.01 4.044h3.718z" fillRule="evenodd"></path>
-                                                                                    </svg>
-                                                                                    <span className="uppy-Dashboard-poweredByUppy">Uppy</span>
-                                                                                </span></a>
-                                                                            </div>
+                                                                            <input
+                                                                                ref={fileInputRef}
+                                                                                type="file"
+                                                                                style={{ display: 'none' }}
+                                                                                onChange={handleFileChange}
+                                                                                multiple
+                                                                            />
                                                                         </div>
                                                                         <div className="uppy-Dashboard-progressindicators">
                                                                             <div className="uppy-StatusBar is-waiting" aria-hidden="true">
                                                                                 <div className="uppy-StatusBar-progress" role="progressbar" aria-label="0%" aria-valuetext="0%" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0} style={{ width: '0%' }}></div>
                                                                                 <div className="uppy-StatusBar-actions"></div>
                                                                             </div>
-                                                                            <div className="uppy uppy-Informer">
-                                                                                <span></span>
-                                                                            </div>
+                                                                            <div className="uppy uppy-Informer"><span></span></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -130,14 +234,14 @@ function MyCertificates( props: MyCertificatesProps) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {props.certificates.map((certificate, index) => (
-                                                    <tr key={index}>
+                                                {certificates.map((certificate) => (
+                                                    <tr key={certificate.id}>
                                                         <td>{certificate.fileName}</td>
-                                                        <td className={`${certificate.fileType.toLowerCase()}_icon text-center`}></td>
+                                                        <td className={`${certificate.fileType?.toLowerCase()}_icon text-center`}></td>
                                                         <td>{certificate.date}</td>
                                                         <td style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '15px' }}>
                                                             <span className="fileIcon"></span>
-                                                            <span className="trashIcon"></span>
+                                                            <span className="trashIcon" onClick={() => handleDeleteCertificate(certificate.id)}></span>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -151,7 +255,10 @@ function MyCertificates( props: MyCertificatesProps) {
                 </div>
             </section>
         </div>
-    )
+    );
 }
 
 export default MyCertificates;
+
+
+

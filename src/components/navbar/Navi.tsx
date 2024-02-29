@@ -119,11 +119,11 @@ function Navi() {
                 className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              >
+              >{auth.user.imagePath ?
                 <div className="me-2">
                   <img
                     className="cv-pp-img rounded-circle"
-                    src={auth.user && auth.user.imagePath ? `${auth.user.imagePath}` : ""}
+                    src={auth.user.imagePath}
                     alt=""
                     style={{
                       width: "36px",
@@ -131,11 +131,24 @@ function Navi() {
                       objectFit: "cover",
                     }}
                   />
-                </div>
+                </div> :
+                <div className="me-2">
+                <img
+                  className="cv-pp-img rounded-circle"
+                  src='https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimages.19a45d39.png&w=384&q=75'
+                  alt=""
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
+                }
                 <div className="me-3">
                   <p className="mb-0 name">
                     {auth.user && auth.user.firstName
-                      ? auth.user.firstName
+                      ? `${auth.user.firstName} ${auth.user.lastName}`
                       : ""}
                   </p>
                 </div>
