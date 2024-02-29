@@ -19,7 +19,9 @@ const TobetoSuccessModelChart = () => {
             <div className="row">
 
               <div className="col-md-6 col-12 my-3" style={{ maxWidth: '350px' }}>
-              <ChartComponent  />
+                <div className="model-padding" >
+                  <ChartComponent />
+                </div>
               </div>
             </div>
           </div>
