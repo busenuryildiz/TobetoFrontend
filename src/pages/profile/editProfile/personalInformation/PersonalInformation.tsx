@@ -15,16 +15,7 @@ const PersonalInformation = () => {
   const [file, setFile] = useState<File | null>(null); // Use File type for the file state
   const [showFileUploadCard, setShowFileUploadCard] = useState(false);
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files) {
-  //     const selectedFile = event.target.files[0];
 
-  //     // Update the imagePath in the formik state to trigger re-render
-  //     //formik.setFieldValue('imagePath', URL.createObjectURL(selectedFile));
-
-  //     setFile(selectedFile);
-  //   }
-  // };
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleUpload = async () => {
     try {

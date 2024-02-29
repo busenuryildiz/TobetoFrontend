@@ -5,6 +5,7 @@ import { AppDispatch } from "../../store/index";
 import { useNavigate } from "react-router-dom";
 import Navi2 from "../../components/navbar/Navi2";
 import Footer2 from "../../components/footer/Footer2";
+import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,11 +22,23 @@ const Register = () => {
   const defaultImagePath = ""; // Boş string
   const defaultNationalIdentity = "";
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      console.log("Şifreler eşleşmiyor!");
-      return; // Şifreler eşleşmiyorsa kayıt işlemine devam etmeyi durdur
+  
+    // Boş alanların kontrolü
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      console.log("Lütfen tüm alanları doldurunuz.");
+      // Hata mesajı gösterebilirsiniz
+      toast.error("Lütfen tüm alanları doldurunuz.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
     }
 
     interface RegisterData {
@@ -51,11 +64,30 @@ const Register = () => {
       nationalIdentity: defaultNationalIdentity,
     };
 
-    dispatch(registerUser(userRegisterData)).then(() => {
-      navigate("/login");
+  //   dispatch(registerUser(userRegisterData)).then(() => {
+  //     navigate("/login");
+  //   });
+  //   console.log("register", firstName, lastName, email, password);
+  // };
+
+  dispatch(registerUser(userRegisterData)).then(() => {
+    if (!userRegisterData.firstName || !userRegisterData.lastName || !userRegisterData.email || !userRegisterData.imagePath || !userRegisterData.password || !userRegisterData.nationalIdentity || !userRegisterData.birthDate || !userRegisterData.phoneNumber) {
+      throw new Error("Tüm kayıt alanları doldurulmalıdır.");
+    }
+    navigate("/login");
+  }).catch(error => {
+    console.error("Kayıt esnasında bir hata oluştu:", error);
+    toast.error("Kayıt esnasında bi hata oluştu", {
+      position: "top-right",
+      autoClose: 3000, // milliseconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
-    console.log("register", firstName, lastName, email, password);
-  };
+  });
+}
   return (
     <div>
       <Navi2 />
@@ -130,6 +162,7 @@ const Register = () => {
           </div>
         </div>
       </section>
+      <ToastContainer></ToastContainer>
       <Footer2/>
     </div>
   );
