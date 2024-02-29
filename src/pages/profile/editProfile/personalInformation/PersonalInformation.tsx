@@ -14,6 +14,9 @@ const PersonalInformation = () => {
   const user = useSelector((state: any) => state.auth.user);
   const [file, setFile] = useState<File | null>(null); // Use File type for the file state
   const [showFileUploadCard, setShowFileUploadCard] = useState(false);
+  useEffect(() => {
+    setShowFileUploadCard(false); // Sayfa yüklendiğinde file yoksa file upload card'ı gizle
+  }, [file]);
 
   // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   if (event.target.files) {
@@ -290,22 +293,22 @@ const PersonalInformation = () => {
                           />
                         </div>
                         <div
-                        style={{
-                          position: "absolute",
-                          bottom: "0",
-                          right: "0",
-                          transform: "translate(50%, 50%)",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <span
-                          role="img"
-                          aria-label="Fotoğraf Yükle"
-                          onClick={() => setShowFileUploadCard(true)}
+                          style={{
+                            position: "absolute",
+                            bottom: "0",
+                            right: "0",
+                            transform: "translate(50%, 50%)",
+                            cursor: "pointer",
+                          }}
                         >
-                          🔄
-                        </span>
-                      </div>
+                          <span
+                            role="img"
+                            aria-label="Fotoğraf Yükle"
+                            onClick={() => setShowFileUploadCard(true)}
+                          >
+                            🔄
+                          </span>
+                        </div>
                       </>
                       )}
                       {formik.values.imagePath && (
@@ -319,27 +322,29 @@ const PersonalInformation = () => {
                               onClick={() => setShowFileUploadCard(true)}
                               style={{ fontSize: "24px" }}
                             >
-                              📁
+
                             </span>
                           </div>
-                          <button
-                            onClick={() => setShowFileUploadCard(true)}
-                            style={{
-                              backgroundColor: "#4CAF50",
-                              color: "white",
-                              border: "none",
-                              padding: "10px 15px",
-                              textAlign: "center",
-                              textDecoration: "none",
-                              display: "inline-block",
-                              fontSize: "16px",
-                              margin: "4px 2px",
-                              cursor: "pointer",
-                              borderRadius: "4px",
-                            }}
-                          >
-                            Fotoğraf Yükle
-                          </button>
+                          {file && (
+                            <button
+                              onClick={() => setShowFileUploadCard(true)}
+                              style={{
+                                backgroundColor: "#4CAF50",
+                                color: "white",
+                                border: "none",
+                                padding: "10px 15px",
+                                textAlign: "center",
+                                textDecoration: "none",
+                                display: "inline-block",
+                                fontSize: "16px",
+                                margin: "4px 2px",
+                                cursor: "pointer",
+                                borderRadius: "4px",
+                              }}
+                            >
+                              Fotoğrafı Yükle
+                            </button>
+                          )}
                         </div>
                       )}
                       {showFileUploadCard && (
