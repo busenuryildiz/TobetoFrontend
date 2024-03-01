@@ -3,7 +3,7 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import UserAssignmentsAndDatesResponse from './UserAssignmentsAndDatesResponse';
 
-const CalendarHeatmapComponent = ({ assignmentData }: { assignmentData: UserAssignmentsAndDatesResponse[] }) => {
+const CalendarHeatmapComponent = ({ assignmentData }: { assignmentData: UserAssignmentsAndDatesResponse[] | null }) => {
   const today = new Date();
   const oneMonthAgo = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
   const [hoveredValue, setHoveredValue] = useState<any>(null);

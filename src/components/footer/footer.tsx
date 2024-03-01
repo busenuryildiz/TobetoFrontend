@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function Footer() {
+function Footer() {
   return (
     <section className="bg-secondary py-5">
     <Container>
@@ -19,9 +20,9 @@ export default function Footer() {
         <div className="col-6 col-lg-8 my-4">
           <ul className="list-unstyled mb-0 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end">
             <li className="mb-lg-0">
-              <a className="btn btn-light-light" href="iletisim">
+              <Link className="btn btn-light-light" to="/iletisim">
                 Bize Ulaşın
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -34,3 +35,5 @@ export default function Footer() {
   
   )
 }
+
+export default Footer;

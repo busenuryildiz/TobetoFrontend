@@ -1,5 +1,5 @@
 export interface GetAllSkillsResponse {
-    items: SkillItem[]; // items özelliği, SkillItem tipinde bir dizi olmalı
+    items: SkillItem[]; 
     count: number;
     from: number;
     hasNext: boolean;
