@@ -31,8 +31,6 @@ import DataScience from "./pages/dataScience/DataScience";
 import UIUX from "./pages/uiux/UIUX";
 import CyberSecurity from "./pages/cyberSecurity/CyberSecurity";
 import ManagementPanel from "./pages/managementPanel/managementPanel";
-import TobetoSuccessModel from "./pages/tobetoSuccessModel/TobetoSuccessModel";
-import SuccessModel1 from "./pages/tobetoSuccessModel/SuccessModel1";
 import CourseDetail from "./pages/course-detail/course-detail";
 import MyProfile from "./pages/profile/myProfile/MyProfile";
 import NotFoundPage from "./components/notFound/notFound";
@@ -45,7 +43,9 @@ import MediaPost from "./pages/mediaPost/MediaPost";
 import ExamPage from "./pages/exam/examPage";
 import Announcement from "./components/announcement/Announcement";
 import CoursePage from "./pages/coursePage/CoursePage";
-import Egitimlerim from "./pages/egitimlerim/Egitimlerim";
+import Egitimlerim from "./pages/egitimlerim/egitimlerim";
+import TobetoSuccessModel from "./pages/TobetoSuccessModel/TobetoSuccessModel";
+import SuccessModel1 from "./pages/TobetoSuccessModel/SuccessModel1";
 
 
 
