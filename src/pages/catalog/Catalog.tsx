@@ -8,6 +8,7 @@ import Footer2 from '../../components/footer/Footer2';
 export default function Catalog() {
   const [filteredData, setFilteredData] = useState<Course[]>([]);
   const [allCourses, setAllCourses] = useState<Course[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,35 +26,31 @@ export default function Catalog() {
   }, []);
 
   const handleSearch = (searchTerm: string) => {
-    if (!searchTerm) {
-      setFilteredData(allCourses);
-      return;
-    }
-
     const results = allCourses.filter((course) =>
       course.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredData(results);
+    setCurrentPage(1); 
   };
 
   const handleFilterChange = (filteredCourses: Course[]) => {
     setFilteredData(filteredCourses);
+    setCurrentPage(1); 
   };
 
   return (
     <div className="bg-front-dark">
       <Navbar />
       <div style={{ marginTop: '20px', paddingTop: '80px' }}>
-      <SearchSection onSearch={handleSearch} />
-      <div className="container mt-5 pb-20">
-        <div className="row">
-          <FilterCourse theme="dark" courses={allCourses} onFilterChange={handleFilterChange} />
-          <Courses courses={filteredData} />
+        <SearchSection onSearch={handleSearch} />
+        <div className="container mt-5 pb-20">
+          <div className="row">
+            <FilterCourse theme="dark" courses={allCourses} onFilterChange={handleFilterChange} />
+            <Courses courses={filteredData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          </div>
         </div>
-      </div>
       </div>
       <Footer2 />
     </div>
   );
 }
-

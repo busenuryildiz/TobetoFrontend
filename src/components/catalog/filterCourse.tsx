@@ -11,48 +11,52 @@ interface FilterCourseProps {
 }
 
 const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange, theme }) => {
-  const [priceFilter, setPriceFilter] = useState<string | null>(null);
-  const [educationFilter, setEducationFilter] = useState<string | null>(null);
-  const [courseLevelFilter, setCourseLevelFilter] = useState<string | null>(null);
-  const [subjectFilter, setSubjectFilter] = useState<string | null>(null);
-  const [softwareLanguageFilter, setSoftwareLanguageFilter] = useState<string | null>(null);
-  const [instructorFilter, setInstructorFilter] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState<string | null>(null); 
+  const [filters, setFilters] = useState<{ [key: string]: string | null }>({
+    Kategori: null,
+    Eğitimler: null,
+    Seviye: null,
+    Konu: null,
+    'Yazılım Dili': null,
+    Eğitmen: null,
+    Durum: null
+  });
 
   const handleFilterChange = (filterType: string, selectedOption: string) => {
-    switch (filterType) {
-      case 'Kategori':
-        setPriceFilter(selectedOption);
-        handlePriceFilterChange(selectedOption, courses, onFilterChange);
-        break;
-      case 'Eğitimler':
-        setEducationFilter(selectedOption);
-        handleEducationFilterChange(selectedOption, courses, onFilterChange);
-        break;
-      case 'Seviye':
-        setCourseLevelFilter(selectedOption);
-        handleCourseLevelFilterChange(selectedOption, courses, onFilterChange);
-        break;
-      case 'Konu':
-        setSubjectFilter(selectedOption);
-        handleSubjectFilterChange(selectedOption, courses, onFilterChange);
-        break;
-        case 'Yazılım Dili': 
-          setSoftwareLanguageFilter(selectedOption);
-          handleSoftwareLanguageFilterChange(selectedOption, courses, onFilterChange);
-          break;
-      case 'Eğitmen':
-        setInstructorFilter(selectedOption);
-        handleInstructorFilterChange(selectedOption, courses, onFilterChange);
-        break;
-      case 'Durum':
-        setStatusFilter(selectedOption);
-        handleStatusFilterChange(selectedOption, courses, onFilterChange);
-        break;
-      default:
-        break;
-    }
+    const updatedFilters = { ...filters, [filterType]: selectedOption };
+    setFilters(updatedFilters);
+
+    const filteredCourses = courses.filter(course => {
+      return Object.keys(updatedFilters).every(filterType => {
+        const filterValue = updatedFilters[filterType];
+        if (filterValue&& filterValue.startsWith('Tüm')) {
+          return true;
+        }else if (filterValue) {
+          switch (filterType) {
+            case 'Kategori':
+              return course.price === Number(filterValue);
+            case 'Eğitimler':
+              return course.categoryName === filterValue;
+            case 'Seviye':
+              return course.courseLevelName === filterValue;
+            case 'Konu':
+              return course.courseSubjectName === filterValue;
+            case 'Yazılım Dili':
+              return course.softwareLanguageName === filterValue;
+            case 'Eğitmen':
+              return course.instructorName === filterValue;
+            case 'Durum':
+              return course.status === filterValue;
+            default:
+              return true;
+          }
+        }
+        return true;
+      });
+    });
+
+    onFilterChange(filteredCourses);
   };
+
 
   return (
     <div className={`col-lg-3 col-md-4 col-12 ${theme}`}>

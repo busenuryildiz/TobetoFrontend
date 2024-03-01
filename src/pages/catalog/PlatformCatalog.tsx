@@ -6,40 +6,38 @@ import FilterCourse from '../../components/catalog/filterCourse';
 import Footer from '../../components/footer/Footer';
 
 export default function PlatformCatalog() {
-  const [filteredData, setFilteredData] = useState<Course[]>([]);
-  const [allCourses, setAllCourses] = useState<Course[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:6280/api/Courses/GetList?PageSize=1000');
-        const data = await response.json();
-        setAllCourses(data.items);
-        setFilteredData(data.items);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+    const [filteredData, setFilteredData] = useState<Course[]>([]);
+    const [allCourses, setAllCourses] = useState<Course[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('http://localhost:6280/api/Courses/GetList?PageSize=1000');
+          const data = await response.json();
+          setAllCourses(data.items);
+          setFilteredData(data.items);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+    const handleSearch = (searchTerm: string) => {
+      const results = allCourses.filter((course) =>
+        course.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredData(results);
+      setCurrentPage(1); 
     };
-
-    fetchData();
-  }, []);
-
-  const handleSearch = (searchTerm: string) => {
-    if (!searchTerm) {
-      setFilteredData(allCourses);
-      return;
-    }
-
-    const results = allCourses.filter((course) =>
-      course.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredData(results);
-  };
-
-  const handleFilterChange = (filteredCourses: Course[]) => {
-    setFilteredData(filteredCourses);
-  };
-
+  
+    const handleFilterChange = (filteredCourses: Course[]) => {
+      setFilteredData(filteredCourses);
+      setCurrentPage(1); 
+    };
+  
   return (
     <div>
       <Navi />
@@ -47,7 +45,7 @@ export default function PlatformCatalog() {
       <div className="container mt-5 pb-20">
         <div className="row">
           <FilterCourse theme="light" courses={allCourses} onFilterChange={handleFilterChange} />
-          <Courses courses={filteredData} />
+          <Courses courses={filteredData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
       </div>
       <Footer />
