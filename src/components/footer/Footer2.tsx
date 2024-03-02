@@ -55,7 +55,6 @@ const Footer2 = () => {
               <ul className="list-unstyled">
                 <li className="mb-3">
                   <a
-                    target="_blank"
                     className="small text-white text-decoration-none"
                     href="https://tobeto.com/yasal-metinler/tobeto-uyelik-sozlesmesi"
                   >
@@ -64,7 +63,6 @@ const Footer2 = () => {
                 </li>
                 <li className="mb-3">
                   <a
-                    target="_blank"
                     className="small text-white text-decoration-none"
                     href="https://tobeto.com/yasal-metinler/kvkk-aydinlatma-metni"
                   >
@@ -73,7 +71,6 @@ const Footer2 = () => {
                 </li>
                 <li className="mb-3">
                   <a
-                    target="_blank"
                     className="small text-white text-decoration-none"
                     href="https://tobeto.s3.cloud.ngn.com.tr/Tobeto_Ilgili_Kisi_Basvuru_Formu_b0f79d29ba.pdf"
                   >
@@ -82,7 +79,6 @@ const Footer2 = () => {
                 </li>
                 <li className="mb-3">
                   <a
-                    target="_blank"
                     className="small text-white text-decoration-none"
                     href="https://tobeto.com/yasal-metinler/tobeto-cerez-politikasi"
                   >
@@ -91,7 +87,6 @@ const Footer2 = () => {
                 </li>
                 <li className="mb-3">
                   <a
-                    target="_blank"
                     className="small text-white text-decoration-none"
                     href="https://tobeto.s3.cloud.ngn.com.tr/v_Cayma_Formu_6bc3a888a3.pdf"
                   >
@@ -183,81 +178,14 @@ const Footer2 = () => {
           </div>
           <div className="row pt-8 justify-content-between align-items-center">
             <div className="col-12 col-lg-auto text-center mb-8 mb-lg-0">
-              <Link
-                className="navbar-brand"
-                to="/"
-              >
-                <span
-                  style={{
-                    background: 'none',
-                    border: '0px',
-                    boxSizing: 'border-box',
-                    display: 'inline-block',
-                    height: 'initial',
-                    margin: '0px',
-                    maxWidth: '100%',
-                    opacity: '1',
-                    overflow: 'hidden',
-                    padding: '0px',
-                    position: 'relative',
-                    width: 'initial'
-                  }}
-                >
-                  <span
-                    style={{
-                      background: 'none',
-                      border: '0px',
-                      boxSizing: 'border-box',
-                      display: 'block',
-                      height: 'initial',
-                      margin: '0px',
-                      maxWidth: '100%',
-                      opacity: '1',
-                      padding: '0px',
-                      width: 'initial'
-                    }}
-                  >
-                    <img
-                      alt=""
-                      aria-hidden="true"
-                      src="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75"
-                      style={{
-                        background: 'none',
-                        border: '0px',
-                        display: 'block',
-                        height: 'initial',
-                        margin: '0px',
-                        maxWidth: '100%',
-                        opacity: '1',
-                        padding: '0px',
-                        width: 'initial'
-                      }}
-                    />
+              <a className="navbar-brand" href="/">
+                <span style={{ background: 'none', border: '0px', boxSizing: 'border-box', display: 'inline-block', height: 'initial', margin: '0px', maxWidth: '100%', opacity: '1', overflow: 'hidden', padding: '0px', position: 'relative', width: 'initial' }}>
+                  <span style={{ background: 'none', border: '0px', boxSizing: 'border-box', display: 'block', height: 'initial', margin: '0px', maxWidth: '100%', opacity: '1', padding: '0px', width: 'initial' }}>
+                    <img alt="" aria-hidden="true" src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%27132%27%20height=%2727%27/%3e" style={{ background: 'none', border: '0px', display: 'block', height: 'initial', margin: '0px', maxWidth: '100%', opacity: '1', padding: '0px', width: 'initial' }} />
                   </span>
-                  <img
-                    alt=""
-                    data-nimg="intrinsic"
-                    decoding="async"
-                    src="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75"
-                    srcSet="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75 1x, https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75 2x"
-                    style={{
-                      border: 'none',
-                      boxSizing: 'border-box',
-                      display: 'block',
-                      height: '0px',
-                      inset: '0px',
-                      margin: 'auto',
-                      maxHeight: '100%',
-                      maxWidth: '100%',
-                      minHeight: '100%',
-                      minWidth: '100%',
-                      padding: '0px',
-                      position: 'absolute',
-                      width: '0px'
-                    }}
-                  />
+                  <img alt="" data-nimg="intrinsic" decoding="async" src="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75" srcSet="https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=256&q=75 1x, https://tobeto.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ftobeto-logo.409772fc.png&w=384&q=75 2x" style={{ border: 'none', boxSizing: 'border-box', display: 'block', height: '0px', inset: '0px', margin: 'auto', maxHeight: '100%', maxWidth: '100%', minHeight: '100%', minWidth: '100%', padding: '0px', position: 'absolute', width: '0px' }} />
                 </span>
-              </Link>
+              </a>
             </div>
             <div className="col-12 col-lg-auto mb-5 mb-lg-0">
               <p className="small text-white text-center mb-0">
