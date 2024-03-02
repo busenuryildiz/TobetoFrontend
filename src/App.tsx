@@ -46,9 +46,8 @@ import ExamPage from "./pages/exam/examPage";
 import CoursePage from "./pages/coursePage/CoursePage";
 import Egitimlerim from "./pages/egitimlerim/egitimlerim";
 import BilgiAl from "./pages/bilgiAl/BilgiAl";
-import Announcement from "./pages/announcement/AnnouncementPage";
 import AnnouncementPage from "./pages/announcement/AnnouncementPage";
-
+import AnalysisReport from "./pages/tobetoSuccessModel/AnalysisReport";
 
 
 function App() {
@@ -99,9 +98,9 @@ function App() {
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli" element={<TobetoSuccessModel />} />
           <Route path="/egitimlerim" element={<Egitimlerim />}></Route>
           <Route path="/egitimlerim/:studentCourseId" element={<CoursePage />}></Route>
-
           <Route path="/course/:id" element={<CourseDetail />} />{" "}
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
+          <Route path="/profilim/degerlendirmeler/rapor/tobeto-iste-basari-modeli/1" element={<AnalysisReport />}></Route>
           <Route path="/exam" element={<ExamPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/duyurular" element={<AnnouncementPage />} />

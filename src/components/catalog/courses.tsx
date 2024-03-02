@@ -20,19 +20,21 @@ export interface Course {
 
 interface CoursesProps {
     courses: Course[];
+    currentPage: number;
+    setCurrentPage: (pageNumber: number) => void;
 }
 
-const Courses: React.FC<CoursesProps> = ({ courses }) => {
-    const [currentPage, setCurrentPage] = useState(1);
+const Courses: React.FC<CoursesProps> = ({ courses, currentPage, setCurrentPage }) => {
     const [coursesPerPage] = useState(12);
     const indexOfLastCourse = currentPage * coursesPerPage;
     const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-
+  
     const filteredCourses = courses.filter(course => course.courseType === "Catalog");
     const currentCourses = filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse);
-
+  
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-    const totalPages = Math.ceil(courses.length / coursesPerPage);
+  
+    const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
     return (
         <div className="col-lg-9 col-md-8 col-12">
             <div className="row gy-6 gx-3">
