@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.3.1",
     "@editorjs/code": "^2.9.0",
     "@editorjs/editorjs": "^2.29.0",
     "@editorjs/embed": "^2.7.0",
@@ -36,6 +37,7 @@
     "@uppy/file-input": "^3.0.4",
     "@uppy/progress-bar": "^3.0.4",
     "@uppy/react": "^3.2.2",
+    "antd": "^5.14.2",
     "axios": "^1.6.5",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",

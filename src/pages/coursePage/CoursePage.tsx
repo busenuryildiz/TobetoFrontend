@@ -15,6 +15,7 @@ import ReactPlayer from "react-player";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import LessonDetailModal from "./LessonDetailModal";
 import { Modal } from "react-bootstrap";
+import { Drawer } from "antd";
 
 function CoursePage() {
   const { studentCourseId } = useParams();
@@ -24,11 +25,10 @@ function CoursePage() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [endDateString, setEndDateString] = useState<string | null>(null);
   const [startDateString, setStartDateString] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCourseDetails, setSelectedCourseDetails] = useState<any>({});
   const [likeCount, setLikeCount] = useState<number | null>(null);
+  const [detailModal, setDetailModal] = useState(false);
 
-  const coursId = courseData?.courseId;
+const coursId = courseData?.courseId;
 const isCourseLiked = courseData?.studentCourseIsLiked;
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
         const response = await axios.get(
           `http://localhost:6280/api/StudentCourses/GetIsLikedCountByCourseIdAsync?courseId=${coursId}`
         );
-        setLikeCount(response.data); // Sunucudan dönen veriyi state'e kaydedin
+        setLikeCount(response.data);
       } catch (error) {
         console.error("Error fetching like count:", error);
       }
@@ -105,45 +105,14 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
     setSelectedTabIndex(index);
   };
 
-  const openModal = () => {
-    setSelectedCourseDetails(courseData);
-    setIsModalOpen(true);
-    console.log(selectedCourseDetails);
-  };
+  const onClickClose = () => {
+    setDetailModal(false)
+  }
+  const onClickShow = () => {
+    setDetailModal(true)
+  }
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  const renderLessonDetailModal = () => {
-    if (!isModalOpen || !selectedCourseDetails || !selectedCourseDetails.getListLessonResponses) {
-      return null;
-    }
 
-    return (
-      <Modal show={isModalOpen} onHide={closeModal} contentLabel="Course Details Modal">
-        <Modal.Header closeButton>
-          <Modal.Title>{selectedCourseDetails.courseName}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p><strong>Kategori:</strong> {selectedCourseDetails.courseCategoryNames}</p>
-          <p><strong>Dili:</strong> Türkçe</p>
-          <p><strong>Alt Tip:</strong> Konu Uzmanı Videosu</p>
-          <p><strong>Üretici Firma:</strong> {selectedCourseDetails.courseProducerCompany}</p>
-          <p><strong>İçerik:</strong> 
-              {selectedCourseDetails?.getListLessonResponses.map((lesson:any) => 
-                lesson.id === selectedLessonIndex ? lesson.content : null
-              )}
-            </p>
-          <p><strong>İlgi Alanları:</strong> {selectedCourseDetails.areasOfInterest}</p>
-          <p><strong>Konuşmacı:</strong> {selectedCourseDetails.getListLessonResponses.map((lesson:any) => lesson.id === selectedLessonIndex ? lesson.speaker : null)}</p>
-          <p><strong>Konuşmacı Hakkında:</strong> {selectedCourseDetails.getListLessonResponses.map((lesson:any) => lesson.id === selectedLessonIndex ? lesson.aboutSpeaker : null)}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <button onClick={closeModal}>Kapat</button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
   
   return (
     <div id="root">
@@ -238,11 +207,20 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
                           courseData.getListLessonResponses.map(
                             (lesson, index) => (
                               <div key={index}>
-                                <button
+                                <div
                                   onClick={() => handleLessonSelect(lesson.id)}
+
+                                  style={{
+                                    marginRight: "20px",
+                                    padding: "10px 20px",
+                                    backgroundColor: "#f0f0f0",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    marginBottom:"5px"
+                                  }}
                                 >
                                   {lesson.name}
-                                </button>
+                                </div>
                               </div>
                             )
                           )}
@@ -290,7 +268,14 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
                                     {selectedLessonDetails.lessonDuration} dk
                                   </p>
                                 </div>
-                                <button onClick={() => openModal()}>Detay</button>
+                                <div   onClick={onClickShow} style={{
+                                    marginRight: "20px",
+                                    padding: "10px 20px",
+                                    backgroundColor: "#f0f0f0",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    marginBottom:"5px"
+                                  }}>Detay</div>
                               </div>
                             </div>
                           </div>
@@ -312,8 +297,22 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
                 </div>
                 </div>
               </TabPanel>
+              <Drawer title="Course Details" placement="right" onClose={onClickClose} open={detailModal} width={800}>
+            <p><strong>Kategori:</strong> {courseData?.courseCategoryNames}</p>
+          <p><strong>Dili:</strong> Türkçe</p>
+          <p><strong>Alt Tip:</strong> Konu Uzmanı Videosu</p>
+          <p><strong>Üretici Firma:</strong> {courseData?.courseProducerCompany}</p>
+          <p><strong>İçerik:</strong> 
+              {courseData?.getListLessonResponses?.map((lesson:any) => 
+                lesson.id === selectedLessonIndex ? lesson.content : null
+              )}
+            </p>
+          <p><strong>İlgi Alanları:</strong> {courseData?.areasOfInterest}</p>
+          <p><strong>Konuşmacı:</strong> {courseData?.getListLessonResponses?.map((lesson:any) => lesson.id === selectedLessonIndex ? lesson.speaker : null)}</p>
+          <p><strong>Konuşmacı Hakkında:</strong> {courseData?.getListLessonResponses?.map((lesson:any) => lesson.id === selectedLessonIndex ? lesson.aboutSpeaker : null)}</p>
+          </Drawer>
             </Tabs>
-            {renderLessonDetailModal()}
+         
           </div>
         </div>
       </div>
