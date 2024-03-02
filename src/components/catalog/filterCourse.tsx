@@ -21,7 +21,7 @@ const FilterCourse: React.FC<FilterCourseProps> = ({ courses, onFilterChange, th
   });
 
   const handleFilterChange = (filterType: string, selectedOption: string) => {
-    const updatedFilters = { ...filters, [filterType]: selectedOption };
+    const updatedFilters = { ...filters, [filterType]: selectedOption  === 'Ücretsiz Eğitimler' ? '0' : selectedOption };
     setFilters(updatedFilters);
 
     const filteredCourses = courses.filter(course => {
