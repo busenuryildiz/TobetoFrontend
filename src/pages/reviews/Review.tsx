@@ -32,6 +32,7 @@ function Review() {
   const [exam, setExam] = useState<Exam[]>([]);
   const [popupIsOpen, setPopupIsOpen] = useState(false);
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
+  const [isExamFinished, setIsExamFinished] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:6280/api/Exam/GetList?PageSize=5`)
@@ -258,24 +259,54 @@ function Review() {
               <div className="modal-content">
                 <div className="modal-body">
                   <div className="quiz-screen">
-                    <div className="d-flex justify-content-between mb-8">
-                      <span className="quiz-details-header">{selectedExam.title}</span>
-                      <button aria-label="Close" className="btn-close" type="button" onClick={() => setPopupIsOpen(false)} />
-                    </div>
-                    <div className="join-screen">
-                      <p />
-                      <p>Bu sınav {selectedExam.questionAmount} sorudan oluşmakta olup sınav süresi {selectedExam.examDuration.split(':').slice(1, 2).join(':')} dakikadır. Sınav çoktan seçmeli test şeklinde olup sınavı yarıda bıraktığınız taktırde çözdüğünüz kısım kadarıyla değerlendirileceksiniz.</p>
-                      <p />
-                      <div>
-                        <span>Sınav Süresi : {selectedExam.examDuration.split(':').slice(1, 2).join(':')} Dakika</span>
-                        <span>Soru Sayısı : {selectedExam.questionAmount}</span>
-                        <span>Soru Tipi : {selectedExam.description}</span>
+
+                    {isExamFinished ? (
+                      <div className="result-screen">
+                        <span className="result-title">Test Bitti</span>
+                        <div className="result-items">
+                          <span className="d-flex flex-column">19
+                            <a>Doğru</a> </span>
+                          <span className="d-flex flex-column">6 <a>Yanlış</a></span>
+                          <span className="d-flex flex-column">0 <a>Boş</a></span>
+                          <span className="d-flex flex-column">76 <a>Puan</a></span>
+                        </div>
+                        <div className="row">
+                          <button className="btn btn-primary mt-8 ms-auto me-auto" style={{ width: "max-content" }} onClick={() => {
+                            setPopupIsOpen(false);
+                            setIsExamFinished(false);
+                          }}>
+                            Kapat
+                          </button>
+                        </div>
                       </div>
-                      <div className="row ">
-                        <button className="btn btn-primary mt-8 ms-auto me-auto" style={{ width: "max-content" }} onClick={() => setPopupIsOpen(false)}>
-                          {selectedExam.hasTakenExam ? 'Raporu Görüntüle' : 'Sınava Başla'}</button>
-                      </div>
-                    </div>
+                    ) : (
+                      <>
+                        <div className="d-flex justify-content-between mb-8">
+                          <span className="quiz-details-header">{selectedExam.title}</span>
+                          <button aria-label="Close" className="btn-close" type="button" onClick={() => setPopupIsOpen(false)} />
+                        </div>
+                        <div className="join-screen">
+                          <p />
+                          <p>Bu sınav {selectedExam.questionAmount} sorudan oluşmakta olup sınav süresi {selectedExam.examDuration.split(':').slice(1, 2).join(':')} dakikadır. Sınav çoktan seçmeli test şeklinde olup sınavı yarıda bıraktığınız taktırde çözdüğünüz kısım kadarıyla değerlendirileceksiniz.</p>
+                          <p />
+                          <div>
+                            <span>Sınav Süresi : {selectedExam.examDuration.split(':').slice(1, 2).join(':')} Dakika</span>
+                            <span>Soru Sayısı : {selectedExam.questionAmount}</span>
+                            <span>Soru Tipi : {selectedExam.description}</span>
+                          </div>
+                          <div className="row ">
+                            <button className="btn btn-primary mt-8 ms-auto me-auto" style={{ width: "max-content" }} onClick={() => {
+                              if (selectedExam.hasTakenExam) {
+                                setIsExamFinished(true);
+                              } else {
+                                // Start the exam here
+                              }
+                            }}>
+                              {selectedExam.hasTakenExam ? 'Raporu Görüntüle' : 'Sınava Başla'}</button>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,14 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
 import Navi from '../../components/navbar/Navi'
 import ChartComponent from '../profile/myProfile/ChartComponent'
-import { Chart } from 'chart.js';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 
 function AnalysisReport() {
-    const [chartData, setChartData] = useState<Record<string, number>>({});
-    const user = useSelector((state: any) => state.auth.user); // Assuming you have a user object in Redux
-    const chartRef = useRef<Chart | null>(null);
+    const chartData = useSelector((state: any) => state.chartData.data);
     const accordionItems = [
         {
             id: "heading1",
@@ -39,88 +34,6 @@ function AnalysisReport() {
         item3: 'İçerik 3',
     };
 
-    const colors = [
-        '#eec272',
-        '#e288b6',
-        '#d77e6f',
-        '#b38f6a',
-        '#6667ab',
-        '#d75078',
-        '#217925',
-        '#85a0a9'
-    ];
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:6280/api/Surveys/surveyansweraverages', {
-                    params: {
-                        userId: user.id,
-                        surveyId: 1,
-                    },
-                });
-                const surveyAnswerAverages = Object.entries(response.data);
-                const newData: Record<string, number> = {};
-                surveyAnswerAverages.forEach(([key, value]) => {
-                    newData[key] = Number(value);
-                });
-
-                setChartData(newData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-        if (ctx) {
-            if (chartRef.current) {
-                chartRef.current.destroy(); // Destroy the previous chart
-            }
-            const data = {
-                labels: Object.keys(chartData),
-                datasets: [{
-                    data: Object.values(chartData),
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    pointBackgroundColor: colors,
-                    borderWidth: 0.5,
-                    pointRadius: 5,
-                    pointHoverRadius: 8,
-                    fill: true
-                }],
-            };
-
-            const options = {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        pointLabels: {
-                            display: false
-                        },
-                        grid: {
-                            circular: true,
-                            color: 'rgba(0, 0, 0, 0.2)',
-                        },
-                        ticks: {
-                            display: false,
-                            stepSize: 0.4,
-                        },
-                    },
-                },
-
-            };
-
-            chartRef.current = new Chart(ctx, {
-                type: 'radar',
-                data,
-                options,
-            });
-        }
-    }, [chartData]);
-
     return (
         <div>
             <Navi />
@@ -136,8 +49,17 @@ function AnalysisReport() {
             </div>
             <section className='py-2'>
                 <div className="container mb-6 mt-6">
-                    <div className='p-6 mb-6 tobeto-light-bg'></div>
-                    <ChartComponent />
+                    <div className='p-6 mb-6 tobeto-light-bg'>
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="row">
+                                    <div className="text-center mobile-d-block">
+                                        <ChartComponent/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
             <div className="accordion" id="accordionExample" >

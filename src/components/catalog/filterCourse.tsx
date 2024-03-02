@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Course } from './courses';
 import { PRICE_OPTIONS, EDUCATION_OPTIONS, COURSE_LEVEL_OPTIONS, SUBJECT_OPTIONS, INSTRUCTOR_OPTIONS, STATUS_OPTIONS, SOFTWARE_LANGUAGE_OPTIONS } from './constants'; 
-import { handlePriceFilterChange, handleEducationFilterChange, handleCourseLevelFilterChange, handleSubjectFilterChange,handleSoftwareLanguageFilterChange, handleInstructorFilterChange, handleStatusFilterChange  } from './filter'; 
 import FilterOption from './filterOption';
 
 interface FilterCourseProps {

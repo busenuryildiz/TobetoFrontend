@@ -1,15 +1,18 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux'; // Assuming you're using Redux
-import { Chart, RadarController, LineElement, PointElement, Tooltip, Title, CategoryScale, RadialLinearScale } from 'chart.js';
+import { useDispatch, useSelector } from 'react-redux'; // Assuming you're using Redux
+import { Chart, RadarController, LineElement, PointElement, Tooltip, Title, CategoryScale, RadialLinearScale, Filler } from 'chart.js';
 
-Chart.register(RadarController, LineElement, PointElement, Tooltip, Title, CategoryScale, RadialLinearScale);
+
+Chart.register(RadarController, LineElement, PointElement, Tooltip, Title, CategoryScale, RadialLinearScale, Filler);
 
 const ChartComponent: React.FC = () => {
+  const dispatch = useDispatch();
   const [chartData, setChartData] = useState<Record<string, number>>({});
-  const user = useSelector((state: any) => state.auth.user); // Assuming you have a user object in Redux
+  
+  const user = useSelector((state: any) => state.auth.user);
+ 
   const chartRef = useRef<Chart | null>(null);
-
   const colors = [
     '#eec272',
     '#e288b6',
@@ -45,7 +48,7 @@ const ChartComponent: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const ctx = document.getElementById('surveyChart') as HTMLCanvasElement;
+    var ctx = (document.getElementById('surveyChart') as HTMLCanvasElement).getContext('2d');
     if (ctx) {
       if (chartRef.current) {
         chartRef.current.destroy(); // Destroy the previous chart
@@ -54,12 +57,12 @@ const ChartComponent: React.FC = () => {
         labels: Object.keys(chartData),
         datasets: [{
           data: Object.values(chartData),
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          backgroundColor: 'rgba(128, 128, 128, 0.3)',
           pointBackgroundColor: colors,
           borderWidth: 0.5,
           pointRadius: 5,
           pointHoverRadius: 8,
-          fill: true
+          fill: true,
         }],
       };
 
@@ -81,7 +84,6 @@ const ChartComponent: React.FC = () => {
             },
           },
         },
-
       };
 
       chartRef.current = new Chart(ctx, {
@@ -93,37 +95,30 @@ const ChartComponent: React.FC = () => {
   }, [chartData]);
 
   return (
-
-    <div className='row'>
-      <div className='col-12'>
-        <div className="text-center mobile-d-block">
-          <div className="row">
-            <div className="col-md-7 col-12 my-3">
-              <div className="chartjs-size-monitor">
-              </div>
-              <canvas
-                id="surveyChart"
-                className="chartjs-render-monitor"
-                height="300"
-                style={{
-                  display: 'block',
-                  height: '240px',
-                  width: '612px',
-                }}
-                width="765"
-              />
+    <div className="row">
+      <div className="col-md-7 col-12 my-3">
+        <div className="chartjs-size-monitor">
+        </div>
+        <canvas
+          id="surveyChart"
+          className="chartjs-render-monitor"
+          height="300"
+          style={{
+            display: 'block',
+            height: '240px',
+            width: '612px',
+          }}
+          width="765"
+        />
+      </div>
+      <div className="col-md-5 col-12 d-flex my-3">
+        <div className="radar-labels">
+          {Object.keys(chartData).map((key, index) => (
+            <div key={index} className="label">
+              <span className={`legend legend${index + 1}`} style={{ backgroundColor: colors[index] }}>{Number(chartData[key])}</span>
+              <span className="legendName">{key}</span>
             </div>
-            <div className="col-md-5 col-12 d-flex my-3">
-              <div className="radar-labels">
-                {Object.keys(chartData).map((key, index) => (
-                  <div key={index} className="label">
-                    <span className={`legend legend${index + 1}`} style={{ backgroundColor: colors[index] }}>{Number(chartData[key])}</span>
-                    <span className="legendName">{key}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
