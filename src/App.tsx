@@ -100,7 +100,7 @@ function App() {
           <Route path="/egitimlerim/:studentCourseId" element={<CoursePage />}></Route>
           <Route path="/course/:id" element={<CourseDetail />} />{" "}
           <Route path="profilim/degerlendirmeler/tobeto-iste-basari-modeli/1" element={<SuccessModel1 />} />
-          <Route path="/profilim/degerlendirmeler/rapor/tobeto-iste-basari-modeli/1" element={<AnalysisReport />}></Route>
+          <Route path="/profilim/degerlendirmeler/rapor/tobeto-iste-basari-modeli/1" element={<AnalysisReport />} />
           <Route path="/exam" element={<ExamPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/duyurular" element={<AnnouncementPage />} />
