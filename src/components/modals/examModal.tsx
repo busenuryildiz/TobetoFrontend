@@ -10,7 +10,7 @@ interface ExamModalProps {
   isOpen: boolean;
   questions: IQuestion[];
   examId: number;
-  studentId: number;
+  studentId: string;
   onClose: () => void;
 }
 

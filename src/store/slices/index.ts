@@ -7,12 +7,14 @@ import { courseReducer } from './courseSlice';
 import { loadingReducer } from './loadingSlice';
 //import { skillsReducer } from './mySkillSlice';
 import authReducer from './authSlice';
+import { chartDataReducer } from './chartDataSlice';
 
 // Root reducer
 const rootReducer = combineReducers({
   course: courseReducer,
   loading: loadingReducer,
   auth: authReducer,
+  chartData: chartDataReducer,
   //skill: skillsReducer,
 });
 

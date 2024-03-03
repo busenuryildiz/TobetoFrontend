@@ -1,19 +1,20 @@
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // Assuming you're using Redux
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Chart, RadarController, LineElement, PointElement, Tooltip, Title, CategoryScale, RadialLinearScale, Filler } from 'chart.js';
-
+import { fetchData } from '../../../store/slices/chartDataSlice';
+import { AppDispatch, RootState } from '../../../store';
+import { PayloadAction, SerializedError } from '@reduxjs/toolkit';
 
 Chart.register(RadarController, LineElement, PointElement, Tooltip, Title, CategoryScale, RadialLinearScale, Filler);
 
 const ChartComponent: React.FC = () => {
-  const dispatch = useDispatch();
-  const [chartData, setChartData] = useState<Record<string, number>>({});
-  
+  const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: any) => state.auth.user);
- 
+  const [chartData, setChartData] = useState<Record<string, number>>({});
+
+
   const chartRef = useRef<Chart | null>(null);
-  const colors = [
+  const colors = useMemo(() => [
     '#eec272',
     '#e288b6',
     '#d77e6f',
@@ -22,77 +23,69 @@ const ChartComponent: React.FC = () => {
     '#d75078',
     '#217925',
     '#85a0a9'
-  ];
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:6280/api/Surveys/surveyansweraverages', {
-          params: {
-            userId: user.id,
-            surveyId: 1,
-          },
-        });
-        const surveyAnswerAverages = Object.entries(response.data);
-        const newData: Record<string, number> = {};
-        surveyAnswerAverages.forEach(([key, value]) => {
-          newData[key] = Number(value);
-        });
-
-        setChartData(newData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  ], []);
 
   useEffect(() => {
-    var ctx = (document.getElementById('surveyChart') as HTMLCanvasElement).getContext('2d');
-    if (ctx) {
-      if (chartRef.current) {
-        chartRef.current.destroy(); // Destroy the previous chart
-      }
-      const data = {
-        labels: Object.keys(chartData),
-        datasets: [{
-          data: Object.values(chartData),
-          backgroundColor: 'rgba(128, 128, 128, 0.3)',
-          pointBackgroundColor: colors,
-          borderWidth: 0.5,
-          pointRadius: 5,
-          pointHoverRadius: 8,
-          fill: true,
-        }],
-      };
-
-      const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          r: {
-            pointLabels: {
-              display: false
-            },
-            grid: {
-              circular: true,
-              color: 'rgba(0, 0, 0, 0.2)',
-            },
-            ticks: {
-              display: false,
-              stepSize: 0.4,
-            },
-          },
-        },
-      };
-
-      chartRef.current = new Chart(ctx, {
-        type: 'radar',
-        data,
-        options,
+    if (user) {
+      dispatch(fetchData({ userId: user.id, surveyId: 1 }))
+      .then((action: PayloadAction<Record<string, number>, string, { arg: { userId: string; surveyId: number; }; requestId: string; requestStatus: "fulfilled"; }, never> | PayloadAction<unknown, string, { arg: { userId: string; surveyId: number; }; requestId: string; requestStatus: "rejected"; aborted: boolean; condition: boolean; } & ({ rejectedWithValue: true; } | ({ rejectedWithValue: false; } & {})), SerializedError>) => {
+        const data: Record<string, number> = action.payload as Record<string, number>;
+        setChartData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error); // Log any errors
       });
     }
-  }, [chartData]);
+  }, [dispatch, user?.id]);
+  
+  
+
+  useEffect(() => {
+  var ctx = (document.getElementById('surveyChart') as HTMLCanvasElement).getContext('2d');
+  if (ctx) {
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
+    const data = {
+      labels: Object.keys(chartData),
+      datasets: [{
+        data: Object.values(chartData),
+        backgroundColor: 'rgba(128, 128, 128, 0.3)',
+        pointBackgroundColor: colors,
+        borderWidth: 0.5,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        fill: true,
+      }],
+    };
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          pointLabels: {
+            display: false
+          },
+          grid: {
+            circular: true,
+            color: 'rgba(0, 0, 0, 0.2)',
+          },
+          ticks: {
+            display: false,
+            stepSize: 0.4,
+          },
+        },
+      },
+    };
+
+    chartRef.current = new Chart(ctx, {
+      type: 'radar',
+      data,
+      options,
+    });
+  }
+}, [chartData, colors]);
 
   return (
     <div className="row">

@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react';
 import Navi from '../../components/navbar/Navi'
+import { AppDispatch } from '../../store';
 import ChartComponent from '../profile/myProfile/ChartComponent'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../../store/slices/chartDataSlice';
+import { PayloadAction, SerializedError } from '@reduxjs/toolkit';
 
 function AnalysisReport() {
-    const chartData = useSelector((state: any) => state.chartData.data);
+    const dispatch: AppDispatch = useDispatch();
+    const user = useSelector((state: any) => state.auth.user);
+    const [chartData, setChartData] = useState<Record<string, number>>({});
+    console.log("chartData", chartData.data);
     const accordionItems = [
         {
             id: "heading1",
@@ -33,7 +40,20 @@ function AnalysisReport() {
         item2: 'İçerik 2',
         item3: 'İçerik 3',
     };
-
+    useEffect(() => {
+        if (user) {
+          dispatch(fetchData({ userId: user.id, surveyId: 1 }))
+          .then((action: PayloadAction<Record<string, number>, string, { arg: { userId: string; surveyId: number; }; requestId: string; requestStatus: "fulfilled"; }, never> | PayloadAction<unknown, string, { arg: { userId: string; surveyId: number; }; requestId: string; requestStatus: "rejected"; aborted: boolean; condition: boolean; } & ({ rejectedWithValue: true; } | ({ rejectedWithValue: false; } & {})), SerializedError>) => {
+            const data: Record<string, number> = action.payload as Record<string, number>;
+            setChartData(data);
+          })
+          .catch((error:any) => {
+            console.error('Error fetching data:', error); // Log any errors
+          });
+        }
+      }, [dispatch, user?.id]);
+      
+      
     return (
         <div>
             <Navi />
@@ -69,7 +89,7 @@ function AnalysisReport() {
                             <div className="row">
                                 <div className="col-lg-8 col-md-8 col-sm-8 col-12">
                                     <h3 className="h6 mb-0 fw-bolder text-primary">
-                                        {key}
+                                        {key}: {chartData[key]}
                                     </h3>
                                 </div>
                                 <div className="col-lg-4 col-md-4 col-sm-8 col-12 d-flex mobile-justify-content-start">

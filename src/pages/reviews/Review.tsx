@@ -5,6 +5,8 @@ import Footer from "../../components/footer/Footer";
 import { Container } from "react-bootstrap";
 import { useSelector } from 'react-redux';
 import { RootState } from "../../store";
+import ExamPage from "../exam/examPage";
+import ExamResult from "../../components/review/examResult";
 
 
 export interface Exam {
@@ -25,7 +27,6 @@ export interface UserExam {
   examResult: string;
   userId: string;
 }
-
 function Review() {
   const authState = useSelector((state: RootState) => state.auth);
   const userId = authState.user?.id;
@@ -33,7 +34,20 @@ function Review() {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
   const [isExamFinished, setIsExamFinished] = useState(false);
+  const [isExamStarted, setIsExamStarted] = useState(false);
+  const [hasEnteredSurvey, setHasEnteredSurvey] = useState(false);
 
+  useEffect(() => {
+    fetch(`http://localhost:6280/api/Surveys/user/${userId}/survey/1`)
+      .then(response => response.json())
+      .then(data => {
+        // Assuming the endpoint returns a boolean
+        setHasEnteredSurvey(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, [userId]);
   useEffect(() => {
     axios.get(`http://localhost:6280/api/Exam/GetList?PageSize=5`)
       .then((examListRes) => {
@@ -70,7 +84,9 @@ function Review() {
   const handleButtonClick = (exam: Exam) => {
     setSelectedExam(exam);
     setPopupIsOpen(true);
+    setIsExamStarted(true);
   }
+
   return (
     <div>
       <Navi />
@@ -80,18 +96,8 @@ function Review() {
             <span>
               <span
                 style={{
-                  background: "none",
-                  border: "0px",
-                  boxSizing: "border-box",
-                  display: "block",
-                  height: "150px",
-                  margin: "0px",
-                  maxWidth: "100%",
-                  opacity: "1",
-                  padding: "0px",
-                  width: "150px",
-                }}
-              >
+                  background: "none", border: "0px", boxSizing: "border-box", display: "block", height: "150px", margin: "0px", maxWidth: "100%", opacity: "1", padding: "0px", width: "150px",
+                }} >
                 {" "}
               </span>
             </span>
@@ -189,12 +195,21 @@ function Review() {
                 80 soru ile yetkinliklerini <b>ölç,</b> önerilen eğitimleri{" "}
                 <b>tamamla,</b> rozetini <b>kazan.</b>
               </p>
-              <a
-                className="btn btn-primary"
-                href="profilim/degerlendirmeler/tobeto-iste-basari-modeli"
-              >
-                Başla
-              </a>
+              {hasEnteredSurvey ? (
+                <a
+                  className="btn btn-primary"
+                  href="profilim/degerlendirmeler/rapor/tobeto-iste-basari-modeli/1"
+                >
+                  Raporu Görüntüle
+                </a>
+              ) : (
+                <a
+                  className="btn btn-primary"
+                  href="profilim/degerlendirmeler/tobeto-iste-basari-modeli"
+                >
+                  Başla
+                </a>
+              )}
             </div>
           </div>
           <div className="col-12 col-md-6 mb-8 d-none">
@@ -259,17 +274,10 @@ function Review() {
               <div className="modal-content">
                 <div className="modal-body">
                   <div className="quiz-screen">
-
                     {isExamFinished ? (
                       <div className="result-screen">
                         <span className="result-title">Test Bitti</span>
-                        <div className="result-items">
-                          <span className="d-flex flex-column">19
-                            <a>Doğru</a> </span>
-                          <span className="d-flex flex-column">6 <a>Yanlış</a></span>
-                          <span className="d-flex flex-column">0 <a>Boş</a></span>
-                          <span className="d-flex flex-column">76 <a>Puan</a></span>
-                        </div>
+                        <ExamResult examResult={selectedExam.examResult ? parseInt(selectedExam.examResult) : 0} questionAmount={selectedExam.questionAmount} />
                         <div className="row">
                           <button className="btn btn-primary mt-8 ms-auto me-auto" style={{ width: "max-content" }} onClick={() => {
                             setPopupIsOpen(false);
@@ -298,8 +306,8 @@ function Review() {
                             <button className="btn btn-primary mt-8 ms-auto me-auto" style={{ width: "max-content" }} onClick={() => {
                               if (selectedExam.hasTakenExam) {
                                 setIsExamFinished(true);
+                                // Add this state
                               } else {
-                                // Start the exam here
                               }
                             }}>
                               {selectedExam.hasTakenExam ? 'Raporu Görüntüle' : 'Sınava Başla'}</button>
@@ -312,6 +320,10 @@ function Review() {
               </div>
             </div>
           </div>
+          {isExamStarted && (
+            <ExamPage />
+
+          )}
         </>
       )}
       <section className="py-5">

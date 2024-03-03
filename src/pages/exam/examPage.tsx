@@ -1,5 +1,5 @@
 // ExamPage.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../../helpers/axiosHelper';
 import ExamModal from '../../components/modals/examModal'; // Doğru yolu sağladığınızdan emin olun
 
@@ -14,12 +14,12 @@ interface IOption {
   answer: string;
   isCorrect?: boolean;
 }
-
+//sroudan geri dönüldüğünde cevap ut
 const ExamPage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [questions, setQuestions] = useState<IQuestion[]>([]);
-  const examId = 10; // Örnek examId. Gerçek uygulamada dinamik olmalı
-  const studentId = 1; // Öğrenci ID. Gerçek uygulamada oturum bilgilerinden alınmalı
+  const examId = 2; // Örnek examId. Gerçek uygulamada dinamik olmalı
+  const studentId = "19862093-b504-4fc2-5ef8-08dc3af6fb0a"; // Öğrenci ID. Gerçek uygulamada oturum bilgilerinden alınmalı
 
   const fetchQuestionsAndOpenModal = async () => {
     try {
@@ -30,10 +30,12 @@ const ExamPage: React.FC = () => {
       console.error('Sınav soruları çekilirken hata oluştu:', error);
     }
   };
-
+  useEffect(() => {
+    fetchQuestionsAndOpenModal();
+  }, []);
+  
   return (
     <div>
-      <button onClick={fetchQuestionsAndOpenModal}>Sınava Gir</button>
       {isOpen && (
         <ExamModal
           isOpen={isOpen}
