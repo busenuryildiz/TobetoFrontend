@@ -27,8 +27,11 @@ function AnalysisReport() {
     const titles = ["Bu yetkinlik nedir ve neden önemli?", "Geliştirmek için ne yapmalı?", "Bu alanda önerilen eğitimler"];
     const accordionItems: Record<string, { description: string[] | string }[]> = {};
 
-    Object.keys(chartData).forEach((key) => {
-        accordionItems[key] = titles.map((title, index) => ({ title, description: descriptions[index] }));
+    Object.keys(chartData).forEach((key, keyIndex) => {
+        const start = keyIndex * titles.length;
+        const end = start + titles.length;
+        const descriptionsSlice = descriptions.slice(start, end);
+        accordionItems[key] = titles.map((title, index) => ({ title, description: descriptionsSlice[index] }));
     });
 
     return (
@@ -53,48 +56,54 @@ function AnalysisReport() {
                                     <div className="text-center mobile-d-block">
                                         <ChartComponent />
                                         <div className="accordion" id="accordionExample" >
-                                            {Object.entries(chartData).map(([key, value], index) => (
-                                                <div key={index} className="mt-8">
-                                                    <div className="p-6 rounded-end border-4 border-start bg-light-light border-light">
-                                                        <div className="row">
-                                                            <div className="col-lg-8 col-md-8 col-sm-8 col-12 text-start">
-                                                                <h3 className="h6 mb-0 fw-bolder text-primary">
-                                                                    {key}
-                                                                </h3>
-                                                            </div>
-                                                            <div className="col-lg-4 col-md-4 col-sm-8 col-12 d-flex mobile-justify-content-start">
-                                                                <span className="badge bg-secondary text-white m-mt-5 mobile-d-block" style={{ fontSize: '16px' }}>
-                                                                    Yetkinlik Puanı: {Number(value)}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {accordionItems[key].map((item, accordionIndex) => (
-                                                        <div className="accordion-item bg-white" key={index}>
-                                                            <h2 className="accordion-header" id={`heading${index}`}>
-                                                                <button className="accordion-button result collapsed" aria-controls={`collapse${index}-${accordionIndex}`} aria-expanded="false" data-bs-target={`#collapse${index}-${accordionIndex}`} data-bs-toggle="collapse" type="button">
-                                                                    <span className="fw-bolder">{titles[accordionIndex]}</span>
-                                                                </button>
-                                                            </h2>
-                                                            <div className="result-collapse accordion-collapse collapse" aria-labelledby={`heading${index}-${accordionIndex}`} data-bs-parent="#accordionExample" id={`collapse${index}-${accordionIndex}`}>
-                                                                <div className="accordion-body">
-                                                                    <div className="accordion-body bg-white text-start">
-                                                                        {Array.isArray(item.description) ? (
-                                                                            <ul>
-                                                                                {item.description.map((desc, i) => (
-                                                                                    <li key={i}>{desc}</li>
-                                                                                ))}
-                                                                            </ul>
-                                                                        ) : (
-                                                                            <p>{item.description}</p>
-                                                                        )}
-                                                                    </div>
+                                            {Object.entries(chartData).map(([key, value], index) => {
+                                                const accordionItemsCount = accordionItems[key].length; // Anahtarın altındaki accordion item sayısı
+                                                return (
+                                                    <div key={index} className="mt-8">
+                                                        <div className="p-6 rounded-end border-4 border-start bg-light-light border-light">
+                                                            <div className="row">
+                                                                <div className="col-lg-8 col-md-8 col-sm-8 col-12 text-start">
+                                                                    <h3 className="h6 mb-0 fw-bolder text-primary">
+                                                                        {key}
+                                                                    </h3>
+                                                                </div>
+                                                                <div className="col-lg-4 col-md-4 col-sm-8 col-12 d-flex mobile-justify-content-start">
+                                                                    <span className="badge bg-secondary text-white m-mt-5 mobile-d-block" style={{ fontSize: '16px' }}>
+                                                                        Yetkinlik Puanı: {Number(value)}
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    ))}
-                                                </div>
-                                            ))}
+                                                        {accordionItems[key].map((item, accordionIndex) => {
+                                                            const finalIndex = index * accordionItemsCount + accordionIndex + 1; // Anahtarın sırası ve accordion itemin sırası ile son indeksi belirle
+                                                            return (
+                                                                <div className="accordion-item bg-white" key={finalIndex}>
+                                                                    <h2 className="accordion-header" id={`heading${finalIndex}`}>
+                                                                        <button className="accordion-button result collapsed" aria-controls={`collapse${finalIndex}`} aria-expanded="false" data-bs-target={`#collapse${finalIndex}`} data-bs-toggle="collapse" type="button">
+                                                                            <span className="fw-bolder">{titles[accordionIndex]}</span>
+                                                                        </button>
+                                                                    </h2>
+                                                                    <div className="result-collapse accordion-collapse collapse" aria-labelledby={`heading${finalIndex}`} data-bs-parent="#accordionExample" id={`collapse${finalIndex}`}>
+                                                                        <div className="accordion-body">
+                                                                            <div className="accordion-body bg-white text-start">
+                                                                                {Array.isArray(item.description) ? (
+                                                                                    <ul>
+                                                                                        {item.description.map((desc, i) => (
+                                                                                            <li key={i}>{desc}</li>
+                                                                                        ))}
+                                                                                    </ul>
+                                                                                ) : (
+                                                                                    <p>{item.description}</p>
+                                                                                )}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 </div>
