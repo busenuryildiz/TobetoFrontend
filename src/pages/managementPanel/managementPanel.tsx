@@ -4,6 +4,7 @@ import axiosHelper from "../../helpers/axiosHelper";
 import { useSelector } from "react-redux";
 import BlogManagementPanel from "./BlogManagementPanel/BlogAndMediaPostManagementPanel";
 import BlogAndMediaPostManagementPanel from "./BlogManagementPanel/BlogAndMediaPostManagementPanel";
+import CourseManagementPanel from "./CourseManagementPanel/CourseManagementPanel";
 
 interface Question {
   surveyID: number;
@@ -101,6 +102,12 @@ export default function ManagementPanel(): JSX.Element {
           <div className="mt-4">
             <h2>Ana Sayfa İçeriği</h2>
             <p>Burada ana sayfa içeriği yer alacak.</p>
+          </div>
+        </Tab>
+        <Tab eventKey="Öğrenciye Kurs Ata" title="Kurs">
+          <div className="mt-4">
+            <h2>Öğrenciye Kurs Ekle</h2>
+            < CourseManagementPanel/>
           </div>
         </Tab>
         <Tab eventKey="profile" title="Profil">
