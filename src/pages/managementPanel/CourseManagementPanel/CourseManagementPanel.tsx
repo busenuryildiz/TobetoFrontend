@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AllStudentsInterface from './AllStudentsInterface';
-import AllCoursesInterface from './StudentsNotRegisteredCourses';
 import AssignCourseRequestInterface from './AssignCourseRequestInterface';
 import './CourseManagementPanel.css';
 import StudentsNotRegisteredCourses from './StudentsNotRegisteredCourses';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CourseManagementPanel = () => {
   const [students, setStudents] = useState<AllStudentsInterface[]>([]);
-  const [courses, setCourses] = useState<AllCoursesInterface[]>([]);
+  const [courses, setCourses] = useState<StudentsNotRegisteredCourses[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<string>('');
   const [selectedCourse, setSelectedCourse] = useState<number>(0);
 
@@ -28,7 +29,7 @@ const CourseManagementPanel = () => {
       .catch(error => {
         console.error('Error fetching courses:', error);
       });
-  }, [selectedStudent]);
+  }, [selectedStudent, selectedCourse]);
 
   const handleStudentChange = (event:any) => {
     setSelectedStudent(event.target.value);
@@ -47,9 +48,17 @@ const CourseManagementPanel = () => {
     axios.post('http://localhost:6280/api/StudentCourses/add', requestData)
       .then(response => {
         console.log('Course assigned successfully:', response.data);
+        
+        setCourses(courses.filter(course => course.courseId !== selectedCourse));
+        setSelectedCourse(0);
+
+        toast.success('Course assigned successfully');
       })
       .catch(error => {
         console.error('Error assigning course to student:', error);
+
+        toast.error('Error assigning course to student');
+
       });
   };
 
@@ -78,6 +87,8 @@ const CourseManagementPanel = () => {
         </select>
       </div>
       <button className='coursemanagement-button' onClick={assignCourseToStudent}>Assign Course</button>
+      <ToastContainer />
+
     </div>
   );
 };
