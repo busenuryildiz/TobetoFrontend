@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../../store";
 import ExamPage from "../exam/examPage";
 import ExamResult from "../../components/review/examResult";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 
 export interface Exam {
@@ -38,7 +39,7 @@ function Review() {
   const [hasEnteredSurvey, setHasEnteredSurvey] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:6280/api/Surveys/user/${userId}/survey/1`)
+    fetch(`${BASE_API_URL}Surveys/user/${userId}/survey/1`)
       .then(response => response.json())
       .then(data => {
         // Assuming the endpoint returns a boolean
@@ -49,12 +50,12 @@ function Review() {
       });
   }, [userId]);
   useEffect(() => {
-    axios.get(`http://localhost:6280/api/Exam/GetList?PageSize=5`)
+    axios.get(`${BASE_API_URL}Exam/GetList?PageSize=5`)
       .then((examListRes) => {
         const examList = examListRes.data.items;
 
         if (userId) {
-          axios.get(`http://localhost:6280/api/ExamOfUsers/GetUsersExamResultInfo?userId=${userId}`)
+          axios.get(`${BASE_API_URL}ExamOfUsers/GetUsersExamResultInfo?userId=${userId}`)
             .then((userExamRes) => {
               const userExams = userExamRes.data;
               console.log('User Exams:', userExams);

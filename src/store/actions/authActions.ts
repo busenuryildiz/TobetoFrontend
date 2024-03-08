@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 interface User {
   id: string;
@@ -41,7 +42,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (loginData: LoginData, thunkAPI) => {
     try {
-      const response = await fetch("http://localhost:6280/api/Auth/login", {
+      const response = await fetch(`${BASE_API_URL}Auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (registerData: RegisterData, thunkAPI) => {
     try {
-      const response = await fetch("http://localhost:6280/api/Users/Add", {
+      const response = await fetch(`${BASE_API_URL}Users/Add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

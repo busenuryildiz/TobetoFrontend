@@ -8,6 +8,7 @@ import Course from "../platformPage/Course";
 import EducationTab from "./EducationTabs";
 import EducationTabs from "./EducationTabs";
 import { Link } from "react-router-dom";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 const tabs = [
   { id: "all-lessons-tab-pane", label: "Tüm Eğitimlerim" },
@@ -28,13 +29,13 @@ const Egitimlerim = () => {
     let url = "";
     switch (type) {
       case "all":
-        url = `http://localhost:6280/api/StudentCourses/GetStudentsAllCoursesByUserId?userId=${user.id}`;
+        url = `${BASE_API_URL}StudentCourses/GetStudentsAllCoursesByUserId?userId=${user.id}`;
         break;
       case "ongoing":
-        url = `http://localhost:6280/api/StudentCourses/GetStudentsOngoingCoursesByUserId?userId=${user.id}`;
+        url = `${BASE_API_URL}StudentCourses/GetStudentsOngoingCoursesByUserId?userId=${user.id}`;
         break;
       case "completed":
-        url = `http://localhost:6280/api/StudentCourses/GetStudentsCompletedCoursesByUserId?userId=${user.id}`;
+        url = `${BASE_API_URL}StudentCourses/GetStudentsCompletedCoursesByUserId?userId=${user.id}`;
         break;
       default:
         break;

@@ -1,1 +1,1 @@
-export const BASE_API_URL = "http://localhost:6280/api/";
+export const BASE_API_URL = "https://ws.tobeto1cpair3.com.tr/api/";

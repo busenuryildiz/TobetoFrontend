@@ -3,6 +3,7 @@ import Navi2 from "../../components/navbar/Navi2";
 import Footer2 from "../../components/footer/Footer2";
 import { useParams } from "react-router";
 import SocialMediaShareButtons from "./SocialMediaShareButtons";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 const Blog = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ const Blog = () => {
 
   useEffect(() => {
     // Belirtilen blogun verisini çekmek için API isteği yapın
-    fetch(`http://localhost:6280/api/Blogs/GetById?id=${id}`)
+    fetch(`${BASE_API_URL}Blogs/GetById?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         // API'den gelen veriyi blog state'ine kaydedin
@@ -24,7 +25,7 @@ const Blog = () => {
       .catch((error) => console.error("Error fetching blog:", error));
 
       const isBlogExists = (blogId: string): Promise<boolean> => {
-        return fetch(`http://localhost:6280/api/Blogs/GetById?id=${blogId}`)
+        return fetch(`${BASE_API_URL}Blogs/GetById?id=${blogId}`)
           .then((response) => response.ok)
           .catch((error) => {
             console.error("Error checking blog existence:", error);

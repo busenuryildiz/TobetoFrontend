@@ -3,6 +3,7 @@ import Course from "./Course";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 const MyLessons = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -13,7 +14,7 @@ const MyLessons = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get<Course[]>(
-          `http://localhost:6280/api/StudentCourses/GetStudentsAllCoursesByUserId?userId=${user.id}`
+          `${BASE_API_URL}StudentCourses/GetStudentsAllCoursesByUserId?userId=${user.id}`
         );
         setCourses(response.data);
       } catch (error) {

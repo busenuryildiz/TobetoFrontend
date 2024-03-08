@@ -6,6 +6,7 @@
   import  Quote  from '@editorjs/quote';
   import  Embed  from '@editorjs/embed';
   import SimpleImage from "@editorjs/simple-image";
+import { BASE_API_URL } from '../../../enviroment/enviroment';
 
   const BlogAndMediaPostManagementPanel = () => {
     const editorInstance = useRef<EditorJS | null>(null);
@@ -19,7 +20,7 @@
         const editorData = await editorInstance.current?.save();
         const contentString = JSON.stringify(editorData);
 
-        const endpoint = isBlog ? "http://localhost:6280/api/Blogs/Add" : "http://localhost:6280/api/MediaPosts/Add";
+        const endpoint = isBlog ? `${BASE_API_URL}Blogs/Add` : `${BASE_API_URL}MediaPosts/Add`;
 
         const response = await fetch(endpoint, {
           method: "POST",

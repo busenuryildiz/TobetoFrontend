@@ -3,8 +3,8 @@ import { UpdateChangePasswordResponse } from '../../../../../models/responses/Us
 import { UpdateChangePasswordRequest } from '../../../../../models/requests/Users/updateChangePasswordRequest';
 import { UpdateUsersResponse } from '../../../../../models/responses/Users/updateUsersResponse';
 import { GetByIdUsersResponse } from '../../../../../models/responses/Users/getByIdUsersResponse';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const MySettingsService = {
  

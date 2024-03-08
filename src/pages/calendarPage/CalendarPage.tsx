@@ -8,6 +8,7 @@ import Navi from '../../components/navbar/Navi';
 import GetAllCourseAndLessonInfo from '../../components/calendar/GetAllCourseAndLessonInfo';
 import axios from 'axios';
 import Footer from '../../components/footer/Footer';
+import { BASE_API_URL } from '../../enviroment/enviroment';
 
 const CalendarPage = () => {
   const [lessonsState, setLessonsState] = useState<GetAllCourseAndLessonInfo[]>([]);
@@ -16,7 +17,7 @@ const CalendarPage = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:6280/api/Lessons/GetAllCourseAndLessonInfo')
+    axios.get(`${BASE_API_URL}Lessons/GetAllCourseAndLessonInfo`)
       .then(response => {
         setLessonsState(response.data);
       })

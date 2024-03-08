@@ -4,8 +4,8 @@ import { AddStudentSkillResponse } from '../../../../../models/responses/Student
 import { GetAllSkillsResponse, SkillItem } from '../../../../../models/responses/Skills/getAllSkillsResponse';
 import { GetStudentSkillsByUserIdResponse } from '../../../../../models/responses/StudentSkill/getStudentSkillsByUserIdResponse';
 import { DeleteStudentSkillResponse } from '../../../../../models/responses/StudentSkill/deleteStudentSkillResponse';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const mySkillService = {
   // Yeni beceri ekleme

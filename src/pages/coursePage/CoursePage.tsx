@@ -16,6 +16,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import LessonDetailModal from "./LessonDetailModal";
 import { Modal } from "react-bootstrap";
 import { Drawer } from "antd";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 function CoursePage() {
   const { studentCourseId } = useParams();
@@ -34,7 +35,7 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
   useEffect(() => {
     axios
       .get(
-        `http://localhost:6280/api/StudentCourses/GetStudentsCourseAllInfo?studentCourseId=${studentCourseId}`
+        `${BASE_API_URL}StudentCourses/GetStudentsCourseAllInfo?studentCourseId=${studentCourseId}`
       )
       .then((response) => {
         setCourseData(response.data);
@@ -75,7 +76,7 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
     const fetchLikeCount = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:6280/api/StudentCourses/GetIsLikedCountByCourseIdAsync?courseId=${coursId}`
+          `${BASE_API_URL}StudentCourses/GetIsLikedCountByCourseIdAsync?courseId=${coursId}`
         );
         setLikeCount(response.data);
       } catch (error) {
@@ -92,7 +93,7 @@ const isCourseLiked = courseData?.studentCourseIsLiked;
     if (lessonId) {
       try {
         const response = await axios.get(
-          `http://localhost:6280/api/Lessons/GetById?id=${lessonId}`
+          `${BASE_API_URL}Lessons/GetById?id=${lessonId}`
         );
         setSelectedLessonDetails(response.data);
       } catch (error) {

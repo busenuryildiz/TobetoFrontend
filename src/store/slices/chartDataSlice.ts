@@ -3,6 +3,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_API_URL } from '../../enviroment/enviroment';
 
 interface ChartDataState {
   data: Record<string, number>;
@@ -26,7 +27,7 @@ export const fetchData = createAsyncThunk(
   'chartData/fetchData',
   async ({ userId, surveyId }: { userId: string; surveyId: number }) => {
     try {
-      const response = await axios.get('http://localhost:6280/api/Surveys/surveyansweraverages', {
+      const response = await axios.get(`${BASE_API_URL}Surveys/surveyansweraverages`, {
         params: {
           userId,
           surveyId,

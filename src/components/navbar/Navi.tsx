@@ -119,7 +119,7 @@ function Navi() {
                 className="btn p-0 fw-normal b-r-35 text-end d-flex align-items-center"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              >{auth.user.imagePath ?
+              >{auth && auth.user && auth.user.imagePath ?
                 <div className="me-2">
                   <img
                     className="cv-pp-img rounded-circle"

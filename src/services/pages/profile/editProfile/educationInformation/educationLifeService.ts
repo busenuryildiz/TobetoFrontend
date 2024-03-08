@@ -6,8 +6,8 @@ import { GetAllEducationLifeResponse } from '../../../../../models/responses/Edu
 import { UpdateEducationLifeRequest } from '../../../../../models/requests/EducationLife/updateEducationLifeRequest';
 import { UpdateEducationLifeResponse } from '../../../../../models/responses/EducationLife/updatedEducationLifeResponse';
 import { UserEducationInformationResponse } from '../../../../../models/responses/Users/userEducationInformationResponse';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const EducationLifeService = {
   

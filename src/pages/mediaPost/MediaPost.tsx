@@ -3,6 +3,7 @@ import Navi2 from "../../components/navbar/Navi2";
 import Footer2 from "../../components/footer/Footer2";
 import { useParams } from "react-router";
 import SocialMediaShareButtons from "../blog/SocialMediaShareButtons";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 const MediaPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ const MediaPost = () => {
 
   useEffect(() => {
     // Belirtilen mediapostun verisini çekmek için API isteği yapın
-    fetch(`http://localhost:6280/api/MediaPosts/GetById?id=${id}`)
+    fetch(`${BASE_API_URL}MediaPosts/GetById?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         // API'den gelen veriyi mediapost state'ine kaydedin
@@ -24,7 +25,7 @@ const MediaPost = () => {
       .catch((error) => console.error("Error fetching mediapost:", error));
 
       const isMediaPostExists = (mediapostId: string): Promise<boolean> => {
-        return fetch(`http://localhost:6280/api/MediaPosts/GetById?id=${mediapostId}`)
+        return fetch(`${BASE_API_URL}MediaPosts/GetById?id=${mediapostId}`)
           .then((response) => response.ok)
           .catch((error) => {
             console.error("Error checking mediapost existence:", error);

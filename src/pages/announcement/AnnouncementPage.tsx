@@ -5,6 +5,7 @@ import Navi from "../../components/navbar/Navi";
 import axios from "axios";
 import Announcement from "../platformPage/Announcement";
 import AnnouncementDetailModal from "../platformPage/AnnouncementDetailModal";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 const AnnouncementPage = () => {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -18,7 +19,7 @@ const AnnouncementPage = () => {
   const fetchAnnouncements = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:6280/api/Announcements/GetList?PageSize=1111"
+        `${BASE_API_URL}Announcements/GetList?PageSize=1111`
       );
       setAnnouncements(response.data.items);
     } catch (error) {
@@ -29,7 +30,7 @@ const AnnouncementPage = () => {
   const fetchAnnouncementDetail = async (id:number) => {
     try {
       const response = await axios.get(
-        `http://localhost:6280/api/Announcements/GetById?id=${id}`
+        `${BASE_API_URL}Announcements/GetById?id=${id}`
       );
       setSelectedAnnouncement(response.data);
       setShowModal(true);

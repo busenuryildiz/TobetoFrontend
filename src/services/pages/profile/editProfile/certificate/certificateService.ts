@@ -10,8 +10,7 @@ import { AddCertificateRequest } from '../../../../../models/requests/Certificat
 import { AddCertificateResponse } from '../../../../../models/responses/Certificate/addCertificateResponse';
 import { DeleteCertificateResponse } from '../../../../../models/responses/Certificate/deleteCertificateResponse';
 import { GetUserAllCertificateResponse } from '../../../../../models/responses/Certificate/getUserAllCertificateResponse';
-
-const BASE_API_URL = 'http://localhost:6280/api';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
 export const CertificateService = {
   

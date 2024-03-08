@@ -1,6 +1,7 @@
+import { BASE_API_URL } from "../../enviroment/enviroment";
 import axiosHelper from "../../helpers/axiosHelper";
 
-const BASE_URL = "http://localhost:6280/api/Courses/GetById";
+const BASE_URL = `${BASE_API_URL}Courses/GetById`;
 
 const fetchCourseDetail = async (id) => {
   try {

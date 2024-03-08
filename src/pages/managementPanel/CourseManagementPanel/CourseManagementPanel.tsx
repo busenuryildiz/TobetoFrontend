@@ -6,6 +6,7 @@ import './CourseManagementPanel.css';
 import StudentsNotRegisteredCourses from './StudentsNotRegisteredCourses';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_API_URL } from '../../../enviroment/enviroment';
 
 const CourseManagementPanel = () => {
   const [students, setStudents] = useState<AllStudentsInterface[]>([]);
@@ -14,7 +15,7 @@ const CourseManagementPanel = () => {
   const [selectedCourse, setSelectedCourse] = useState<number>(0);
 
   useEffect(() => {
-    axios.get<AllStudentsInterface[]>('http://localhost:6280/api/Students/GetAllStudents')
+    axios.get<AllStudentsInterface[]>(`${BASE_API_URL}Students/GetAllStudents`)
       .then(response => {
         setStudents(response.data);
       })
@@ -22,7 +23,7 @@ const CourseManagementPanel = () => {
         console.error('Error fetching students:', error);
       });
 
-    axios.get<StudentsNotRegisteredCourses[]>(`http://localhost:6280/api/StudentCourses/GetListStudentsNotRegisteredCourses?studentId=${selectedStudent}`)
+    axios.get<StudentsNotRegisteredCourses[]>(`${BASE_API_URL}StudentCourses/GetListStudentsNotRegisteredCourses?studentId=${selectedStudent}`)
       .then(response => {
         setCourses(response.data);
       })
@@ -45,7 +46,7 @@ const CourseManagementPanel = () => {
       courseId: selectedCourse,
     };
 
-    axios.post('http://localhost:6280/api/StudentCourses/add', requestData)
+    axios.post(`${BASE_API_URL}StudentCourses/add`, requestData)
       .then(response => {
         console.log('Course assigned successfully:', response.data);
         

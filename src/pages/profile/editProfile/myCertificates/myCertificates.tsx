@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { AddCertificateRequest } from '../../../../models/requests/Certificate/addCertificateRequest';
 import { GetUserAllCertificateResponse } from '../../../../models/responses/Certificate/getUserAllCertificateResponse';
+import { BASE_API_URL } from '../../../../enviroment/enviroment';
 
 
 function MyCertificates() {
@@ -109,7 +110,7 @@ function MyCertificates() {
         const formData = new FormData();
         formData.append('formFile', file);
     
-        const cloudinaryResponse = await axios.post(`http://localhost:6280/api/FilesUpload/UserCertificate?userId=${user.id}`, formData, {
+        const cloudinaryResponse = await axios.post(`${BASE_API_URL}FilesUpload/UserCertificate?userId=${user.id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

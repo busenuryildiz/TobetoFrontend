@@ -3,6 +3,7 @@ import Navi2 from "../../components/navbar/Navi2";
 import MediaPostInterface from "./MediaPostInterface";
 import Footer2 from "../../components/footer/Footer2";
 import { Link } from "react-router-dom";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 function formatDate(dateString: string) {
   const options: Intl.DateTimeFormatOptions = {
@@ -17,7 +18,7 @@ function MediaPostPage() {
   const [mediaPosts, setMediaPosts] = useState<MediaPostInterface[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:6280/api/MediaPosts/GetAllMediaPosts")
+    fetch(`${BASE_API_URL}MediaPosts/GetAllMediaPosts`)
       .then((response) => response.json())
       .then((data) => {
         const parsedData = data.map((mediaPost: any) => ({

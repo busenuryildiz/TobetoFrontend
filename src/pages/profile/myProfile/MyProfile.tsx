@@ -23,6 +23,7 @@ import UserExperienceResponse from "./UserExperienceResponse";
 import UserEducationResponse from "./UserEducationResponse";
 import UserExperienceAndEducation from "./UserExperienceAndEducation";
 import StudenSkillIdAndStudentSkillNameResponse from "./StudenSkillIdAndStudentSkillNameResponse ";
+import { BASE_API_URL } from "../../../enviroment/enviroment";
 
 const MyProfile = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -65,7 +66,7 @@ const MyProfile = () => {
     if (user) {
       axios
         .get(
-          `http://localhost:6280/api/Users/GetAllUserInformationById?id=${user.id}`
+          `${BASE_API_URL}Users/GetAllUserInformationById?id=${user.id}`
         )
         .then((response) => {
           setUserData(response.data);
@@ -77,7 +78,7 @@ const MyProfile = () => {
 
       axios
         .get<StudenSkillIdAndStudentSkillNameResponse[]>(
-          `http://localhost:6280/api/StudentSkills/GetStudentSkillsByUserIdAsync?userId=${user.id}`
+          `${BASE_API_URL}StudentSkills/GetStudentSkillsByUserIdAsync?userId=${user.id}`
         )
         .then((response) => {
 
@@ -91,7 +92,7 @@ const MyProfile = () => {
 
       axios
         .get<UserLanguagesBackendResponse>(
-          `http://localhost:6280/api/UserLanguages/GetUserLanguageAndLevelByUserId?userId=${user.id}`
+          `${BASE_API_URL}UserLanguages/GetUserLanguageAndLevelByUserId?userId=${user.id}`
         )
         .then((response) => {
           setUserLanguages(response.data.items);
@@ -102,7 +103,7 @@ const MyProfile = () => {
 
       axios
         .get<UserCertificateResponse[]>(
-          `http://localhost:6280/api/Certificates/GetUsersAllCertificates?userId=${user.id}`
+          `${BASE_API_URL}Certificates/GetUsersAllCertificates?userId=${user.id}`
         ) // Sertifikaları çekiyoruz
         .then((response) => {
           setUserCertificates(response.data);
@@ -113,7 +114,7 @@ const MyProfile = () => {
 
       axios
         .get<UserSocialMediaAccountResponse[]>(
-          `http://localhost:6280/api/SocialMediaAccounts/GetUsersAllSocialMediaAccount?userId=${user.id}`
+          `${BASE_API_URL}SocialMediaAccounts/GetUsersAllSocialMediaAccount?userId=${user.id}`
         )
         .then((response) => {
           setUserSocialMediaAccounts(response.data);
@@ -124,7 +125,7 @@ const MyProfile = () => {
 
       axios
         .get<UserExamResponse[]>(
-          `http://localhost:6280/api/ExamOfUsers/GetUsersExamResultInfo?userId=${user.id}`
+          `${BASE_API_URL}ExamOfUsers/GetUsersExamResultInfo?userId=${user.id}`
         )
         .then((response) => {
           setExamResults(response.data);
@@ -135,7 +136,7 @@ const MyProfile = () => {
 
       axios
         .get<UserBadgesResponse[]>(
-          `http://localhost:6280/api/StudentCourses/GetBadgesForCompletedCourses?userId=${user.id}`
+          `${BASE_API_URL}StudentCourses/GetBadgesForCompletedCourses?userId=${user.id}`
         )
         .then((response) => {
           setUserBadges(response.data);
@@ -147,7 +148,7 @@ const MyProfile = () => {
 
       axios
         .get<UserAssignmentsAndDatesResponse[]>(
-          `http://localhost:6280/api/StudentAssignments/GetStudentAssignmentAndDateByUserId?userId=${user.id}`
+          `${BASE_API_URL}StudentAssignments/GetStudentAssignmentAndDateByUserId?userId=${user.id}`
         )
         .then((response) => {
           setAssignments(response.data);
@@ -158,7 +159,7 @@ const MyProfile = () => {
 
       axios
         .get(
-          `http://localhost:6280/api/Users/GetUserExperienceAndEducationByUserId?userId=${user.id}`
+          `${BASE_API_URL}Users/GetUserExperienceAndEducationByUserId?userId=${user.id}`
         )
         .then((response) => {
           setExperienceData(

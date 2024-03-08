@@ -1,8 +1,9 @@
 import axios from "axios";
 import store from "../../src/store"; // Redux store'umuza erişim sağlayan kodu ekleyin
+import { BASE_API_URL } from "../enviroment/enviroment";
 
 const api = axios.create({
-  baseURL: "http://localhost:6280/api",
+  baseURL: BASE_API_URL,
 });
 
 // İstek gönderilmeden önce interceptor

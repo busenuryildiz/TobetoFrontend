@@ -4,8 +4,8 @@ import { AddUserExperiencesResponse } from '../../../../../models/responses/User
 import { DeleteUserExperienceRequest } from '../../../../../models/requests/UserExperience/deleteUserExperiencesRequest';
 import { UserExperiencesResponse } from '../../../../../models/responses/Users/userExperienceResponse';
 import { DeleteUserExperiencesResponse } from '../../../../../models/responses/UserExperience/deleteUserExperiencesResponse';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const MyExperienceService = {
   

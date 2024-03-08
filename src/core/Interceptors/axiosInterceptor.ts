@@ -6,7 +6,7 @@ import tokenService from "../services/tokenService";
 import {store} from "../../store"
 
 const axiosInstance = axios.create({
-	baseURL: BASE_API_URL,
+	baseURL: "https://ws.tobeto1cpair3.com.tr/api/"
 });
 
 axiosInstance.interceptors.request.use(config => {

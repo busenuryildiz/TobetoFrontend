@@ -5,8 +5,8 @@ import { AddUserLanguageRequest } from '../../../../../models/requests/UserLangu
 import { AddUserLanguageResponse } from '../../../../../models/responses/UserLanguage/addUserLanguageResponse';
 import { GetUserLanguageAndLevelResponse } from '../../../../../models/responses/UserLanguage/getUserLanguageAndLevelResponse';
 import { DeleteUserLanguageResponse } from '../../../../../models/responses/UserLanguage/deleteUserLanguageResponse';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const LanguageService = {
 

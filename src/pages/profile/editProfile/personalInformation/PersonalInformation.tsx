@@ -9,6 +9,7 @@ import PhoneNumberValidation from "../../../../components/phoneNumberFlag/phoneN
 import { UpdatedUserAllInformationRequest } from "../../../../models/requests/Users/updateUserAllInformationRequest";
 import { ToastContainer, toast } from "react-toastify";
 import Footer3 from "../../../../components/footer/Footer3";
+import { BASE_API_URL } from "../../../../enviroment/enviroment";
 
 const PersonalInformation = () => {
   const user = useSelector((state: any) => state.auth.user);
@@ -40,7 +41,7 @@ const PersonalInformation = () => {
       formData.append("formFile", fileInputRef.current.files[0]);
       const userId = user.id;
       const response = await fetch(
-        `http://localhost:6280/api/FilesUpload/ProfileImage?userId=${userId}`,
+        `${BASE_API_URL}FilesUpload/ProfileImage?userId=${userId}`,
         {
           method: "POST",
           body: formData,

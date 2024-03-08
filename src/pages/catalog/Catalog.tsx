@@ -4,6 +4,7 @@ import SearchSection from '../../components/catalog/searchSection';
 import FilterCourse from '../../components/catalog/filterCourse';
 import Navbar from '../../components/navbar/Navi2';
 import Footer2 from '../../components/footer/Footer2';
+import { BASE_API_URL } from '../../enviroment/enviroment';
 
 export default function Catalog() {
   const [filteredData, setFilteredData] = useState<Course[]>([]);
@@ -13,7 +14,7 @@ export default function Catalog() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:6280/api/Courses/GetList?PageSize=1000');
+        const response = await fetch(`${BASE_API_URL}Courses/GetList?PageSize=1000`);
         const data = await response.json();
         setAllCourses(data.items);
         setFilteredData(data.items);

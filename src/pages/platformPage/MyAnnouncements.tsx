@@ -3,6 +3,7 @@ import Announcement from "./Announcement";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AnnouncementDetailModal from "./AnnouncementDetailModal";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 const MyAnnouncements = () => {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -14,7 +15,7 @@ const MyAnnouncements = () => {
       try {
         const response = await axios.get<{
           items: Announcement[];
-        }>("http://localhost:6280/api/Announcements/GetList?PageSize=3");
+        }>(`${BASE_API_URL}Announcements/GetList?PageSize=3`);
 
         setAnnouncements(response.data.items);
       } catch (error) {
@@ -28,7 +29,7 @@ const MyAnnouncements = () => {
  const fetchAnnouncementDetail = async (id:number) => {
     try {
       const response = await axios.get(
-        `http://localhost:6280/api/Announcements/GetById?id=${id}`
+        `${BASE_API_URL}Announcements/GetById?id=${id}`
       );
       setSelectedAnnouncement(response.data);
       setShowModal(true); // Modalı aç

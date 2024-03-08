@@ -3,6 +3,7 @@ import Navi2 from "../../components/navbar/Navi2";
 import BlogInterface from "./BlogInterface";
 import Footer2 from "../../components/footer/Footer2";
 import { Link } from "react-router-dom";
+import { BASE_API_URL } from "../../enviroment/enviroment";
 
 function formatDate(dateString: string) {
   const options: Intl.DateTimeFormatOptions = {
@@ -17,7 +18,7 @@ function BlogPage() {
   const [blogs, setBlogs] = useState<BlogInterface[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:6280/api/Blogs/GetAllBlogs")
+    fetch(`${BASE_API_URL}Blogs/GetAllBlogs`)
       .then((response) => response.json())
       .then((data) => {
         const parsedData = data.map((blog: any) => ({

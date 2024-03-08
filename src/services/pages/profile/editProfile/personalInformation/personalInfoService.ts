@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { UpdatedUserAllInformationResponse } from '../../../../../models/responses/Users/updatedUserAllInformationResponse';
 import { UpdatedUserAllInformationRequest } from '../../../../../models/requests/Users/updateUserAllInformationRequest';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const PersonalInformationService = {
   // Kullanıcı bilgilerini getirme

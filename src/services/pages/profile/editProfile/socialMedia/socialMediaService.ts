@@ -3,8 +3,8 @@ import { AddSocialMediaRequest } from '../../../../../models/requests/SocialMedi
 import { AddSocialMediaResponse } from '../../../../../models/responses/SocialMedia/addSocialMediaResponse';
 import { DeleteSocialMediaResponse } from '../../../../../models/responses/SocialMedia/deleteSocialMediaResponse';
 import { GetAllSocialMediaResponse } from '../../../../../models/responses/SocialMedia/getAllSocialMediaResponse';
+import { BASE_API_URL } from '../../../../../enviroment/enviroment';
 
-const BASE_API_URL = 'http://localhost:6280/api';
 
 export const socialMediaService = {
   addSocialMedia: async (newSocialMedia: AddSocialMediaRequest): Promise<AddSocialMediaResponse> => {

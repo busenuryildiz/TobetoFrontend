@@ -4,6 +4,7 @@ import Navi from '../../components/navbar/Navi';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { BASE_API_URL } from '../../enviroment/enviroment';
 
 interface Question {
     surveyID: number;
@@ -48,7 +49,7 @@ export default function SuccessModel1() {
             answerValue: answerValue,
         }));
 
-        const response = await axios.post('http://localhost:6280/api/Surveys/SubmitAnswers', addSurveyAnswerRequests);
+        const response = await axios.post(`${BASE_API_URL}Surveys/SubmitAnswers`, addSurveyAnswerRequests);
         // Handle the response
     };
     const totalQuestionCount = 80;
@@ -60,7 +61,7 @@ export default function SuccessModel1() {
         setAllQuestionsAnswered(allAnswered);
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get('http://localhost:6280/api/Surveys/surveys/1');
+                const response = await axios.get(`${BASE_API_URL}Surveys/surveys/1`);
                 const { surveyQuestions } = response.data;
                 const formattedQuestions = surveyQuestions.map((questionData: any) => ({
                     id: questionData.questionId,
